@@ -52,4 +52,8 @@
    - 목록4 +사용
 
 5. 링크
+
    [GOOGLE]<https://google.com>
+
+6. img
+   <img>링클르 사용
