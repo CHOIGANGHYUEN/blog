@@ -228,7 +228,9 @@ public class DesendingOrder implements Comparator<User> {
 - ArrayList보단 별로
 - 스레드에 안전하나, 동기화 비용이 발생해 ArrayList가 더 좋음
 
-## Set
+---
+
+# Set
 
 ✨수학의 집합과 유사한 자료구조✨
 
@@ -237,16 +239,88 @@ public class DesendingOrder implements Comparator<User> {
 - 저장 순서를 유지하지 않음
 - HashSet, LinkedHashSet, TreeSet
 
-### HashSet
+```java
+Set<String> set=new HashSet();
+
+System.out.println("1.add color : "+ set.add("white"));
+System.out.println("2.add color : "+ set.add("white"));
+System.out.println("3.add color : "+ set.add("red"));
+
+for(String s : set){
+    System.out.println(s+" ");
+}
+```
+
+### Set - HashSet
 
 ✨Set 인터페이스를 구현한 가장 대표적인 컬렉션✨
 
 - 입력된 요소의 순서가 유지되지 않음
 - 중복된 요소를 저장하지 않으며
 - Hash 알고리즘으로 데이터를 맵핑
-  - Hash에 의해 데이터의 위치를 특정시켜 해당 데이터를 빠르게 색인
+  - Hash에 의해 데이터의 위치를 특정시켜 해당 데이터를 **빠르게** 색인
   - 삽입, 삭제, 색인이 매우 빠른 컬렉션
 
+### Set - TreeSet
+
+<img src ="https://user-images.githubusercontent.com/74634003/224633734-7aa6638c-7d11-4554-8fe1-feedcbecc9c5.png"></img>
+
+<p></p>
+
+✨레드 블랙 트리로 구현됨✨
+
+<p></p>
+<img src="https://user-images.githubusercontent.com/74634003/224633962-aba69737-e08e-455f-8b46-204dfb5d0461.png">
+
+- 중복을 허용 x, 저장 순서 x
+- 정렬된 순서로 데이터를 저장
+- 추가와 삭제에는 불리, 검색과 정렬에 유리
+
+# MAP
+
+✨Key - Value 쌍으로 이루어진 데이터를 저장하는 자료구조✨
+
+- key는 중복 X
+- value는 중복 O
+- 입력된 순서 유지 X, 정렬 X
+- 삽입, 삭제, 검색에 유리
+
+### Map - HashMap
+
+- Map 인터페이스로 구현
+- Key, Value 쌍
+- 해당 Key로 엑세스
+- 스레드에 안전하지 않으나, 속도에 유리
+
+### Map - HashTable
+
+- Hash를 이용해 Key, Value 쌍으로 이루어진 데이터를 저장하는 전통적 자료구조
+- HashMap과 동일한 방법으로 저장
+- 스레드에 안전
+- Collection FrameWork 이전부터 존재하던 레거시 클래스
+
+# Collections 클래스
+
+- Collection 객체를 위한 여러 메소드를 제공하는 유틸리티 클래스
+- List, Set, Map등 모든 컬렉션 클래스에 사용
+- 컬랙션 객체에 대한 생성, 정렬, 섞기, 병합, 검색 등 메소드 제공
+- static 메소드
+
+```java
+List numbers = Arrays.asList(1, 3, 10, 5, 8, 9, 7, 2, 6, 4);
+Collections.max(numbers);
+Collections.min(numbers);
+Collections.sort(numbers);
+Collections.binarySearch(numbers,3);
+Collections.reverse(numbers);
+Collections.shuffle(numbers);
+```
+
+## Collections 동시성 처리
+- 멀티 스레드 환경에서 동시성 처리가 필요
+    - 하나의 컬렉션 객체에 여러 스레드가 접근시
+    - 데이터 일관성ㅇ을 위한 Synchronize 처리가 필요
+    - ArrayList, HashMap등엔 Collections 클래스를 사용
 # TIP❗❗
 
 for-each문은
