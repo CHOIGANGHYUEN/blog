@@ -93,6 +93,92 @@ int index = 0;
 
 ---
 
+## Comparable과 Comparator
+
+- 값 비교에 사용한다.
+- 사용자 스스로가 값을 비교하는 기준을 정할 수 있다
+
+### 사용 예시
+
+### **USER** 클래스
+
+```java
+class User implements Comparable<User> { // implements Comparable<User> {
+    private final int userNo;
+    private final String userName;
+    private final int userAge;
+
+    public String getUser() {
+        return userName;
+    }
+
+    public int getUserAge() {
+        return userAge;
+    }
+
+    public User(int userNo, String userName, int userAge) {
+        this.userAge = userAge;
+        this.userName = userName;
+        this.userNo = userNo;
+    }
+
+    @Override
+    public int compareTo(User o) {
+        if (this.userAge == o.userAge) {
+            return 0;
+        } else if (this.userAge < o.userAge) {
+            return 1;
+        } else
+            return -1;
+    }
+    //
+    // To-do: override compareTo method here
+    //
+
+    //
+    // To-do: override toString method here
+    //
+}
+```
+
+### **Users** 클래스
+
+```java
+public class Users<T> implements Iterable<T> {
+    List<T> userList = new ArrayList<>();
+
+    public void add(T user) {
+        userList.add(user);
+    }
+
+    @Override
+    public Iterator iterator() {
+        return this.userList.iterator();
+    }
+}
+```
+
+### **DesendingOrder** 클래스
+
+```java
+public class DesendingOrder implements Comparator<User> {
+    @Override
+    public int compare(User o1, User o2) {
+        if (o1.getUserAge() > o2.getUserAge()) {
+            return 1;
+        } else if (o1.getUserAge() < o2.getUserAge()) {
+            return -1;
+        } else
+            return 0;
+    }
+
+}
+
+
+```
+
+---
+
 ## List 인터페이스
 
 - List느 중복을 허용, 저장 순서가 유지되는 자료구조
@@ -101,7 +187,7 @@ int index = 0;
 - Collection 인터페이스의 서브 타입
 - Vector, LinkedList, ArrayList 등이 List의 서브타입
 
-<img src = "/Users/ganghyun/Documents/GIT/blog/blog/0313_CollectionInterface/스크린샷 2023-03-13 오후 1.12.13.png"></img>
+<img src = "https://raw.githubusercontent.com/CHOIGANGHYUEN/blog/master/0313_CollectionInterface/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202023-03-13%20%EC%98%A4%ED%9B%84%201.12.13.png?token=GHSAT0AAAAAAB72V6ICKY74IPWIZRX7ZNOCZAOVQAA"></img>
 
 ### List인터페이스의 장점
 
