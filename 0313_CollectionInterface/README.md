@@ -1,7 +1,5 @@
 # Collection
 
-<img src="/Users/ganghyun/Documents/GIT/blog/blog/0313_CollectionInterface/스크린샷 2023-03-13 오후 3.34.33.png"></img>
-
 ---
 
 ## Iterator과 Iterable
@@ -42,8 +40,6 @@ public class Lecture implements Iterable {
 
 }
 ```
-
-:rocket:
 
 ### Lecture class
 
@@ -193,7 +189,7 @@ public class DesendingOrder implements Comparator<User> {
 - Collection 인터페이스의 서브 타입
 - Vector, LinkedList, ArrayList 등이 List의 서브타입
 
-<img src = "/Users/ganghyun/Documents/GIT/blog/blog/0313_CollectionInterface/스크린샷 2023-03-13 오후 1.12.13.png"></img>
+<img src = "https://user-images.githubusercontent.com/74634003/224629215-37fce3f3-3981-47a5-bfe6-d03d24696493.png"></img>
 
 ### List인터페이스의 장점
 
@@ -214,13 +210,27 @@ public class DesendingOrder implements Comparator<User> {
 
 ## LinkedList
 
+<img src="https://user-images.githubusercontent.com/74634003/224628758-8ad99b17-7e2f-43d0-a465-948c52314d4c.png"></img>
+
 - 노드가 연결되는 구조
 - 삽입 삭제가 쉽고 동적
   - 배열과 달리 데이터가 연속적을 존재하지 않음.
   - 모든 요소가 데이터를 연결한 형태의 자료구조
 - 직접적으로 노드에 접근이 불가능함 = 순회방식의 접근
 
-## Queue
+## Vector
+
+<img src="https://user-images.githubusercontent.com/74634003/224629409-c41f8a70-ca71-4b27-b334-5a59f31f23e3.png"></img>
+
+- Collection FrameWork가 추가되기전에 추가도니 레거시 클래스
+- ArrayList와 유사, 제네릭 사용 할 수 있게 재 설계
+- List인터페이스를 구현해 크기가 가변적
+- ArrayList보단 별로
+- 스레드에 안전하나, 동기화 비용이 발생해 ArrayList가 더 좋음
+
+## Set
+
+수학의 집합과 유사한 자료구조
 
 # TIP!!
 
