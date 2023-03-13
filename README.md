@@ -52,4 +52,4 @@
    - 목록4 +사용
 
 5. 링크
-   [GOOGLE](https://google.com)
+   [GOOGLE]<https://google.com>
