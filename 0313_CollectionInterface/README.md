@@ -230,9 +230,24 @@ public class DesendingOrder implements Comparator<User> {
 
 ## Set
 
-수학의 집합과 유사한 자료구조
+✨수학의 집합과 유사한 자료구조✨
 
-# TIP!!
+- 집합과 유사한 자료구조 표현
+- 중복된 요소를 허용하지 않음
+- 저장 순서를 유지하지 않음
+- HashSet, LinkedHashSet, TreeSet
+
+### HashSet
+
+✨Set 인터페이스를 구현한 가장 대표적인 컬렉션✨
+
+- 입력된 요소의 순서가 유지되지 않음
+- 중복된 요소를 저장하지 않으며
+- Hash 알고리즘으로 데이터를 맵핑
+  - Hash에 의해 데이터의 위치를 특정시켜 해당 데이터를 빠르게 색인
+  - 삽입, 삭제, 색인이 매우 빠른 컬렉션
+
+# TIP❗❗
 
 for-each문은
 
