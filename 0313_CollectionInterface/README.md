@@ -1,5 +1,9 @@
 # Collection
 
+<img src="/Users/ganghyun/Documents/GIT/blog/blog/0313_CollectionInterface/스크린샷 2023-03-13 오후 3.34.33.png"></img>
+
+---
+
 ## Iterator과 Iterable
 
 - Iterable 인터페이스는 for-each의 대상이 될 수있는 추상적 동작을 정의
@@ -38,6 +42,8 @@ public class Lecture implements Iterable {
 
 }
 ```
+
+:rocket:
 
 ### Lecture class
 
@@ -195,4 +201,35 @@ public class DesendingOrder implements Comparator<User> {
 - 공간 낭비가 없음.
 - 데이터의 삽입 삭제가 유용
 
-#Collection
+---
+
+## ArrayList
+
+- 배열과 동일하게 연속된 메모리 공간 사용
+  - index 사용가능
+  - 기본 크기 10개로 할당된 후 가변적으로 크기가 변함
+  - 생성된 크기 이상이 저장되면 메모리에 추가로 할당
+
+---
+
+## LinkedList
+
+- 노드가 연결되는 구조
+- 삽입 삭제가 쉽고 동적
+  - 배열과 달리 데이터가 연속적을 존재하지 않음.
+  - 모든 요소가 데이터를 연결한 형태의 자료구조
+- 직접적으로 노드에 접근이 불가능함 = 순회방식의 접근
+
+## Queue
+
+# TIP!!
+
+for-each문은
+
+```java
+users.foreach((item)->{System.out.println(item)})
+```
+
+으로도 사용가능
+
+# Collection
