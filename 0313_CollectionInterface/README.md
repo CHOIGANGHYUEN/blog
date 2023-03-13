@@ -187,10 +187,12 @@ public class DesendingOrder implements Comparator<User> {
 - Collection 인터페이스의 서브 타입
 - Vector, LinkedList, ArrayList 등이 List의 서브타입
 
-<img src = "https://raw.githubusercontent.com/CHOIGANGHYUEN/blog/master/0313_CollectionInterface/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202023-03-13%20%EC%98%A4%ED%9B%84%201.12.13.png?token=GHSAT0AAAAAAB72V6ICKY74IPWIZRX7ZNOCZAOVQAA"></img>
+<img src = "/Users/ganghyun/Documents/GIT/blog/blog/0313_CollectionInterface/스크린샷 2023-03-13 오후 1.12.13.png"></img>
 
 ### List인터페이스의 장점
 
 - 데이터 크기에 따른 동적 할당
 - 공간 낭비가 없음.
 - 데이터의 삽입 삭제가 유용
+
+#Collection
