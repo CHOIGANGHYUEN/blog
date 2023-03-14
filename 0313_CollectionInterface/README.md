@@ -317,10 +317,12 @@ Collections.shuffle(numbers);
 ```
 
 ## Collections 동시성 처리
+
 - 멀티 스레드 환경에서 동시성 처리가 필요
-    - 하나의 컬렉션 객체에 여러 스레드가 접근시
-    - 데이터 일관성ㅇ을 위한 Synchronize 처리가 필요
-    - ArrayList, HashMap등엔 Collections 클래스를 사용
+  - 하나의 컬렉션 객체에 여러 스레드가 접근시
+  - 데이터 일관성ㅇ을 위한 Synchronize 처리가 필요
+  - ArrayList, HashMap등엔 Collections 클래스를 사용
+
 # TIP❗❗
 
 for-each문은
