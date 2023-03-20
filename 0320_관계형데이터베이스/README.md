@@ -15,9 +15,7 @@
 - 정보
 
   - 데이터를 처리해서 얻어진 결과
-- 데이터에서 정보를 추출하는 방법을 데이터 처리, 넓은 의미로
-
-  `<span style ="color : red" >`정보 처리 
+- 데이터에서 정보를 추출하는 방법을 데이터 처리, 넓은 의미로 정보 처리
 
   $$
   I = P(D)
@@ -35,7 +33,7 @@
 - 적절한 의사결정을 할 수 있게 하는 지식
 - 데이터의 유효한 해석이나 데이터 상호간의 관계
 - 정보 추출 방법
-  - `<font color="#CD5C5C">`정보 처리 `</font>`= `<font color="#CD5C5C">`자료 처리 `</font>`
+  - 정보 처리 = 자료 처리 
 
 ## 정보 시스템
 
@@ -89,8 +87,8 @@
 - 방대한 데이터의 집합체를 유지, 관리, 이용하는데 도움을 주도록 설계된 소프트웨어
 - 데이터의 종속성과 중복성의 문제를 해결하기 위해 제안된 시스템
 
-```plantuml.server
 @startuml
+
 class 응용프로그램1
 class 응용프로그램2
 class 응용프로그램3
@@ -103,7 +101,6 @@ class 데이터베이스
 DBMS <--> 데이터베이스
 
 @enduml
-```
 
 # 데이터베이스 관리 시스템(DBMS)의 기능
 
@@ -149,7 +146,6 @@ DBMS에서 데이터의 명세 및 저장
   - 현실 세계의 정보들을 컴퓨터에 표현하기 위해 단순화, 추상화해 체계적으로 표현한 개념적 모형
   - DBMS의 데이터 저장 방식과 실제 세계의 간극을 좁히기 위해 개념 데이터 모델을 적용
 
-```plantuml.server
 
 @startuml
 
@@ -164,7 +160,6 @@ class 물리적데이터모델
 
 @enduml
 
-```
 
 ## 데이터 모델
 
@@ -193,8 +188,8 @@ class 물리적데이터모델
 
 ## 데이터 독립성
 
-```plantuml.server
 @startuml
+
 class 외부스키마1
 class 외부스키마2
 class 외부스키마3
@@ -206,10 +201,9 @@ class DISK
 외부스키마3 <--> 논리적스키마
 논리적스키마 <--> 물리적스키마
 물리적스키마 <--> DISK
- @enduml
-```
 
-`<font color="red">`내용추가해야함.`</font>`
+@enduml
+
 
 ## 데이터베이스 질의
 
@@ -246,10 +240,14 @@ class DISK
 
 1. 극장 좌석 예약
 2. 은행 데이터베이스
-   `<img src="https://user-images.githubusercontent.com/74634003/226251581-21e01b57-dd84-4744-a34c-31153260c975.png"/>`
-   해결법
-   - 동시접근을 제어
-     - 동시 접근을 제어해 사용자들이 동일한 데이터에 동시에 접근하고 있다는 것을 무시해도 되도록 지원
+3. 
+
+<img src="https://user-images.githubusercontent.com/74634003/226251581-21e01b57-dd84-4744-a34c-31153260c975.png"/>
+
+4. 해결법
+
+- 동시접근을 제어
+  - 동시 접근을 제어해 사용자들이 동일한 데이터에 동시에 접근하고 있다는 것을 무시해도 되도록 지원
 
 ## 트랜잭션
 
@@ -273,9 +271,8 @@ class DISK
   이는 로그 레코드가 없어서 이전 값을 알 수 없으므로, 트랜잭션의 취소가 불가능
 
 ## 데이터베이스 관리 시스템 구조
-
-```plantuml
 @startuml
+
 class Query
 Query -- RelationOperator 
 RelationOperator -- FileAndAcess
@@ -283,10 +280,7 @@ FileAndAcess -- BufferManager
 BufferManager -- DiskManager
 DiskManager -- Database
 
-
 @enduml
-```
-
 - 쿼리 최적하기와 실행 : 데이터의 구조와 통계를 이용해 효율적인 수행 계획을 수립하고 실행
 - 관계 연산자 : 데이터에 대한 질의를 생성
 - 파일과 접근 방식 : 여러 형태의 파일내의 페이지를 추적감시하여 한 페이지 내에 정보들을 조직하는 방법을 수행
@@ -302,7 +296,13 @@ DiskManager -- Database
 - 동시성 제어 및 장애 복구
 - 응용 프로그램 개발 시간 감소
 
-## TIP!
+## TIP ! 
 
 - mysql은 전부다 멀티 바이트
--
+  
+
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
