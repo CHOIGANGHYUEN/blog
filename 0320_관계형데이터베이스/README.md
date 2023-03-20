@@ -15,11 +15,10 @@
 - 정보
 
   - 데이터를 처리해서 얻어진 결과
-- 데이터에서 정보를 추출하는 방법을 데이터 처리, 넓은 의미로 `
+- 데이터에서 정보를 추출하는 방법을 데이터 처리, 넓은 의미로 
 
-  `<span style ="color : red" >`정보 처리 </span>
+  <span style ="color : red" >정보 처리 </span>
 
-  `<span style="color:yellow"> hi </span>`
 
   $$
   I = P(D)
@@ -151,7 +150,7 @@ DBMS에서 데이터의 명세 및 저장
   - 현실 세계의 정보들을 컴퓨터에 표현하기 위해 단순화, 추상화해 체계적으로 표현한 개념적 모형
   - DBMS의 데이터 저장 방식과 실제 세계의 간극을 좁히기 위해 개념 데이터 모델을 적용
 
-```plantuml
+```plantuml.server
 
 @startuml
 
@@ -195,7 +194,7 @@ class 물리적데이터모델
 
 ## 데이터 독립성
 
-```plantuml
+```plantuml.server
 @startuml
 class 외부스키마1
 class 외부스키마2
