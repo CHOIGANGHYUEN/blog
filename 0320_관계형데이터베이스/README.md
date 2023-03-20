@@ -238,6 +238,41 @@ class DISK
 
 공유 자원의 문제
 
+[동시성 제어에 대해 자세한 설명이 나온 블로그](https://gose-kose.tistory.com/28)
+
+[동시성 문제에 대해 자세한 설명이 나온 블로그](https://jaeryeol.tistory.com/5)
+```
+동시성 문제란 다수의 스레드가 동시에 공유자원에 접근할 때 발생 
+Read모드  X
+Write모드 O
+
+단일 스레드에서 요청 시, 만일 사과가 10개든 사과박스에서 사과 하나씩 빼라는 요청을 하면, 정상적으로 1개씩 빠지게되지만,
+멀티 스레드에서는 동시에 사과박스라는 공유자원에 동시에 접근할 수 있기에, 한개씩 빠질거란 보장을 하기가 힘듬.
+
+A스레드와 B스레드가 동시에 사과박스에 접근하게 되서 명령을 수행했을때, 둘다 동시에 10개일때 한개씩 뺏으니 10개에서 9개라는 갯수를 리턴하게되고, 그다음 C스레드가 접근하면 9개라는 값을 읽고, 8개를 리턴하게 된다.
+
+```
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FvHWTk%2Fbtr3fs67iVD%2FeKCyqE6ZCrbZm9WMiSFu1k%2Fimg.png"/>
+
+
+```
+동시성 문제 종류
+1. Dirty Read
+
+트랜잭션 1이, 트랜잭션 2에서 작업중인 데이터를 읽은 시점에서
+트랜잭션 2가, 그 시점에 커밋하지 않고 롤백되었을 경우
+트랜잭션 1이 읽은, 트랜잭션2의 값은 롤백된 값이므로
+동시성 문제가 발생한다.
+
+즉 커밋되지 않은 값을 읽는것은 문제가 된다.
+```
+<img src="https://th.bing.com/th/id/OIP.Sd296SU587fY_WknVdhbrgHaEF?pid=ImgDet&rs=1"/>
+
+```
+2. Non-reapeatable Read(반복 불가능 읽기)
+
+```
+
 1. 극장 좌석 예약
 2. 은행 데이터베이스
 3. 
@@ -299,10 +334,6 @@ DiskManager -- Database
 ## TIP ! 
 
 - mysql은 전부다 멀티 바이트
+- 
   
 
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
