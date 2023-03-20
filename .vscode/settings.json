@@ -1,4 +1,5 @@
 {
     "vscode-office.editorLanguage": "ko_KR",
-    "vscode-office.hideToolbar": false
+    "vscode-office.hideToolbar": false,
+   "markdown-pdf.convertOnSave": true 
 }
