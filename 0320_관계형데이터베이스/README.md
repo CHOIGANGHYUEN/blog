@@ -266,16 +266,44 @@ A스레드와 B스레드가 동시에 사과박스에 접근하게 되서 명령
 
 즉 커밋되지 않은 값을 읽는것은 문제가 된다.
 ```
-<img src="https://th.bing.com/th/id/OIP.Sd296SU587fY_WknVdhbrgHaEF?pid=ImgDet&rs=1"/>
+<img src ="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcHYMee%2Fbtr3JXZpTli%2FccasRtKIrPkcYRnaikHCb0%2Fimg.png"/>
 
 ```
 2. Non-reapeatable Read(반복 불가능 읽기)
 
+트랜잭션 1이, 트랜잭션 2에서 작업중인 데이터를 읽은 시점(select)에서
+트랜잭션 2가 갑자기 데이터를 변경(update)후 커밋하였고
+다시 트랜잭션 1이, 트랜잭션 2에서 작업한 데이터를 읽으면(select)
+트랜잭션 2에서 변경된 값을 읽게되므로 트랜잭션 1에선 혼란이 발생하게 된다.
+
+즉 트랜잭션 1은 처음 읽은 값과, 나중에 읽은 값을 모두 보게되므로
+혼란이 발생한다
 ```
+<img src="https://th.bing.com/th/id/OIP.Sd296SU587fY_WknVdhbrgHaEF?pid=ImgDet&rs=1"/>
+
+```
+3. Phantom Read(유령 데이터 읽기)
+
+트랜잭션 1이, 트랜잭션 2에서 작업중인 데이터를 읽은 시점(select)에서
+트랜잭션 2에서 추가로 데이터를 insert한 후 이 변경한 데이터를 커밋하면
+트랜잭션 1이 다시 데이터를 읽은 시점엔 이전에 존재하지 않던 데이터를 보게된다. 이런 경우 트랜잭션 1은 일관성이 없게 된다.
+```
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FBxy5y%2Fbtr3GSdL4iP%2F45RSgIJI13UMaHHfHi4SxK%2Fimg.png"/>
+
+| |Level|DirtyRead|Non-repeatable Read|Phantom Read|
+|------|---|----|---|---|
+|READ UNCOMMITED|0(zero)|O|O|O|
+|READ COMMITED|1|X|O|O|
+|REPEATABLE READ|2|X|X|O|
+|SERIALIZABLE|3|X|X|X|
+
+
+READ UNCOMMITED
+
+
 
 1. 극장 좌석 예약
 2. 은행 데이터베이스
-3. 
 
 <img src="https://user-images.githubusercontent.com/74634003/226251581-21e01b57-dd84-4744-a34c-31153260c975.png"/>
 
