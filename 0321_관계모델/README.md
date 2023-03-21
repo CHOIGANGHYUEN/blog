@@ -56,6 +56,7 @@
 ### 무결성 제약조건
 [참고1](https://rainbow97.tistory.com/entry/Database-02-4-%EB%AC%B4%EA%B2%B0%EC%84%B1-%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4#:~:text=%5BDatabase%5D%2002%20-%204%20%EB%AC%B4%EA%B2%B0%EC%84%B1%20%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4%201%20%EC%98%881%3A,%EA%B0%9C%EB%B0%9C%2C%209%29%EB%A5%BC%20%EC%82%AD%EC%A0%9C%ED%95%98%EB%A9%B4%20%EC%B0%B8%EC%A1%B0%20%EB%AC%B4%EA%B2%B0%EC%84%B1%20%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4%EC%9D%84%20%EC%9C%84%EB%B0%B0%ED%95%98%EA%B2%8C%20%EB%90%A8) 
  ,[참고2](https://vvshinevv.tistory.com/39)
+ , [참고3 SQL로 제약조건](http://www.ktword.co.kr/test/view/view.php?m_temp1=610)
 - 저장된 정보의 품질에 따라 데이터 베이스의 품질이 결정
 - DBMS에 부정확한 정보가 입력되는걸 막기 위한 수단
 - 무결성 제약조건
@@ -108,6 +109,7 @@
     - 외래 키
       - 한 릴레이션의 키 중에서 다른 릴레이션의 투플을 유일하게 식별 할 수 있는 키
       - 한 릴레이션의 투플에서 다른 릴레이션의 투플을 참조하기 위해 사용
+    <img src="https://user-images.githubusercontent.com/74634003/226500963-cc6a0414-760f-4e1b-b32b-69ea3e9fd5b2.png"/>
     ```
     참조하는 릴레이션의 외래키 값은 널이 들어올 수 있다.
     예를 들어 신입사원이라 부서가 정해지지 않은경우 부서번호는 널 값이어도 된다.
@@ -122,6 +124,66 @@
       - 속성에 지정된 도메인의 범위 내에 해당되는 값
       - 속성의 기본 값과 널포함 가능 여부등에 대한 제약조건
 
+## 무결성 제약조건 집행
+- 제약조건은 릴레이션 스키마에 정의되고 릴레이션의 수정될 때 집행됨
+- 도메인 무결성과 개체 무결성은 직관적으로 즉시 집행됨
+  - 제약조건을 위배하는 삽입, 삭제, 갱신 명령은 즉시 거부
+- 참조 무결성 집행 단계
+  - 참조하는 릴레이션에 없는 값에 대한 삽입이 시도되는 경우
+    - 명령이 거부됨.
+  - 참조 릴레이션의 데이터가 삭제되는 경우
+    - 외래 키가 존재하는 릴레이션의 참조 데이터를 모두 삭제
+    - 참조 릴레이션의 데이터를 삭제할 수 없도록 명령을 거부
+    - 외래 키가 존재하는 릴레이션의 해당 데이터를 모두 다른 값으로 갱신
+  - 참조하는 릴레이션의 데이터가 변경되는 경우
+    - 세가지 방법중 하나를 선택
+@startuml
+entity Category{
+    CategoryNo : INT PK
+--
+    CategoryName :VARCHAR(20)
+}
+
+entity Product{
+    ProductNo : INT PK
+    CategoryNo : INT FK
+    --
+    ProductName: VARCHAR
+    Price : DECIMAL
+}
+
+Category||--{Product
+@enduml
+
+```
+거부 하는 경우
+1. 카테고리 릴레이션에 없는 카테고리이름을 가진 상품투플이 삽입될 경우
+2. 카테고리 릴레이션의 투플이 삭제되는 경우
+    - 삭제될 카테고리 투플을 참조하는 모든 상품 투플을 삭제
+    - 삭제될 카테고리 릴레이션을 참조하는 상품 투플이 있는 경우, 카테고리   릴레이션의 투플 삭제를 거부
+    - 삭제될 카테고리 릴레이션을 참조하는 모든 상품 투플의 데이터를 모두 다른 값으로 갱신합니다.
+3. 카테고리 릴레이션의 투플이 변경되는 경우
+    - 변경될 카테고리 투프을 참조하는 모든 상품 투플을 삭제
+    - 변경될 카테고리 릴레이션을 참조하는 상품 투플이 있는 경우, 카테고리 릴레이션의 투플 삭제를 거부
+    - 변경될 카테고리 릴레이션을 참조하는 모든 상품 투플의 데이터를 모두 변경되는 값으로 갱신
+```
+## SQL
+- 구조적 쿼리 언어
+- 관계형 데이터 베이스 관리 시스템의 데이터를 관리하기 위해 설계
+- 특수 목적의 대화식 프로그래밍 언어
+  - 캠버레인과 보이스가 개발
+  - 오라클, infomix, Sybase, IBM등 자사의 관리 시스템에 맞는 SQL을 만들어 적용
+  - 사용은 비슷하지만 내부 동작이 다름
+
+## 제약조건 추가하기
+```sql
+ALTER TABLE Category ADD CONSTRAINT pk_category primary key(CategoryNo);
+ALTER TABLE Category //테이블 변경
+ADD CONSTRAINT pk_category //제약조건을 추가 pk_category는 제약조건 이름
+PRIMARY KEY(CategoryNo); // 카테고리번호를 기본키로 지정하겠다.
+
+UPDATE의 조건문은 PRIMARY KEY로 지정해주는것이 안전
+```
 # <span style="color: #FA8072 ">TIP</span>
 ```
  필요하지만 거의 쓰이지 않는 데이터는 새로운 테이블로 분리
