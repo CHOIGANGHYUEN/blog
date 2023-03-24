@@ -77,7 +77,7 @@
 - 하나의 속성이 가질 수 있는 동일한 유형의 원자값들의 집합
 - 릴레이션 스키마는 릴레이션 인스턴스의 각 필드의 도메인을 명세(도메인 제약조건)
 - 프로그래밍 언어 관점에서 필드의 데이터 타입을 의미
-  `<img src="https://user-images.githubusercontent.com/74634003/226267066-a73d2044-3b7c-4251-aaf6-12d32b6c7d4d.png"/>`
+  <img src="https://user-images.githubusercontent.com/74634003/226267066-a73d2044-3b7c-4251-aaf6-12d32b6c7d4d.png"/>
 
 ## 관계 데이터베이스
 
