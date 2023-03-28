@@ -57,3 +57,18 @@
 
 6. img
    <img>링클르 사용
+
+7. UML 사용법
+   ```plantuml.server
+   @startuml
+   class A
+   class B
+   A ||--|{B 
+   A ||--o{B
+   A ||--||B
+   A ||--o|B
+   A |o--o|B
+
+   @enduml
+
+   ```
