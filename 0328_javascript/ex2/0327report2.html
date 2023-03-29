@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript">
+        window.addEventListener("DOMContentLoaded", function () {
+            const userId = document.getElementById("userId");
+            const userPassword = document.getElementById("userPassword");
+            const loginForm = document.getElementById("loginForm");
+
+            // const inputList = document.getElementsByTagName("input"); tagName 가져오기ㅣ
+            const inputClassList = document.getElementsByClassName('input');
+
+            for (const input of inputClassList) {
+                console.log(inputClassList[i].value);
+            }
+
+            const qUserId = document.querySelector("#userId");
+            // console.log(qUserId);
+
+            const qClassList = document.querySelectorAll(".input");
+
+            for (const item of qClassList) {
+                console.log(item);
+            }
+
+        
+            const cartTable = document.getElementById("cartTable");
+            const tbody = cartTable.getElementsByTagName("tbody")[0];
+            const tr = document.createElement("tr");
+            const td1 = document.createElement("td");
+            td1.innerText = "A0007";
+
+            const td2 = document.createElement("td");
+            td2.innerText = "사과";
+
+            const td3 = document.createElement("td");
+            td3.innerText = "1009"
+
+            const td4 = document.createElement("td");
+            td4.innerText = "9";
+            const td5 = document.createElement("td");
+            td5.innerText = "9081";
+            tr.append(td1, td2, td3, td4, td5);
+            tbody.append(tr);
+
+        });
+
+        function doLogin(userId, userPassword) {
+            const response = {
+                "cardId": 1000,
+                "userId": "nhnacademy",
+                "userPassword": 1234
+            }
+            return response;
+        }
+
+        function getCardList(cartId) {
+            //.. 장바구니 api 호출
+            const response = [
+                {
+                    "productId": "A0003",
+                    "name": "양파",
+                    "price": 1006,
+                    "amount": 6,
+                    "totalPrice": 6036
+                },
+                {
+                    "productId": "A0001",
+                    "name": "감자",
+                    "price": 1006,
+                    "amount": 5,
+                    "totalPrice": 5030
+                },
+                {
+                    "productId": "A0009",
+                    "name": "수박",
+                    "price": 1008,
+                    "amount": 7,
+                    "totalPrice": 7056
+                },
+                {
+                    "productId": "A0008",
+                    "name": "귤",
+                    "price": 1003,
+                    "amount": 8,
+                    "totalPrice": 8024
+                },
+                {
+                    "productId": "A0006",
+                    "name": "대파",
+                    "price": 1007,
+                    "amount": 1,
+                    "totalPrice": 1007
+                },
+                {
+                    "productId": "A0007",
+                    "name": "사과",
+                    "price": 1009,
+                    "amount": 9,
+                    "totalPrice": 9081
+                },
+                {
+                    "productId": "A00010",
+                    "name": "라면",
+                    "price": 1001,
+                    "amount": 4,
+                    "totalPrice": 4004
+                },
+                {
+                    "productId": "A0002",
+                    "name": "오이",
+                    "price": 1008,
+                    "amount": 1,
+                    "totalPrice": 1008
+                },
+                {
+                    "productId": "A0004",
+                    "name": "우유",
+                    "price": 1006,
+                    "amount": 2,
+                    "totalPrice": 2012
+                },
+                {
+                    "productId": "A0005",
+                    "name": "계란",
+                    "price": 1007,
+                    "amount": 9,
+                    "totalPrice": 9063
+                }
+            ]
+        }
+    </script>
+    <title>Document</title>
+</head>
+
+<body>
+    <form method="post" id="loginForm" action="http://httpbin.org/post">
+        <p>아이디 <input type="text" id="userId" name="userId"></p>
+        <p>비밀번호 <input type="password" id="userPassword" name="userPassword"></p>
+        <p>아이디 <button type="submit">버튼</button></p>
+    </form>
+
+    <table id="cartTable" style="border: 1">
+        <thead>
+            <tr>
+                <th>productId</th>
+                <th>name</th>
+                <th>price</th>
+                <th>amount</th>
+                <th>totalPrice</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>사과</td>
+                <td>사과</td>
+                <td>사과</td>
+                <td>사과</td>
+                <td>사과</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>
