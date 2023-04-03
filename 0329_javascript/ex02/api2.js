@@ -156,7 +156,13 @@ window.addEventListener("DOMContentLoaded", async function () {
 function searchResult(items) {
   const scheduleTbl = document.getElementById("schedule-tbl");
   const tbody = scheduleTbl.getElementsByTagName("tbody")[0];
-
+  while (tbody.firstChild) {
+    try {
+      document.querySelector("tbody>tr").remove();
+    } catch (e) {
+      break;
+    }
+  }
   for (let i = 0; i < items.length; i++) {
     const datas = items[i].response.body.items.item;
     for (const data of datas) {
