@@ -145,3 +145,382 @@ GPT
     </dependency>
 </dependencies>
 ```
+
+## Spring Framework Dependencies - 2
+- Bill of Materials
+  - 자재 목록 : 제품을 구성하는 부품들에 대한 목록
+  - Spring Framework을 구성할때 많은 모듈로 구성
+  - Version 관리
+  - artifactId : spring-framework-bom
+```xml
+dependencyManagement는 spring-framework-bom의 스프링 코어 버전을
+자동으로 적용해주는 기능
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-framework-bom</artifactId>
+            <version>5.3.17</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+
+<dependencies>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+    </dependency>
+</dependencies>
+```
+
+## The Spring Triangle
+- DI (Dependency Injection)
+- AOP (Aspect-Oriented Programming)
+- PSA (Portable Service Abstraction
+
+<img src="../image/spring_triangle.png"/>
+
+## java의 다형성(polymorphism)
+- Java의 객체는 부모클래스 타입의 참조변수나 구현한 인터페이스 변수에 담을 수 있습니다.
+- 참조 변수의 메소드를 호출하면 실제 구현 객체의 메소드가 실행됩니다.
+- 즉, 동일한 메시지를 전송하지만 실제로 어떤 메서드가 실행될 것인지는 메시지를 수신하는 객체의 클래스가 무엇인가에 따라 결정되는 것입니다.
+- 한국어, 영어 인사를 수행하는 시스템을 다형성을 이용해서 개발한다고 가정하면 다음과 같이 설계 할 수 있다.
+
+<img src="../image/ZOvDpW5148RtVOhAh8ZC1KHiv0k9fOLrcocjerL9TIE2XI1n0NTnfsyEeOqWM53BUf_tnuyjJRNe2GnqDZR2CyfRx5WWY2OV9QIWLEQqzz0Mn639z53cDaDOAOXNWm6pGqrWhdgbgZRAKa0PwiYK7fIIVP9UBple79UmUizDnPfHI9iFytt07nbd_UXR9jHXAd429EK3-YmkJwvDjvWkIpJydbASZl-74nJxSx7R9e_5qTjO.png"/>
+
+
+## 자바에서 클래스를 인식하는 원리, static void main
+```
+자바에서 클래스를 인식하는 원리는 해당 클래스를 포함한 패키지명을 포함하여 전체 클래스 경로를 사용하여 찾습니다. 즉, 클래스파일이 위치한 디렉토리 구조와 패키지 이름을 포함하여 클래스를 검색합니다.
+
+`static void main`은 자바에서 프로그램을 시작할 때 가장 먼저 실행되는 메소드입니다. 이 메소드는 프로그램의 진입점으로 사용되며 JVM(Java Virtual Machine)이 이 메소드를 호출하여 프로그램을 시작합니다. `static` 키워드가 사용된 이유는 객체 생성 없이도 메소드를 호출하기 위함입니다. `main` 메소드의 반환형은 `void`(값을 반환하지 않음) 입니다.
+```
+## 스프링에서 클래스를 인식하는 원리, static void main
+
+```
+스프링 프레임워크에서도 클래스를 인식하는 방법은 자바와 유사합니다. 스프링은 `classpath`라는 시스템 환경 변수에 지정된 경로 중에서 클래스를 검색합니다.
+
+그런 다음 스프링은 해당 클래스의 `@Bean` 어노테이션이 지정된 메소드를 찾아서 빈(Bean) 객체를 생성하고, 이를 애플리케이션 컨텍스트(Application Context)에 등록합니다.
+
+또한 스프링에서도 `static void main`이 프로그램의 진입점으로 사용됩니다. 보통 스프링 부트(Spring Boot) 애플리케이션에서는 `SpringApplication.run(Application.class, args)` 코드를 `main` 메소드 안에서 호출하여 애플리케이션을 실행합니다. 이때 `Application.class`는 애플리케이션의 주 진입 클래스(Class with main method)`를 의미합니다.
+```
+## Spring Inversion of Control
+- 사용자가 코드를 작성하면. 그것에 대한 제어를 SpringInversionOfControl이 함.
+- 더이상 인스턴스 생성시 new Class() 형태로 작성하지 않아야한다.
+- 스프링프레임워크가 제어하기때문
+- 순환참조의 문제가 있을 경우 EXCEPTION 
+- 순환참조?
+- 탬플릿패턴이란 프레임워크 만들기에 적합한 패턴이다.
+## IoC (제어역전)
+- 제어권을 프레임워크가 갖는것 == 개발자는 제어권이 없다 == 제어(Control)가 역전(Inversion) 되었다.
+- IoC : Inversion of Control
+- 제어
+    - 프로그램의 흐름
+    - 객체의 생성
+- IoC 관점에서 각자의 역할
+  - 개발자는 코드의 흐름이나 객체생성에 관련된 코드를 직접 적성하지 않는다.
+  - 개발자는 프레임워크가 제공하는 설정방법을 사용하여 코드를 설정만 한다.
+  - 프레임워크는 이 설정을 보고 객체를 생성하고 코드가 동작하는 순서를 결정하여 실행한다.
+## 헐리우드 원칙
+- 객체지향 프레임워크와 클래스 라이브러리의 큰 차이점은 프레임워크가 애플리케이션 코드를 호출한다는 것입니다. 일반적으로는 애플리케이션 코드가 클래스 라이브러리를 호출합니다. 이러한 제어의 역전(inversion of control)은 때때로 헐리우드 원칙이라고도 합니다.
+```
+우리에게 전화(call)하지 마세요. 우리가 당신을 부를(call) 것입니다.
+```
+
+## IOC의 예 - 흐름의 제어역전 (template method 패턴)
+- template (형판, 틀) + 메서드 + 패턴
+- 추상 클래스에 탬플릿에 해당하는 메소드에서 실행의 흐름이 이미 결정되어 있음.
+- 단, 각 메소드가 구체적으로 어떤일을 할 것인지는 개발자의 구현에 따라 결정됨.
+- preProcess() -> mainProcess() -> postProcess()
+- javax.servlet.Filter interface
+```java
+public interface Filter {
+
+    public default void init(FilterConfig filterConfig) throws ServletException {}
+    
+    public void doFilter(ServletRequest request, ServletResponse response,
+            FilterChain chain) throws IOException, ServletException;
+
+    public default void destroy() {}
+}
+```
+## template method
+- feature/ioc_01
+- 가정 : 프레임워크는 다음 AbstractProcessor 클래스를 제공한다.
+
+```java
+package com.nhnacademy.edu.springframework.greeting.template_method.processor;
+
+public abstract class AbstractProcessor {
+
+    public final void process() {
+        preProcess();
+        mainProcess();
+        postProcess();
+    }
+
+    protected abstract void preProcess();
+    protected abstract void mainProcess();
+    protected abstract void postProcess();
+}
+
+```
+- public final void process가 final인 이유는 추상클래스인데 미리 구현 해야 할 코드이니 건들지 말고 쓰기만 하라는 뜻. 
+- 서블릿 필터도 탬플릿 메소드 패턴을 따라했기에 비슷한 구조임을 볼수있다.
+## IoC의 예 - 흐름의 제어역전 (template method 패턴)
+- ConsoleLogProcessor 클래스는 AbstractProcessor 클래스의 구현체
+- AbstractProcessor 의 메서드를 구현함.
+- ConsoleLogProcessor 클래스는 실행에 대한 기능은 없다. AbstractProcessor 의 메서드의 기능만 구현함.
+- 실행의 흐름에 대한 어떤 책임은 없다.
+- 실행 흐름에 대한 책임은 AbstractProcessor만 가진다.
+
+```java
+package com.nhnacademy.edu.springframework.greeting.template_method.processor;
+
+public class ConsoleLogProcessor extends AbstractProcessor {
+
+    @Override
+    protected void preProcess() {
+        System.out.println("preProcess");
+    }
+
+    @Override
+    protected void mainProcess() {
+        System.out.println("mainProcess");
+    }
+
+    @Override
+    protected void postProcess() {
+        System.out.println("postProcess");
+    }
+}
+```
+- **실행의 흐름은 AbstractProcessor 에 의해서 제어가 됨**
+
+## IoC의 예 - 흐름의 제어역전 (template method 패턴)
+- 실행을 위한 Main 클래스
+
+```java
+package com.nhnacademy.edu.springframework.greeting.template_method;
+
+import com.nhnacademy.edu.springframework.greeting.template_method.processor.AbstractProcessor;
+import com.nhnacademy.edu.springframework.greeting.template_method.processor.ConsoleLogProcessor;
+
+public class TemplateMethodMain {
+
+    public static void main(String[] args) {
+        AbstractProcessor processor = new ConsoleLogProcessor();
+        processor.process();
+    }
+}
+```
+- **프레임워크의 IoC 개념을 다시 생각해보자.**
+## [시연]IoC의 예 - 객체 생성의 제어역전
+- feature/ioc_02
+- 개발자는 ComplexGreetingService 클래스를 작성하여, KoreanGreeter 객체를 생성하는 제어를 스스로 구현하였음
+  
+```java
+package com.nhnacademy.edu.springframework.greeting;
+
+public class NonIocMain {
+
+    public static void main(String[] args) {
+        new ComplexGreetingService().greet();
+    }
+}
+```
+```java
+package com.nhnacademy.edu.springframework.greeting;
+
+import com.nhnacademy.edu.springframework.greeting.service.KoreanGreeter;
+
+public class ComplexGreetingService {
+
+    // ComplexGreetingService 내부에서 생성한 객체를 사용한다.
+    public boolean greet() {
+        return new KoreanGreeter().sayHello();
+    }
+}
+```
+- **ComplexGreetingService 관점에서 누가 KoreanGreeter 객체를 생성했는가?**
+
+## [시연] IoC의 예 - 객체 생성의 제어역전
+- 객체 생성의 제어역전을 위해 KoreanGreeter 클래스의 객체를 Main 클래스에서 생성하여 제공한다.
+
+```java
+public class IoCMain {
+    public static void main(String[] args) {
+        new GreetingService(new KoreanGreeter()).greet();
+    }
+}
+```
+- GreetingService는 외부에서 생성된 객체를 사용한다. 객체 생성의 책임이 없다.
+- 대신 외부에서 정의된 내용만 일치한다면 모든 객체를 담을수 있다.
+```java
+public class GreetingService {
+    private final Greeter greeter;
+
+    public GreetingService(Greeter greeter) {
+        this.greeter = greeter;
+    }
+
+    public void doGreet() {
+        greeter.sayHello();
+    }
+}
+```
+## 클래스의 역할
+
+- IoCMain
+  - Greeter 구현체를 선택할 수 있다.
+  - KoreanGreeter 객체를 생성한다.
+- GreetingService
+  - IoCMain에서 생성한 KoreanGreeter 객체를 실행만 한다.
+- ComplexGreetingService 관점에서 누가 KoreanGreeter 객체를 생성했는가?
+- GreetingService 관점에서 누가 Greeter 객체를 생성했는가?
+
+- 만약 IoCMain 클래스가 프레임워크라면, 개발자가 작성한 GreetingService 및 Greeter 객체 생성에 대한 제어를 프레임워크에 위임한 형태이다.
+- 만약 개발자가 Greeter 구현체를 교체하고 싶다면 IocMain 클래스만 수정하면 된다.
+- 만약 IoCMain 클래스가 사용자가 설정한 내용을 읽고 객체를 생성하는 클래스라면?
+
+## ApplicationContext
+### Spring IoC Container
+- `org.springframework.context.ApplicationContext` 인터페이스는 Spring IoC 컨테이너를 나타내며
+- 빈(Bean)을 인스턴스화하고 구성하며 조립하기 위해 
+- 설정 메타데이터(configuration metadata)를 읽는 작업을 수행합니다.
+<img src="../image/spring_container.png"/>
+## Spring Bean
+```
+an object that is instantiated, assembled, and otherwise managed by a Spring IoC 
+container
+
+```
+- Spring Bean 은 name, type, object 로 구성되어있다.
+- Spring Framework 에서 중요하게 관리하는 객체로 이해
+## cf.) JavaBeans
+<span style="color:red">
+- public default (no argument) constructor<br/>
+- getter/setter<br/>
+- implement java.io.Serializable<br/>
+ </span>
+
+## Spring Beans ≠ JavaBeans
+
+## Bean Factory vs ApplicationContext
+- Spring IoC container = { Bean Factory | ApplicationContext }
+
+<img src="../image/TOr13e9034NtFKKlm0tS88ahBr66IXh6Tj8fKQFU7UB2a8ZR_zz_lqwYXPoks5EQHhTPXywoEOQJrhLY3H0DzWibnYEJdYY5-GEVyDuqPwb1VUR_H5jAbaGXffsjwJq-06mNU7WrWzsqsVF1tiTtyAk71G00.png"/>
+
+## Bean Factory
+- The BeanFactory API provides the underlying basis for Spring’s IoC functionality
+
+## ApplicationContext
+- Bean Factory functionality + α
+
+| Feature                                            | BeanFactory | ApplicationContext |
+|----------------------------------------------------|-------------|---------------------|
+| Bean instantiation/wiring                          | Yes         | Yes                 |
+| Integrated lifecycle management                    | No          | Yes                 |
+| Automatic BeanPostProcessor registration           | No          | Yes                 |
+| Automatic BeanFactoryPostProcessor registration    | No          | Yes                 |
+| Convenient MessageSource access (for Internationalization)  | No | Yes |
+| Built-in ApplicationEvent publication mechanism    | No          | Yes                 |
+----
+
+| 특징                                                     | BeanFactory | ApplicationContext |
+|--------------------------------------------------------|-------------|---------------------|
+| 빈의 생성 및 의존성 주입                             | Yes         | Yes                 |
+| 통합 라이프사이클 관리                                | No          | Yes                 |
+| 자동 BeanPostProcessor 등록                          | No          | Yes                 |
+| 자동 BeanFactoryPostProcessor 등록                  | No          | Yes                 |
+| 편리한 MessageSource 액세스 (국제화 지원을 위한)  | No          | Yes                 |
+| 내장된 ApplicationEvent 발행 메커니즘        | No          | Yes                 |
+---
+- life cicle manager 객체 생성 소멸에 책임
+## ApplicationContext
+- 정의
+  - central interface within a Spring application for providing configuration information to the application
+- 기능
+  - Bean factory methods for accessing application components.
+  - The ability to load file resources in a generic fashion.
+  - The ability to publish events to registered listeners.
+  - The ability to resolve messages to support internationalization.
+  - Inheritance from a parent context.
+
+## ApplicationContext 종류
+<img src="../image/application_context.png"/>
+- ~Xml~ApplicationContext
+- ~AnnotationConfig~ApplicationContext
+- ~Groovy~ApplicationContext
+- ~Web~ApplicationContext
+- 이름의 양식이 지정되어 있다.
+## ApplicationContext 역할
+- Spring Bean 생성
+- Spring Bean 파기
+- Spring Bean 주입
+
+## [시연] SpringFramework에서 객체생성 시연(XML)
+- beans.xml 추가
+- beans.xml 파일은 src/main/resources 에 둔다.
+- Spring Framework의 BeanFactory에게 EnglishGreeter, KoreanGreeter 를 각각 englishGreeter, koreanGreeter 이란 ID 로 등록을 요청하는 내용이다.
+
+```xml
+xmlconfigulationApplication을 이용한다. 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="englishGreeter" class="com.nhnacademy.edu.springframework.greeting.service.EnglishGreeter" >
+    </bean>
+
+    <bean id="koreanGreeter" class="com.nhnacademy.edu.springframework.greeting.service.KoreanGreeter" >
+    </bean>
+
+</beans>
+```
+- id : 이름
+- class : type
+- bean에게 어떤 클래스를 만들어야하는지 명시해줌
+
+## [시연] SpringFramework에서 객체생성
+- feature/ioc_03
+- Main 클래스
+  - Spring Framework의 **ClassPathXmlApplicationContext** 을 사용하여 **beans.xml 을 로딩**하고 **Spring Bean 객체를 받아온다**.
+```java
+package com.nhnacademy.edu.springframework.greeting.xml;
+
+import com.nhnacademy.edu.springframework.greeting.service.Greeter;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class XmlMain {
+    public static void main(String[] args) {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml")) {
+          // 이름은 koreanGreeter, type은 Greeter.class
+            Greeter koreanGreeter = context.getBean("koreanGreeter", Greeter.class);
+            Greeter englishGreeter = context.getBean("englishGreeter", Greeter.class);
+            // 가져온 Bean에 저장된 메소드를 호출
+            koreanGreeter.sayHello();
+            englishGreeter.sayHello();
+        }
+    }
+}
+```
+
+## Spring Bean 객체의 생명주기 설정
+- Java 객체의 생명 주기는?
+- Spring Bean 객체도 Java 객체이다.
+## Bean Scope
+- singleton - default
+- prototype
+- Only valid in the context of a web-aware Spring ApplicationContext
+  - request - lifecycle of a single HTTP request
+  - session - lifecycle of an HTTP Session
+  - application - lifecycle of a ServletContext
+  - websocket - lifecycle of a WebSocket
+  - global session - portlet (dropped in spring 5)
