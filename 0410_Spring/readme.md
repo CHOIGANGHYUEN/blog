@@ -1,4 +1,5 @@
 # Spring
+[스프링 공식 문서](https://docs.spring.io/spring-framework/docs/3.0.0.M4/reference/html/index.html)
 ## 라이브러리와 프레임워크 차이
 - 공통점
   - 특정 문제를 일반적인 방법(모델 뷰  컨트롤러)으로 해결하기 위한 코드를 제공한다.
@@ -9,13 +10,33 @@
   - 기능(함수)의 집합. e.g. 레디스 클라이언트 라이브러리
   - 주도권
   - 레디스 영속 프레임워크 vs 레디스 클라이언트 라이브러리
+
+| 구분        | Framework                                                                                                                                                                                                                                                                                                      | 라이브러리                                                                                                                                                                                                                             |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 기능        | 애플리케이션을 개발하기 위해 필요한 기본적인 구조와 규칙을 제공                                                                                                                                                                                                                                           | 특정 기능을 구현하는 데 필요한 함수, 클래스 등의 코드 집합을 제공                                                                                                                                                                 |
+| 주도권      |개발자가 그 위에 자신만의 코드를 작성해 나가는 방식이며, 프레임워크가 제어권한을 가지고 있음                                                                                                                                                                                      | ***개발자가 직접 호출하여 사용하며, 주도권은 개발자에게 있음***                                                                                                                                                                         |
+| 사용 예시   | 대규모 애플리케이션에서 사용됨                                                                                                                                                                                                                                                                              | 여러 프로젝트에서 반복적으로 사용되는 기능을 라이브러리로 구현하여 재사용함                                                                                                                                                          |
+| 구현 방식   | 프레임워크는 애플리케이션의 기본적인 구조와 규칙을 제공하며, 개발자는 그 위에 자신만의 코드를 작성함                                                                                                                                                                                                       | 라이브러리는 개발자가 필요에 따라 직접 호출하여 사용함                                                                                                                                                                           |
+| 예시 프레임워크 | Ruby on Rails, Django, Flask, Spring                                                                                                                                                                                                                                                                         |                                                                                                                                                                                                                                        |
+| 예시 라이브러리 | requests (HTTP 요청), numpy (과학 계산), pandas (데이터 분석), scikit-learn (머신러닝), matplotlib (시각화), BeautifulSoup (웹 스크래핑)                                                                                                                                                                   |                                                                                                                                                                                                                                        |
+| 예시 프레임워크와 라이브러리 함께 사용하는 경우 | Flask 프레임워크와 SQLAlchemy 라이브러리를 함께 사용하여 웹 애플리케이션에서 데이터베이스를 다루는 기능 구현                                                                                                                                                                                               |                                                                                                                                                                                                                                     |
+---   
 ## 프레임워크 사용해아하는 이유
 - 기능적 요구 사항과 비 기능적 요구사항(비기능 요구사항 : 프레임워크 쓰면 구현되있음)
 - 반복되는 기능
 - 비즈니스에 집중
 - 빠른 개발
 
+| 이유                             | 설명                                                                                                                                                                          |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 기능적 요구사항과 비 기능적 요구사항 | 프레임워크가 애플리케이션에서 필요한 기능을 이미 구현하고 있어, 개발자는 이를 사용하여 빠르게 개발할 수 있고, 대부분의 비 기능적 요구사항도 고려하고 있어 추가 고민이 줄어듭니다. |
+| 반복되는 기능                    | 프레임워크가 반복되는 기능들을 미리 구현해놓았기 때문에, 개발자는 이를 다시 구현할 필요가 없어 시간과 노력을 절약할 수 있습니다.                                          |
+| 비즈니스에 집중                  | 프레임워크를 사용하면 개발자는 비즈니스 로직에 집중할 수 있습니다. 프레임워크가 제공하는 기능들은 이미 검증되었으므로, 개발자는 비즈니스 로직을 구현하는 데 집중할 수 있습니다.      |
+| 빠른 개발                        | 프레임워크를 사용하면 개발자는 미리 구현된 기능들을 사용하여 빠르게 개발할 수 있습니다. 이를 통해 개발자는 빠르게 애플리케이션을 출시할 수 있으며, 경쟁 우위를 유지할 수 있습니다.  |
+---
 ## 스프링 프레임워크
+<img src="../image/spring-overview.png"/>
+
 - 자바 엔터프라이즈 개발을 편하게 해주는 오픈소스 경량급 애프리케이션 프레임워크
 - 스프링(Spring) 프레임워크는 가볍고 엔터프라이즈 애플리케이션을 구축하는 하나의 대안(Potential one-stop-shop)입니다. 
 - 스프링은 모듈화되어 있어 필요한 부분만 사용할 수 있으며, 나머지는 가져올 필요가 없습니다.
@@ -23,11 +44,26 @@
 - 스프링 프레임워크는 Java 애플리케이션 개발에 대한 종합 인프라 지원을 제공합니다. 
 - 스프링은 인프라를 처리하므로 애플리케이션에 집중할 수 있게 해줍니다. 
 - 스프링은 "Plain Old Java Objects" (POJOs)에서 애플리케이션을 구축하고 엔터프라이즈 서비스를 POJO에 비침투적으로 적용할 수 있도록 해 줍니다.
+
+```
+경량 컨테이너 : 특정 인터페이서를 구현, 상속 받을 필요가 없어, 이미 존재하는 라이브러리 등을 지원하기에 용이하고 객체가 가볍다는 의미
+
+POJO : Plain Old Java Object, 간단히 POJO는 말 그대로 해석을 하면 오래된 방식의 간단한 자바 오브젝트라는 말로서 Java EE 등의 중량 프레임워크들을 사용하게 되면서 해당 프레임워크에 종속된 "무거운" 객체를 만들게 된 것에 반발해서 사용되게 된 용어이다. 2000년 9월에 마틴 파울러, 레베카 파슨, 조쉬 맥킨지 등이 사용하기 시작한 용어로서 마틴 파울러는 다음과 같이 그 기원을 밝히고 있다.
+```
 ```
 GPT
 
 스프링(Spring) 프레임워크는 자바 엔터프라이즈 개발을 편하게 해주는 오픈소스 경량급 애프리케이션 프레임워크입니다. 스프링은 IoC(Inversion of Control)와 DI(Dependency Injection)를 지원하여 객체 간의 결합도를 낮추고 유지보수성을 높일 수 있습니다. 또한 스프링은 AOP (Aspect Oriented Programming)를 지원해서, 핵심 로직과 부가적인 기능을 분리시켜서 개발할 수 있게 해줍니다. 따라서 스프링 프레임워크를 사용하면 비즈니스 로직에 집중하여 빠른 속도로 애플리케이션을 구현할 수 있습니다.
 ```
+## 주요 모듈
+- 제어 역전 컨테이너
+- 관점 지향 프로그래밍 프레임워크
+- 데이터 엑세스 프레임워크
+- 트랜잭션 관리 프레임워크
+- 모델 - 뷰- 컨트롤러 패턴
+- 배치 프레임워크
+- 스프링 부트
+
 ## 경량 컨테이너로서, Spring Bean 을 직접 관리한다.
 - Spring Bean 객체의 **라이프 사이클**을 관리한다.
   - Spring Bean : **Spring Container** 가 관리하는 중요 객체
@@ -514,7 +550,80 @@ public class XmlMain {
 
 ## Spring Bean 객체의 생명주기 설정
 - Java 객체의 생명 주기는?
+- Bean은 ApplicationContext내에선 Singleton 객체
 - Spring Bean 객체도 Java 객체이다.
+  - java에서 JVM에 의해 소멸되는 때, 실행이 완료되고, 콜스택에서 빠질때 사라진다.
+  ```java
+  //Bean의 탄생 ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext
+     try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml")) {
+          // 이름은 koreanGreeter, type은 Greeter.class
+            Greeter koreanGreeter = context.getBean("koreanGreeter", Greeter.class);
+            Greeter englishGreeter = context.getBean("englishGreeter", Greeter.class);
+            // 가져온 Bean에 저장된 메소드를 호출
+            koreanGreeter.sayHello();
+            englishGreeter.sayHello();
+        }
+  //Bean의 소멸
+  ```
+  ```java
+        Greeter koreanGreeter1 = context.getBean("koreanGreeter", Greeter.class);
+        Greeter koreanGreeter2 = context.getBean("koreanGreeter", Greeter.class);
+        // 객체의 이름은 다르지만 하나의 싱글톤 객체이다.
+  ```
+  ## 싱글톤 생성방법
+  - 자바 키워드
+  - DCL 방법
+  - 클래스 로더방법
+---
+## GPT 설명
+싱글톤 패턴은 애플리케이션에서 인스턴스를 하나만 생성하고, 이후에는 생성된 인스턴스를 계속해서 재사용하는 디자인 패턴입니다. 싱글톤 패턴을 사용하면 인스턴스를 여러 개 생성하지 않아 메모리 낭비를 줄일 수 있으며, 상태값 등의 공유가 필요한 경우 유용합니다.
+
+싱글톤 인스턴스를 생성하는 방법으로는 자바 키워드, DCL(Double Checked Locking) 방법, 클래스 로더 방법이 대표적입니다.
+
+- 자바 키워드 : private 생성자와 static 변수를 활용하여 인스턴스를 유일하게 관리합니다. 해당 클래스 내부에서만 인스턴스 생성이 가능하므로 외부에서는 인스턴스 생성을 못하도록 제어할 수 있습니다.
+```java
+public class Singleton {
+    private static Singleton instance = new Singleton();
+    private Singleton() { }
+    public static Singleton getInstance() {
+        return instance;
+    }
+}
+```
+
+- DCL 방법 : 멀티 스레드 환경에서 발생할 수 있는 문제점을 해결하기 위해 동기화(synchronized)를 적용한 방법입니다. 첫 번째 if 문으로 인스턴스가 null인지 검사하고, 두 번째 if 문에서 synchronized 블럭을 실행하여 인스턴스를 생성합니다. 해당 방법은 getInstance() 메서드 호출 시 동기화 처리가 발생하여 성능이 저하될 수 있습니다.
+```java
+public class Singleton {
+    private static volatile Singleton instance;
+    private Singleton() { }
+    public static Singleton getInstance() {
+        if (instance == null) {
+            synchronized (Singleton.class) {
+                if (instance == null) {
+                    instance = new Singleton();
+                }
+            }
+        }
+        return instance;
+    }
+}
+```
+
+- 클래스 로더 방법 : JVM의 클래스 로딩 메커니즘을 이용한 방법입니다. 클래스 로딩 시점에서 인스턴스를 생성하는데, JVM에서 보장되는 클래스 로더의 특성으로 인해 멀티 스레드 환경에서도 안전하게 인스턴스를 생성할 수 있습니다. 다만 해당 방법은 클래스 로딩 시점에 인스턴스를 생성하므로 메모리 낭비 문제가 발생할 수 있습니다.
+```java
+public class Singleton {
+    private static class SingletonHolder {
+        private static final Singleton INSTANCE = new Singleton();
+    }
+    private Singleton() { }
+    public static Singleton getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
+}
+```
+
+- 위와 같은 방식으로 싱글톤 패턴을 구현할 수 있지만, 이에 대한 단점으로는 테스트 코드 작성 등에 어려움이 따르며, 유연성과 확장성이 떨어지는 한계점이 존재합니다. 따라서 싱글톤 패턴 구현 전, 해당 패턴을 사용하기에 적합한지를 검토해보는 것이 좋습니다.
+---
 ## Bean Scope
 - singleton - default
 - prototype
@@ -524,3 +633,293 @@ public class XmlMain {
   - application - lifecycle of a ServletContext
   - websocket - lifecycle of a WebSocket
   - global session - portlet (dropped in spring 5)
+
+## Singleton vs Prototype
+- singleton
+<img src="../image/singleton.png"/>
+- prototype
+<img src="../image/prototype.png"/>
+
+## Bean Scope 시연 - Singleton, Prototype
+- feature/bean_scope
+- englishGretter는 Singleton으로 설정
+- koreanGretter는 Prototype으로 설정
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="englishGreeter" class="com.nhn.edu.springframework.ioc.helloworld.EnglishGreeter"  scope="singleton">
+    </bean>
+
+    <bean id="koreanGreeter" class="com.nhn.edu.springframework.ioc.helloworld.KoreanGreeter" scope="prototype">
+    </bean>
+
+</beans>
+```
+## Bean Scope 시연 -Singletone,Prototype
+- 각각의 빈 생성자에게 로그출력을 추가한다.
+- KoreanGreeter 구현
+```java
+package com.nhn.edu.springframework.ioc.helloworld;
+
+public class KoreanGreeter implements Greeter {
+
+    public KoreanGreeter() {
+        System.out.println("KoreanGreeter initiated!!");
+    }
+
+    @Override
+    public void sayHello() {
+        System.out.println("안녕 세상!");
+    }
+}
+
+```
+- EnglishGreeter 구현
+```java
+package com.nhn.edu.springframework.ioc.helloworld;
+
+public class EnglishGreeter implements Greeter {
+
+    public EnglishGreeter() {
+        System.out.println("EnglishGreeter initiated!!");
+    }
+
+    @Override
+    public void sayHello() {
+        System.out.println("Hello World!");
+    }
+}
+```
+## Bean Scope 시연 - Singleton, Prototype
+- Main 클래스에서 koreanGreeter, englishGreeter 를 각각 2회 호출한다.
+```java
+package com.nhnacademy.edu.springframework.greeting;
+
+import com.nhnacademy.edu.springframework.greeting.service.Greeter;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class ScopeMain {
+    public static void main(String[] args) {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml")) {
+
+            System.out.println("---------");
+            new GreetingService(context.getBean("koreanGreeter", Greeter.class)).greet();
+            System.out.println("---------");
+            new GreetingService(context.getBean("koreanGreeter", Greeter.class)).greet();
+            System.out.println("---------");
+            new GreetingService(context.getBean("englishGreeter", Greeter.class)).greet();
+            System.out.println("---------");
+            new GreetingService(context.getBean("englishGreeter", Greeter.class)).greet();
+            System.out.println("---------");
+        }
+    }
+}
+```
+- Prototype 으로 구성한 koreanGreeter 는 두번 생성자를 호출한다.
+```prompt
+// 싱글톤 빈인 EnglishGreeter는 ApplicationContext에 의해 빈이 생성될 때 생성되고
+EnglishGreeter initiated!!
+---------
+// 프로토타입 반은 생성할때마다 생성이 된다.
+KoreanGreeter initiated!!
+안녕 세상! 
+---------
+KoreanGreeter initiated!!
+안녕 세상! 
+---------
+Hello World!
+---------
+Hello World!
+---------
+```
+- 싱글톤 소멸 : 컨텍스트가 종료될때,
+- 프로토타입 소멸 : 레퍼런스가 끊길때
+
+## 객체의 생명주기 callbacks - 초기화
+- org.springframework.beans.factory.InitializingBean 인터페이스를 구현한 빈은 생성시에 초기화 작업을 수행할 수 있다.
+- InitializingBean 은 afterPropertiesSet() 이라는 단일 메서드를 가진다.
+```java
+    void afterPropertiesSet() throws Exception;
+```
+```java
+package com.nhn.edu.springframework.ioc.helloworld;
+
+import org.springframework.beans.factory.InitializingBean;
+
+public class EnglishGreeter implements Greeter, InitializingBean {
+
+    public EnglishGreeter() {
+        System.out.println("EnglishGreeter initiated!!");
+    }
+    
+    public void afterPropertiesSet() {
+        // do some initialization work
+    }
+    
+    @Override
+    public void sayHello() {
+        System.out.println("Hello World!");
+    }
+}
+```
+- 이 방식은 컴포넌트에 스프링프레임워크의 의존성이 발생함으로 권장하지 않는다.
+
+## 객체의 생명주기 callbacks - 초기화
+- XML 빈 설정에서 init-method 에 초기화 메서드 이름을 지정하여 초기화 작업을 등록할 수 있다.
+- 다시 생각해보자 IoC (흐름 제어의 역전!)
+```xml
+  <bean id="koreanGreeter" class="com.nhn.edu.springframework.ioc.helloworld.EnglishGreeter" init-method="init">
+```
+```java
+package com.nhn.edu.springframework.ioc.helloworld;
+
+public class EnglishGreeter implements Greeter {
+
+    public EnglishGreeter() {
+        System.out.println("EnglishGreeter initiated!!");
+    }
+    
+    public void init() {
+        System.out.println("EnglishGreeter init called!!");
+    }
+    
+    @Override
+    public void sayHello() {
+        System.out.println("Hello World!");
+    }
+}
+
+```
+## 객체의 생명주기 callbacks - 소멸
+- org.springframework.beans.factory.DisposableBean 인터페이스를 구현한 빈은 소멸시에 호출된다.
+- DisposableBean 은 destroy() 이라는 단일 메서드를 가진다.
+
+```java
+void destroy() throws Exception;
+```
+```java
+package com.nhn.edu.springframework.ioc.helloworld;
+
+import org.springframework.beans.factory.DisposableBean;
+
+public class EnglishGreeter implements Greeter, DisposableBean {
+
+    public EnglishGreeter() {
+        System.out.println("EnglishGreeter initiated!!");
+    }
+    
+    public void destroy() {
+        // do some destruction work (like releasing pooled connections)
+    }
+    
+    @Override
+    public void sayHello() {
+        System.out.println("Hello World!");
+    }
+}
+
+```
+- 이 방식은 컴포넌트에 스프링프레임워크의 의존성이 발생함으로 권장하지 않는다.
+
+## 객체의 생명주기 callbacks - 소멸
+- XML 빈 설정에서 init-method 에 초기화 메서드 이름을 지정하여 초기화 작업을 등록할 수 있다.
+```xml 
+<bean id="koreanGreeter" class="com.nhn.edu.springframework.ioc.helloworld.EnglishGreeter" destroy-method="cleanup">
+```
+
+```java
+package com.nhn.edu.springframework.ioc.helloworld;
+
+public class EnglishGreeter implements Greeter {
+
+    public EnglishGreeter() {
+        System.out.println("EnglishGreeter initiated!!");
+    }
+    
+    public void cleanup() {
+        System.out.println("EnglishGreeter cleanup called!!");
+    }
+    
+    @Override
+    public void sayHello() {
+        System.out.println("Hello World!");
+    }
+}
+```
+- 클린업 후 어플리케이션 
+- 프로토타입은 언제 호출되는지 명확하지 않음.
+## 객체의 생명주기 - 초기와 소멸 기본 callbacks
+- XML beans 설정에서 default-init-method 에 초기화 메서드 이름을 지정하여 기본 초기화 작업을 등록할 수 있다.
+- XML beans 설정에서 default-destroy-method 에 소멸 callback 메서드 이름을 지정하여 기본 소멸 처리 작업을 등록할 수 있다.
+```xml
+<beans default-init-method="init" default-destory-method="cleaup" >
+    <bean id="koreanGreeter" class="com.nhn.edu.springframework.ioc.helloworld.EnglishGreeter">
+</beans>    
+```
+
+## 객체의 생명주기 - BeanPostProcessor
+- 인터페이스
+- Spring IoC 의 생명주기 처리를 변경할 수 있는 확장 포인트
+- BeanPostProcesor 가 설정되면 Bean **생명주기 이벤트를 가로채서** 처리할 수 있다.
+## 구현 메소드
+- postPostBeforeInitialization : init-method 에 지정된 메서드가 호출되기 전에 호출된다.
+  - public void postPostBeforeInitialization(Object bean, String beanName)    
+  - 초기화 전에 호출된다.
+  - 모든 스프링 빈은 반드시 거친다.
+- postPostAfterInitialization : init-method 에 지정된 메서드가 호출된 후에 호출된다.
+  - public void postPostAfterInitialization(Object bean, String beanName)
+  - 초기화 후에 호출된다.
+- init-method 가 지정되어 있지 않더라도 자동으로 호출된다.
+
+
+## CAUSE
+```
+try-catch문은 종료가 안됨 try-with-resource문은 자동으로 종료가 됨.
+```
+
+
+## CHAT GPT
+```
+스레드풀(Thread Pool)은 미리 스레드를 생성해 두고, 작업이 들어오면 스레드를 할당하여 처리하는 방식입니다. 이를 통해 스레드를 반복적으로 생성하고 삭제하는 비용이 절감되며, 요청 처리 시간도 빨라집니다.
+
+
+스레드풀을 구현하는 방법은 다양하지만, 가장 간단한 방법은 ThreadPoolExecutor 클래스를 이용하는 것입니다. ThreadPoolExecutor 클래스를 사용하면 일정한 개수의 스레드를 유지하며, 작업이 들어오면 스레드를 할당하여 처리합니다.
+
+스프링은 대규모의 요청을 처리할 수 있는 웹 어플리케이션을 개발할 때 자주 사용되는 프레임워크인데, 이러한 어플리케이션에서 많은 요청을 처리하기 위해서는 많은 수의 스레드가 필요합니다.
+
+
+이때 스레드풀을 적절히 이용하면, 스레드 생성 및 삭제로 인한 비용이 절약되어 어플리케이션의 응답 속도가 빨라집니다. 또한, 스레드풀을 이용하면 일정한 개수의 스레드를 유지하여 메모리 사용량을 줄일 수 있습니다.
+
+
+개발자들은 스레드풀을 이용함으로써 보다 안정적인 웹 어플리케이션을 구현할 수 있으며, 관리자들은 스레드풀을 통해 서버의 효율성을 높일 수 있습니다. 또한 스레드풀을 적절히 설정함으로써 서버에서 발생할 수 있는 다양한 이슈들을 최소화할 수 있습니다.
+
+
+```
+---
+# 의존성
+## 의존성 정의
+- 코드에서 두 모듈간의 연결을 의존성이라고 합니다.
+- 객체지향언어에서 두 클래스간의 관게를 말하기도 합니다.
+
+## 의존성의 종류 - Dependency(의존 관계)
+- A 클래스가 B클래스를 일시적으로 참조하는 형태입니다.
+  - 인자로 받은 객체의 메서드 참조
+
+```plantuml.server
+@startuml -r
+class A {
+int add(B b)
+}
+class B{
+
+}
+A .> B
+@enduml
+```
+<!-- 의존당하는 빈, 의존 하는 빈 -->
+<!-- 자바 컨피그로 바꾸는 법 -->
