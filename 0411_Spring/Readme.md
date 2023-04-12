@@ -1211,4 +1211,15 @@ public class MainConfig {
 
 > @Autowired, @Qualifier 애너테이션.
 
->ApplicationContext 는 사용자가 생성한 스프링 빈 이외에도 프레임워크에서 제공하는 스프링 빈들도 있습니다.
+>ApplicationContext 는 사용자가 생성한 스프링 빈 이외에도 프레임워크에서 제공하는 스프링 빈들도 있습니다.'
+
+
+```
+Lifecycle
+- @PostConstruct
+- @PreDestory
+- BeanPostProcessor
+- Initializingbean, 
+
+
+```
