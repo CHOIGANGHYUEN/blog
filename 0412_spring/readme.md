@@ -645,7 +645,25 @@ public class AfterReturningExample {
     }
 }
 ```
+```
 
+```
+```
+조인 포인트가 정상적으로 작동할때
+스프링 aop 장점 
+런타임에 들어오는 인자, 리턴값 모두 참조가능
+after런타임 : 해당 메소드가 리턴하는 객체, 값을 참조할 수 있어야함
+
+값을 변경시키고싶을때, 값을 받아와야함
+Object retVal을 적어주면 됨.
+
+실행해야할 어드바이스에 인자로 넣어주면 됨.
+
+After Returning의 속성에 returning = "retVal"을 적고
+그걸 인자로 넣어줌
+
+Object retVal인 이유 : 많은 메소드를 잡기에 특정 타입만 명시해서 받을 수 없음
+```
 ### Advice - After Throwing Advice
 - Aspect 내에 조인포인트(메소드 실행) 에서 Exception 이 발생한 후에 실행을 위한 @AfterThrowing Advice 를 다음과 같이 선언합니다.
 
@@ -674,7 +692,9 @@ public class AfterThrowingExample {
     }
 }
 ```
-
+```
+오류 발생시에만 동작하는것
+```
 ### Advice - After (Finally) Advice
 - Aspect 내에 조인포인트(메소드 실행) 에서 종료될때 실행을 위한 @After Advice 를 다음과 같이 선언합니다.
 - try-catch 구문의 finally 구문과 유사하기 때문에 메소드 실행중에 exception이 발생하더라도 실행합니다.
@@ -689,12 +709,16 @@ public class AfterFinallyExample {
     }
 }
 ```
-
+```
+조인 포인트에서 종료할때 실행을 위한 애프털 어드바이스를 위처럼 선언
+Exception이 발생해도 실행
+```
 ### Advice - Around Advice
-메소드 실행의 전, 후에 advice를 실행할 수 있는 기회를 제공합니다.
-심지어 대상 메소드가 실행하거나 하지 않도록 제어할 수도 있습니다.
-Around Advice 는 Object 를 반환해야 하고 첫번째 인자는 ProceedingJoinPoint 이어야 합니다.
-ProceedingJoinPoint 의 proceed() 를 호출하면 타겟메소드가 실행됩니다.
+- 메소드 실행의 전, 후에 advice를 실행할 수 있는 기회를 제공합니다.
+- 심지어 대상 메소드가 실행하거나 하지 않도록 제어할 수도 있습니다.
+- Around Advice 는 Object 를 반환해야 하고 첫번째 인자는 ProceedingJoinPoint 이어야 합니다.
+- ProceedingJoinPoint 의 proceed() 를 호출하면 타겟메소드가 실행됩니다.
+```java
 @Aspect
 public class AroundExample {
 
@@ -706,14 +730,45 @@ public class AroundExample {
         return retVal;
     }
 }
+```
+```
+커버리지가 가장 높음
+반드시 정상적으로 컨트롤을 하기 위해선 Object와 ProceedingJoinPoint를 인자로 받아야함
+
+1. 어라운드를 잡음
+2. pjp.proceed()가 실행 되어야만
+3. businessService()를 실행 할 수있음
+4. proceed가 실행되고 retVal가 리턴되어야만 누군가가 ProceedingJoinPoint를 불러올 수 있다.
+```
 ### Advice - JoinPoint 활용하기
 - 모든 Advice 메소드에는 첫번째 인자로 JoinPoint 를 받을 수 있습니다. ( Around Advice 는 JoinPoint의 서브클래스인 ProceedingJoinPoint 를 반드시 사용해야 합니다.)
+
+```
+AFTERFINALLY에 첫번째 인자에 조인포인트를 적으면
+그 안에 조인포인트를 넣을 수 있다.
+```
 ### JoinPoint 의 메소드
 - getArgs() : 타겟 메소드의 인자
 - getThis() : 프록시 객체
 - getTarget() : 타겟 객체
 - getSignature() : 타겟 객체의 메소드 시그니쳐
 - toString() : 타겟 객체의 메소드 정보
+
+```
+조인포인트를 넣으면
+위의 5개를 할수 있다.
+- getArgs() : 타겟 메소드의 인자
+LoggingAspect.traceLog(JoinPoint jp){
+    //로기 시작지점 ㄹ
+    jp.getArgs()
+    mail.createMail(createMail얘는 시그니처)(...(타겟객체))
+    //로깅 종료지점
+}
+- getThis() : 프록시 객체
+- getTarget() : 타겟 객체
+- getSignature() : 타겟 객체의 메소드 시그니쳐
+- toString() : 타겟 객체의 메소드 정보
+```
 ### Advice - Advice에 파라미터 넘기기
 - args 포인트컷 지정자를 이용해서 Advice에 파라미터를 넘길 수 있습니다.
 ```java
@@ -725,6 +780,10 @@ public void validateAccount(Account account) {
 - args(account,..) 표현식은 두가지 의미를 내포합니다.
   - 1개 이상의 파라미터를 받는 메소드 실행에 매칭, 첫번째 인자는 Account 클래스의 인스턴스 이어야 합니다.
   - Account 객체는 Advice의 account 파라미터에 바인딩합니다.
+
+```
+args >> 첫번째 인자가 account 그 인자의 타입을 봄
+```
 ### Advice - Advice에 파라미터 넘기기
 - 포인트컷과 Advice 를 분리해서 선언하는 경우는 다음과 같이 설정할 수 있습니다.
 ```java
@@ -735,6 +794,9 @@ private void accountDataAccessOperation(Account account) {}
 public void validateAccount(Account account) {
     // ...
 }
+```
+```
+인자가 넘어온다
 ```
 ### Advice - Custom Annotation 매칭
 - Annotation 을 기준으로 매칭한 경우의 예제는 다음과 같습니다.
@@ -763,7 +825,9 @@ public interface Sample<T> {
     void sampleGenericCollectionMethod(Collection<T> param);
 }
 ```
-
+```
+Sample<T> 제네릭을 잡으려면 +키워드가 필요
+```
 - Advice의 파라미터의 타입으로 매칭을 제한할 수 있습니다.
 ```java
 @Before("execution(* ..Sample+.sampleGenericMethod(*)) && args(param)")
@@ -780,6 +844,10 @@ public void beforeSampleMethod(Collection<MyType> param) {
 }
 ```
 - 꼭! 해야 한다면 Advice의 파라미터 타입을 Collection<?> 으로 지정하고 Advice 내에서 검사할 수 있습니다.
+
+```
+특정 커스텀타입을 넣는건 불가능하다는 말
+```
 ### Advice - argNames 속성
 - 포인트컷 표현식에서 파라미터 이름으로 매칭하는 방법을 제공합니다.
 - @Pointcut 과 Advice 에는 모두 argNames 속성을 옵션으로 제공합니다.
@@ -802,6 +870,9 @@ public Object preProcessQueryPattern(ProceedingJoinPoint pjp,
     String newPattern = preProcess(accountHolderNamePattern);
     return pjp.proceed(new Object[] {newPattern});
 }
+```
+```
+
 ```
 ### Advice - Ordering
 - 같은 조인포인트에 여러 Advice 가 적용된다면 org.springframework.core.Ordered 를 implements 하거나 @Order 로 우선순위를 결정할 수 있습니다.
