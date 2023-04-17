@@ -1,7 +1,7 @@
-# Aspect Oriented Programming (AOP)
+# Aspect Oriented Programming (AOP🐡)
 ## AOP prologue
 ### 운영 요구사항
-- KoreanGreeter 의 실행속도를 로그로 남기려고 합니다.
+- KoreanGreeter 의 실행속도를 📄로그로 남기려고 합니다.
 - StopWatch 를 이용해서 다음과 같이 기록을 남겼습니다.
 ```java
 public class KoreanGreeter implements Greeter {
@@ -28,7 +28,7 @@ public class KoreanGreeter implements Greeter {
 
 ```
 ### 운영 요구사항 2
-- KoreanGreeter의 sayHello() 실행시간 로그를 남기고 보니 전체 Greeter의 성능을 확인할 필요가 있는 것으로 판단되어 EnglishGreeter에도 수행시간 로그를 남기기로 했습니다.
+- KoreanGreeter의 sayHello() 실행시간 📄로그를 남기고 보니 전체 Greeter의 성능을 확인할 필요가 있는 것으로 판단되어 EnglishGreeter에도 수행시간 📄로그를 남기기로 했습니다.
 ```java
 public class EnglishGreeter implements Greeter {
 
@@ -65,11 +65,11 @@ public class EnglishGreeter implements Greeter {
 불필요한 코드를 비즈니스 코드에 담기게 되는 문제가 발생.
 ```
 ## Aspect-Oriented Programming
-- 관점지향 프로그래밍
+- 관점지향 프📄로그래밍
 
 
 ## AOP
-- AOP란 프로그램 구조를 다른 방식으로 생각하게 함으로써 OOP를 보완합니다.
+- AOP란 프📄로그램 구조를 다른 방식으로 생각하게 함으로써 OOP를 보완합니다.
 - OOP에서 모듈화의 핵심단위는 클래스이지만 AOP에서 모듈화의 핵심단위는 관점(aspect)입니다.
 - 관점은 다양한 타입과 객체에 걸친 트랜잭션 관리같은 관심(concern)을 모듈화할 수 있게 합니다.
   - crosscutting concerns: 횡단 관심사
@@ -132,13 +132,25 @@ AOP는 Asspect
 ```
 
 ### AOP 주요 용어
+#### Chat Gpt Table
+| 용어            | 설명                                                                                     |
+|---------------|---------------------------------------------------------------------------------------|
+| Aspect        | 횡단 관심사를 모듈화한 클래스. Pointcut과 Advice의 조합으로 구성됨                              |
+| Join Point    | 프📄로그램 실행 중 특정 지점. Pointcut의 후보가 될 수 있음                                        |
+| Advice        | 부가 기능을 담은 모듈. 특정 Join Point에서 Aspect가 취하는 행동                                  |
+| 🔪Pointcut      | Advice를 적용할 Join Point를 선별하는 작업 또는 모듈                                          |
+| Target Object | 부가 기능을 부여할 대상 객체. 하나 이상의 Aspect로 advised된 객체                             |
+| AOP Proxy     | 클라이언트와 타겟 사이에 투명하게 존재하며 부가 기능을 제공하는 객체                              |
+| Advisor       | Pointcut과 Advice를 하나씩 갖고 있는 객체. 스프링 AOP에서만 사용됨                              |
+| Weaving       | 어플리케이션 타입이나 어드바이즈된 객체를 생성하는 객체와 관점을 연결하는 행위                    |
+
 - Aspect
   - 여러 클래스에 걸친 횡단 관심사의 모듈 (클래스)
   - 하나 이상의 Pointcut과 Advice의 조합으로 만들어지는 AOP의 기본 모듈
   - Spring framework 에서는 @Aspect 를 사용하거나 XML 에서 설정할 수 있습니다.
 - Join point
-  - 프로그램 실행 중의 어떤 포인트를 의미 (메소드 실행, Exception 처리 등)
-  - Pointcut 의 후보라고 생각할 수 있습니다.
+  - 프📄로그램 실행 중의 어떤 포인트를 의미 (메소드 실행, Exception 처리 등)
+  - 🔪Pointcut 의 후보라고 생각할 수 있습니다.
   - Spring AOP 에서는 메소드 실행만 대상입니다.
 
 
@@ -185,9 +197,9 @@ public interface JoinPoint {
   - 특정 Join Point에서 Aspect가 취하는 행동
   - Ex.) around, before, after
 
-- Pointcut
+- 🔪Pointcut
   - Advice를 적용할 Join Point를 선별하는 작업 또는 그 기능을 적용한 모듈
-  - Advice는 Pointcut 표현식과 연결되고 Pointcut이 매치한 Join Point에서 실행된다
+  - Advice는 🔪Pointcut 표현식과 연결되고 Pointcut이 매치한 Join Point에서 실행된다
 
 - Target object
   - 부가기능을 부여할 대상
@@ -230,7 +242,7 @@ LoggingAspect.traceLog(
     MailService.createMail()
     로깅 종료지점 로깅(시간측정종료)
 )
-Pointcut  Advce를 적용할 조인포인틀 선별 
+🔪Pointcut  Advce를 적용할 조인포인틀 선별 
 
 리턴타입이 유저인 모든 메소드를 선별하고싶다 = > 포인트컷 표현식으로 위치를 잡음
 
@@ -252,7 +264,7 @@ class $Proxy
 메서드 받는녀석 : 서버
 
 스프링에서 exception이 발생해서
-로그를 보면
+📄로그를 보면
 $Proxy라는 녀석을 볼 수 있음
 
 Advisor Aspect랑 거의 1대1로 매핑
@@ -340,8 +352,8 @@ aop 대상도 스프링 빈
 @Asspect  // 스프링 빈이어야 적용
 @Component // 스ㅡ프링 빈이어야해서 달아줌
 
-@Pointcut = > 실행하는 과정 execution ( * ~~)//public이든 뭐든 상관없다
-@Asspect랑 @Enable~~을 넣어주면 로그를 출력해줌
+@🔪Pointcut = > 실행하는 과정 execution ( * ~~)//public이든 뭐든 상관없다
+@Asspect랑 @Enable~~을 넣어주면 📄로그를 출력해줌
 ```
 
 ### AspectJ 사용 요약
@@ -360,7 +372,7 @@ aop 대상도 스프링 빈
 
 ```java
 
-@Pointcut("execution(* transfer(..))") // the pointcut expression
+@🔪Pointcut("execution(* transfer(..))") // the pointcut expression
 private void anyOldTransfer() {} // the pointcut signature
 
 ```
@@ -368,8 +380,24 @@ private void anyOldTransfer() {} // the pointcut signature
 
 
 - 위의 예제는 anyOldTransfer 가 포인트컷의 이름이고 모든 스프링 빈에서의 transfer 메소드 실행에 매칭이 됩니다.
-### 포인트컷 - Pointcut Designator
-- 스프링 AOP에서 지원하는 포인트컷 지정자 (Pointcut Desginator)
+### 포인트컷 - 🔪Pointcut Designator
+- 스프링 AOP에서 지원하는 포인트컷 지정자 (🔪Pointcut Desginator)
+
+| 포인트컷 지정자 | 설명                                                                                   |
+|--------------|--------------------------------------------------------------------------------------|
+| execution    | 메소드 실행 조인포인트와 매칭. 스프링 AOP의 주요 포인트컷 지정자입니다.                        |
+| within       | 주어진 타입(클래스)으로 조인 포인트 범위를 제한합니다.                                       |
+| this         | 주어진 타입을 구현한 스프링 AOP Proxy 객체에 매칭. 보통 Proxy 객체를 Advice 파라미터에 바인딩하는 용도로 사용됩니다. |
+| target       | 주어진 타입을 구현한 타겟 객체에 매칭. 보통 타겟 객체를 Advice 파라미터에 바인딩하는 용도로 사용됩니다. |
+| args         | 주어진 타입의 인수들을 이용해 매칭. 보통 메소드 인자를 Advice 파라미터에 바인딩하는 용도로 사용됩니다. |
+| @target      | 주어진 타입의 애너테이션을 가진 클래스의 인스턴스를 매칭합니다.                               |
+| @args        | 실제 인수의 런타임 타입이 주어진 타입의 애너테이션을 가질 경우 매칭합니다.                      |
+| @within      | 주어진 타입의 애너테이션을 타입들로 제한하여 매칭합니다.                                     |
+| @annotation  | 주어진 애너테이션을 가지고 있을 경우 매칭합니다.                                             |
+| bean         | 스프링 AOP에서 지원하는 추가적인 포인트컷 지정자로, 스프링 빈의 이름에 해당하는 메서드 실행을 매칭합니다. |
+
+
+
 
 ### execution
 - 메소드 실행 조인포인트와 매칭
@@ -429,19 +457,31 @@ this, target, args는 잘안씀
 
  의도적으로 감지 할 수 있게 하는게 필요
  ```
-### 포인트컷 - 조합
+ | 구분 | 예제 | 설명 |
+|----|----------------------------------------|------------------------------------------------------------------------|
+| 조합 | `@Pointcut("execution(public * *(..))")` | 모든 public 메소드에 대한 포인트컷 |
+| | `@Pointcut("within(com.xyz.myapp.trading..*)")` | com.xyz.myapp.trading 패키지 내의 메소드 실행에 대한 포인트컷 |
+| | `@Pointcut("anyPublicOperation() && inTrading()")` | com.xyz.myapp.trading 패키지 내의 public 메소드 실행에 대한 포인트컷 |
+| 공통 포인트컷 공유 | `@Pointcut("within(com.xyz.myapp.web..*)")` | com.xyz.myapp.web 패키지와 서브패키지(web layer)를 지정하는 포인트컷 |
+| | `@Pointcut("within(com.xyz.myapp.service..*)")` | com.xyz.myapp.service 패키지와 서브패키지(service layer)를 지정하는 포인트컷 |
+| | `@Pointcut("within(com.xyz.myapp.dao..*)")` | com.xyz.myapp.dao 패키지와 서브패키지(data access layer)를 지정하는 포인트컷 |
+| | `@Pointcut("execution(* com.xyz.myapp.service.*.*(..))")` | businessService 포인트컷 정의를 선언하는 포인트컷 |
+| | `@Pointcut("execution(* com.xyz.myapp.dao.*.*(..))")` | dataAccessOperation 포인트컷 정의를 선언하는 포인트컷 |
+
+
+ ### 포인트컷 - 조합
 - 포인트컷 표현식은 &&, ||, ! 으로 조합할 수 있습니다.
 ```java
 // anyPublicOperation 포인트컷은 모든 public 메소드 실행에 매칭 됩니다.
-@Pointcut("execution(public * *(..))") public *(어떤 타입) *(어떤 메소드)
+@🔪Pointcut("execution(public * *(..))") public *(어떤 타입) *(어떤 메소드)
 private void anyPublicOperation() {} 
 
 // inTrading 포인트컷은 com.xyz.myapp.trading 패키지 내의 메소드 실행에 매칭
-@Pointcut("within(com.xyz.myapp.trading..*)")(..* 하위 모든 경로를 포험)
+@🔪Pointcut("within(com.xyz.myapp.trading..*)")(..* 하위 모든 경로를 포험)
 private void inTrading() {} 
 
 // tradingOperation 포인트컷은 com.xyz.myapp.trading 패키지 내의 퍼블릭 메소드 실행에 매칭
-@Pointcut("anyPublicOperation() && inTrading()")
+@🔪Pointcut("anyPublicOperation() && inTrading()")
 private void tradingOperation() {} 
 ```
 ### 포인트컷 - 공통 포인트컷 공유
@@ -450,7 +490,7 @@ private void tradingOperation() {}
 package com.xyz.myapp;
 
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.🔪Pointcut;
 
 @Aspect
 public class CommonPointcuts {
@@ -459,21 +499,21 @@ public class CommonPointcuts {
      * com.xyz.myapp.web 패키지와 서브패키지(web layer)를 
      * 지정하는 포인트컷
      */
-    @Pointcut("within(com.xyz.myapp.web..*)")
+    @🔪Pointcut("within(com.xyz.myapp.web..*)")
     public void inWebLayer() {}
 
     /**
      * com.xyz.myapp.service 패키지와 서브패키지(service layer)를 
      * 지정하는 포인트컷
      */
-    @Pointcut("within(com.xyz.myapp.service..*)")
+    @🔪Pointcut("within(com.xyz.myapp.service..*)")
     public void inServiceLayer() {}
 
     /**
      * com.xyz.myapp.dao 패키지와 서브패키지(data access layer)를 
      * 지정하는 포인트컷
      */
-    @Pointcut("within(com.xyz.myapp.dao..*)")
+    @🔪Pointcut("within(com.xyz.myapp.dao..*)")
     public void inDataAccessLayer() {}
 
     /**
@@ -484,14 +524,14 @@ public class CommonPointcuts {
      * 
      * 만약 스프링빈 이름이 Service 로 항상 끝난다면 "bean(*Service)" 표현식을 사용할 수도 있습니다.
      */
-    @Pointcut("execution(* com.xyz.myapp.service.*.*(..))")
+    @🔪Pointcut("execution(* com.xyz.myapp.service.*.*(..))")
     public void businessService() {}
 
     /**
      * 아래 dataAccessOperation 포인트컷 정의는 Dao 인터페이스가 dao 패키지에 있고 
      * 구현체가 dao 패키지 하위에 포한된 것을 가정하고 선언되어 있습니다.
      */
-    @Pointcut("execution(* com.xyz.myapp.dao.*.*(..))")
+    @🔪Pointcut("execution(* com.xyz.myapp.dao.*.*(..))")
     public void dataAccessOperation() {}
 
 }
@@ -520,8 +560,16 @@ public class CommonPointcuts {
 
 > execution(modifiers-pattern? ret-type-pattern declaring-type-pattern?name-pattern(param-pattern) throws-pattern?)
 
-```
-```
+| 구성 요소                | 설명                                                      |
+|-----------------------|-----------------------------------------------------------|
+| execution             | 실행 중인 메소드에 대한 조인 포인트를 선택합니다.            |
+| modifiers-pattern?    | 선택적으로 메소드의 접근 제한자를 지정합니다. (예: public, private)  |
+| ret-type-pattern      | 반환 타입을 지정합니다. (예: *, void, java.lang.String)   |
+| declaring-type-pattern? | 선택적으로 메소드를 선언한 클래스 또는 인터페이스를 지정합니다.      |
+| name-pattern          | 메소드 이름 패턴을 지정합니다. (예: *, get*, find*)          |
+| param-pattern         | 메소드의 매개변수 패턴을 지정합니다. (예: (), (int, String)) |
+| throws-pattern?       | 선택적으로 메소드가 던지는 예외 패턴을 지정합니다.            |
+
 - 모든 public 메소드
 
 > execution(public * *(..))
@@ -592,6 +640,7 @@ MemberService클래스내의 모든 메소드
 | AfterReturning | sayHello()가 완전히 정상 종료한 후 실행하는 Advice |
 | Around | sayHello() 앞과 뒤에서 실행되는 Advice |
 | AfterThrowing | sayHello()에서 예외가 발생했을때 실행되는 Advice |
+
 <img src="../image/aop_advice.png
 "/>
 
@@ -787,7 +836,7 @@ args >> 첫번째 인자가 account 그 인자의 타입을 봄
 ### Advice - Advice에 파라미터 넘기기
 - 포인트컷과 Advice 를 분리해서 선언하는 경우는 다음과 같이 설정할 수 있습니다.
 ```java
-@Pointcut("com.xyz.myapp.CommonPointcuts.dataAccessOperation() && args(account,..)")
+@🔪Pointcut("com.xyz.myapp.CommonPointcuts.dataAccessOperation() && args(account,..)")
 private void accountDataAccessOperation(Account account) {}
 
 @Before("accountDataAccessOperation(account)")
@@ -850,7 +899,7 @@ public void beforeSampleMethod(Collection<MyType> param) {
 ```
 ### Advice - argNames 속성
 - 포인트컷 표현식에서 파라미터 이름으로 매칭하는 방법을 제공합니다.
-- @Pointcut 과 Advice 에는 모두 argNames 속성을 옵션으로 제공합니다.
+- @🔪Pointcut 과 Advice 에는 모두 argNames 속성을 옵션으로 제공합니다.
 ```java
 @Before(value="com.xyz.lib.Pointcuts.anyPublicMethod() && target(bean) && @annotation(auditable)",
         argNames="bean,auditable")
@@ -904,10 +953,10 @@ public class UsageTracking {
 ## AOP 시연
 
 ### 목표
-- sayHello() 메소드를 실행할때 소요시간을 측정하여 콘솔에 로그를 남기도록 수정합니다.
+- sayHello() 메소드를 실행할때 소요시간을 측정하여 콘솔에 📄로그를 남기도록 수정합니다.
 ### 과정
 - KoreanGreeter, EnglishGreeter 에서 소요시간 측정 코드를 삭제합니다.
-- 로그를 측정하는 Aspect 를 생성합니다. Pointcut 은 sayHello() 라는 이름을 가진 public 메소드가 실행할때로 설정합니다.
+- 📄로그를 측정하는 Aspect 를 생성합니다. 🔪Pointcut 은 sayHello() 라는 이름을 가진 public 메소드가 실행할때로 설정합니다.
 - Advice 는 around 를 사용하여 메소드 시작과 끝에서 시간을 측정합니다.
 ## AOP 실습
 - [[TODO]]
@@ -940,10 +989,10 @@ public class UsageTracking {
     ...
 </bean>
 ```
-### XML Pointcut 선언
-- aop:config 내부에 이름을 붙인 Pointcut 을 선언할 수 있습니다.
-- 이름을 붙인 Pointcut 은 aspect 와 advicor 에서 참조할 수 있습니다.
-- 아래 Pointcut 은 service layer 의 모든 메소드의 실행에 대해 적용됩니다.
+### XML 🔪Pointcut 선언
+- aop:config 내부에 이름을 붙인 🔪Pointcut 을 선언할 수 있습니다.
+- 이름을 붙인 🔪Pointcut 은 aspect 와 advicor 에서 참조할 수 있습니다.
+- 아래 🔪Pointcut 은 service layer 의 모든 메소드의 실행에 대해 적용됩니다.
 ```xml
 <aop:config>
 
@@ -952,14 +1001,14 @@ public class UsageTracking {
 
 </aop:config>
 ```
-### XML Pointcut 참조
+### XML 🔪Pointcut 참조
 - Java 설정인 @Aspect 에서 작성한 포인트컷도 XML 설정에서 참조할 수 있습니다.
 - package com.xyz.myapp;
 ```java
 @Aspect
 public class CommonPointcuts {
 
-    @Pointcut("execution(* com.xyz.myapp.service.*.*(..))")
+    @🔪Pointcut("execution(* com.xyz.myapp.service.*.*(..))")
     public void businessService() {}
 
 }
@@ -970,7 +1019,7 @@ public class CommonPointcuts {
         expression="com.xyz.myapp.CommonPointcuts.businessService()"/>
 </aop:config>
 ```
-### XML Pointcut 선언
+### XML 🔪Pointcut 선언
 - 포인트컷을 Aspect 내에 선언할 수 있습니다.
 ```xml
 <aop:config>
@@ -981,7 +1030,7 @@ public class CommonPointcuts {
     </aop:aspect>
 </aop:config>
 ```
-### XML Pointcut 선언 - 포인트컷 조합
+### XML 🔪Pointcut 선언 - 포인트컷 조합
 - @AspectJ와 비슷하게 조인포인트를 조합할 수 있습니다.
 - xml 문법상의 이유로 && 는 && 로 표기해야 합니다. xml 설정에서는 and, or, not 을 사용할 수 있습니다.
 ```xml
@@ -1317,7 +1366,10 @@ testAnnotation 실행
 test2
 testAnnotation 종료
 ```
-
+```
+testannotation을 포인트 컷을 썻다. 
+만약에 여러분들이 a서비스에 비즈니스 로직을 써놨다.
+```
 - 실제 아래와 같이 실행됩니다.
 ```prompt
 test1

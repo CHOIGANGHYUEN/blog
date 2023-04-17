@@ -93,7 +93,7 @@ public class A {
   
 
 ## Dependency Inversion Princlple
-<img src="../image/dip_hierarchy.png"/>
+<img src="../image/dip_hierarchy.png"/>      
 
 - 상위 모듈이 하위 모듈에 의존관계를 가지지 않도록 구현해야 합니다.
 - 추상클래스는 그 구현체의 내용에 의존관계를 가지지 않는다.
