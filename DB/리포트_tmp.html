@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>리포트.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p>{
+&quot;로그인&quot;: {
+&quot;아이디&quot;: &quot;&quot;,
+&quot;비밀번호&quot;: &quot;&quot;
+},
+&quot;출발공항선택&quot;: &quot;&quot;,
+&quot;도착공항선택&quot;: &quot;&quot;,
+&quot;출발일자선택&quot;: &quot;&quot;,
+&quot;도착일자선택&quot;: &quot;&quot;,
+&quot;가격정보&quot;: {
+&quot;출발일자&quot;: &quot;&quot;,
+&quot;도착일자&quot;: &quot;&quot;,
+&quot;가격&quot;: &quot;&quot;,
+&quot;좌석수&quot;: &quot;&quot;
+},
+&quot;결제방법&quot;: &quot;&quot;,
+&quot;나이대&quot;: {
+&quot;성인&quot;: 0,
+&quot;소아&quot;: 0,
+&quot;유아&quot;: 0
+}
+}</p>
+<p>나오후 9:05
+{
+&quot;promo_code&quot;: &quot;입력된 프로모션 코드&quot;,
+&quot;departure_time&quot;: &quot;나오후 9:06&quot;,
+&quot;arrival_time&quot;: &quot;이랑 출발날이랑 같다&quot;,
+&quot;duration&quot;: &quot;소요시간&quot;,
+&quot;flight_number&quot;: &quot;비행기번호&quot;,
+&quot;seats&quot;: [
+{
+&quot;type&quot;: &quot;flybag&quot;,
+&quot;rules&quot;: &quot;운행및 수수료규정&quot;,
+&quot;baggage_allowance&quot;: {
+&quot;carry_on&quot;: &quot;기내수하물 10kg제공&quot;,
+&quot;checked&quot;: &quot;위탁수하물 15kg제공&quot;
+},
+&quot;refresh_point&quot;: &quot;리프레시포인트 3250p 적립&quot;
+},
+{
+&quot;type&quot;: &quot;flybag&quot;,
+&quot;rules&quot;: &quot;운행및 수수료규정&quot;,
+&quot;baggage_allowance&quot;: {
+&quot;carry_on&quot;: &quot;기내수하물 10kg제공&quot;,
+&quot;checked&quot;: &quot;위탁수하물 15kg제공&quot;
+},
+&quot;refresh_point&quot;: &quot;리프레시포인트 3250p 적립&quot;
+},
+{
+&quot;type&quot;: &quot;flybag&quot;,
+&quot;rules&quot;: &quot;운행및 수수료규정&quot;,
+&quot;baggage_allowance&quot;: {
+&quot;carry_on&quot;: &quot;기내수하물 10kg제공&quot;,
+&quot;checked&quot;: &quot;위탁수하물 15kg제공&quot;
+},
+&quot;refresh_point&quot;: &quot;리프레시포인트 3250p 적립&quot;
+}
+],
+&quot;remaining_seats&quot;: &quot;잔여좌석&quot;
+}</p>
+<p>나오후 9:09
+번들선택 누르기 -&gt; (플러스, 프리미엄 플러스)
+나오후 9:10
+플러스
+30 퍼할인
+가격
+위탁수하물 및 6개 서비스포함
+위탁 수하물 +5kg
+일반 좌석 지정(세미프론트 / 앞/ 비상구옆 제외)
+기내식 사전 주문 할인
+빠른 짐 찾기
+우선탑승
+에어카페 할인
+나오후 9:13
+성인
+본인확인체크
+탑승객 정보(성,이름) 국적(여권) 생년월일(년 월 일)</p>
+<p>회원 할인(신규가입, 기업우대)</p>
+<p>대표 연락처 정보(전화번호, 이메일)
+이충희오후 9:14
+꼭 확인해 주세요.
+대한민국에 비자없이 입국이 가능한 외국인은 출발 72시간 전까지 www.k-eta.go.kr 또는 모바일앱(K-ETA)을 통해 K-ETA를 신청 및 발급 받은 후 입국이 가능합니다.
+탑승자명은 여권 및 신분증 정보와 동일하게 입력해 주세요.
+결제 이후 탑승자명을 변경할 수 없습니다.
+결제방식을 포인트로 선택시 로그인된 회원 본인이 직접 탑승해야 합니다.
+항공기에 탑승하기 위해 반드시 유효한 신분증을 소지해 주세요.
+유아가 좌석에 착석하는 경우 안전을 위해 기내용 안전의자(Car Seat)를 반드시 준비해주시기 바랍니다.</p>
+<ul>
+<li>안전의자는 기내 사용 가능 인증을 받은 제품에 한하여 사용이 가능합니다.
+도움이 필요한 탑승객(임산부, 휠체어 이용 고객 또는 지병이 있는 고객 등)은 체크인 카운터에서 탑승권 발급 시 직원에게 알려 주세요.
+나오후 9:14
+예상 결제금액
+이충희오후 9:14
+원하시는 좌석을 미리
+선택하세요
+선호하시는 좌석을 유료로 구매하시고 출발 당일 수속 시간을 절약하세요
+사전에 좌석을 미리 예약하지 않으시면 탑승 당일 상황에 따라 랜덤으로 좌석이 배정되며 동반 승객과 떨어진 좌석이 제공될 수 있습니다.</li>
+</ul>
+<p>지금 좌석을 선택하지 않으셔도 예약후 마이페이지를 통해 유료 좌석 구매가 가능하고, 탑승 24시간 전 부터 모바일 탑승권 발급시 무료 좌석 선택이 가능합니다.</p>
+<p>좌석 변경을 원하실 경우 24시간 전까지 취소 후 재구매 해주시기 바랍니다.
+노 16000. 보 11000 파 0
+나오후 9:16
+좌석 타입별 추가금액 노랑색(16000) 보라색 (11000) 파랑색 (0)
+이충희오후 9:16
+좌석 선택 시 유의사항
+ABC 또는 DEF 좌석당 1명의 유아만 배정될 수 있습니다.
+예) 10A 유아 배정 시 10B와 10C는 유아 배정 불가
+반려동물 동반 고객은 좌석배정이 제한될 수 있으니 고객센터로 문의해 주세요.
+교통약자 이용, 안전운항 또는 기타 예기치 못한 사유로 선택하신 좌석이 변동될 수 있습니다.
+모든 부가서비스 금액은 한국 출발일 경우에만 원화로 적용됩니다.
+이 외(대한민국 출발 외)의 경우 USD로 적용되며, 현지 통화(엔화, 위안화, 페소 등)는 USD 판매가 기준으로 변환됩니다.
+16,000
+11,000
+10,000
+6,000
+5,000
+3,000
+2,000
+이충희오후 9:17
+좌석 A01 ~ F32
+{
+&quot;additional_luggage&quot;:{
+&quot;20KG&quot;:{
+&quot;fare&quot;:0,
+&quot;description&quot;:&quot;운임 및 번들에 포함&quot;
+},
+&quot;25KG&quot;:{
+&quot;fare&quot;:30000,
+&quot;description&quot;:&quot;+5KG 총 25KG&quot;
+},
+&quot;30KG&quot;:{
+&quot;fare&quot;:60000,
+&quot;description&quot;:&quot;+10KG 총 30KG&quot;
+},
+&quot;35KG&quot;:{
+&quot;fare&quot;:90000,
+&quot;description&quot;:&quot;+15KG 총 35KG&quot;
+},
+&quot;40KG&quot;:{
+&quot;fare&quot;:120000,
+&quot;description&quot;:&quot;+20KG 총 40KG&quot;
+},
+&quot;sports_equipment&quot;:{
+&quot;fare&quot;:15000,
+&quot;description&quot;:&quot;자전거, 스키, 스노우보드, 서핑보드, 윈드서핑, 프리다이빙, 스쿠버다이빙&quot;
+}
+}
+}
+qew-bekg-aip</p>
+<p>{
+&quot;항목별 운임 상세&quot;: {
+&quot;항공 운송료&quot;: &quot;190,000 원&quot;,
+&quot;유류할증료&quot;: &quot;54,600 원&quot;,
+&quot;공항시설 사용료&quot;: &quot;54,200 원&quot;,
+&quot;부가서비스&quot;: {
+&quot;플러스&quot;: &quot;35,000 원&quot;,
+&quot;사전 좌석&quot;: &quot;16,000 원&quot;,
+&quot;여행보험&quot;: &quot;15,480 원&quot;
+},
+&quot;예상 결제금액&quot;: &quot;365,280 원&quot;
+},
+&quot;약관 및 규정 동의&quot;: {
+&quot;전체 동의&quot;: true,
+&quot;항공권 운임 규정 동의&quot;: true,
+&quot;국제선 여객운송 약관 동의&quot;: true,
+&quot;항공기 반입금지 위험물 확인&quot;: true,
+&quot;부가서비스 구매, 환불 규정 동의&quot;: true,
+&quot;단체(취급)여행보험 가입규약 동의&quot;: true,
+&quot;노선별 주의사항 확인 동의&quot;: true
+}
+}
+{
+&quot;탑승객별 운임 상세&quot;: [
+{
+&quot;이름&quot;: &quot;LEE&quot;,
+&quot;성&quot;: &quot;CHUNGHUI&quot;,
+&quot;가격&quot;: &quot;365,280 원&quot;,
+&quot;항공 운송료&quot;: &quot;190,000 원&quot;,
+&quot;유류할증료&quot;: &quot;54,600 원&quot;,
+&quot;공항시설 사용료&quot;: &quot;54,200 원&quot;,
+&quot;부가서비스 내역&quot;: [
+{
+&quot;서비스명&quot;: &quot;플러스&quot;,
+&quot;가격&quot;: &quot;35,000 원&quot;
+},
+{
+&quot;서비스명&quot;: &quot;사전 좌석&quot;,
+&quot;좌석번호&quot;: &quot;1C&quot;,
+&quot;가격&quot;: &quot;16,000 원&quot;
+},
+{
+&quot;서비스명&quot;: &quot;여행보험&quot;,
+&quot;가격&quot;: &quot;15,480 원&quot;
+}
+]
+}
+],
+&quot;총 결제금액&quot;: &quot;365,280 원&quot;,
+&quot;항공 운송료&quot;: &quot;298,800 원&quot;,
+&quot;부가서비스&quot;: &quot;66,480 원&quot;
+}
+{
+&quot;공항시설 사용료 안내&quot;: [
+{
+&quot;항목&quot;: &quot;*INTL PSC DEP TAX &amp; GLOBAL DISEASE ERADICATION(BP)&quot;,
+&quot;요금&quot;: &quot;28,000 원&quot;
+},
+{
+&quot;항목&quot;: &quot;PASSENGER SECURITY SERVICE CHARGE(OI)&quot;,
+&quot;요금&quot;: &quot;5,400 원&quot;
+},
+{
+&quot;항목&quot;: &quot;PASSENGER SERVICE FACILITIES CHARGE(SW)&quot;,
+&quot;요금&quot;: &quot;10,600 원&quot;
+},
+{
+&quot;항목&quot;: &quot;INTERNATIONAL TOURIST TAX(TK)&quot;,
+&quot;요금&quot;: &quot;10,200 원&quot;
+},
+{
+&quot;항목&quot;: &quot;총 합계&quot;,
+&quot;요금&quot;: &quot;54,200 원&quot;
+}
+],
+&quot;한국 출발 세금(BP)&quot;: [
+{
+&quot;항목&quot;: &quot;인천, 김포 공항&quot;,
+&quot;항공권 요금&quot;: &quot;17,000 원&quot;
+},
+{
+&quot;항목&quot;: &quot;기타 공항&quot;,
+&quot;항공권 요금&quot;: &quot;12,000 원&quot;
+},
+{
+&quot;항목&quot;: &quot;출국납부금&quot;,
+&quot;항공권 요금&quot;: &quot;10,000 원&quot;
+},
+{
+&quot;항목&quot;: &quot;국제 빈곤퇴치기여금&quot;,
+&quot;항공권 요금&quot;: &quot;1,000 원&quot;
+},
+{
+&quot;항목&quot;: &quot;총 합계&quot;,
+&quot;항공권 요금&quot;: &quot;28,000 원 (인천, 김포 공항), 23,000 원 (기타 공항)&quot;
+}
+],
+&quot;공항시설 사용료 변동 안내&quot;: &quot;공항시설 사용료는 선택하신 여정 종류에 따라 금액이 변동될 수 있습니다.&quot;
+}
+{
+&quot;운임 규정 및 일반 규정&quot;: {
+&quot;가는 편&quot;: {
+&quot;출발지&quot;: &quot;서울(인천)&quot;,
+&quot;도착지&quot;: &quot;도쿄(나리타)&quot;,
+&quot;운임종류&quot;: &quot;FLYBAG&quot;,
+&quot;위탁 수하물&quot;: &quot;15Kg&quot;,
+&quot;변경 수수료&quot;: {
+&quot;구매 다음날 ~ 출발 당일&quot;: &quot;40,000 원&quot;
+},
+&quot;취소 위약금&quot;: {
+&quot;구매 다음 날 ~ 출발 91일전&quot;: &quot;0 원&quot;,
+&quot;출발 90일 ~ 61일전&quot;: &quot;20,000 원&quot;,
+&quot;출발 60일 ~ 31일전&quot;: &quot;40,000 원&quot;,
+&quot;출발 30일 ~ 4일전&quot;: &quot;60,000 원&quot;,
+&quot;출발 3 ~1일전&quot;: &quot;80,000 원&quot;,
+&quot;출발 당일 ~ 출발 이후&quot;: &quot;120,000 원&quot;
+}
+},
+&quot;오는 편&quot;: {
+&quot;출발지&quot;: &quot;도쿄(나리타)&quot;,
+&quot;도착지&quot;: &quot;서울(인천)&quot;,
+&quot;운임종류&quot;: &quot;FLYBAG&quot;,
+&quot;위탁 수하물&quot;: &quot;15Kg&quot;,
+&quot;변경 수수료&quot;: {
+&quot;구매 다음날 ~ 출발 당일&quot;: &quot;40,000 원&quot;
+},
+&quot;취소 위약금&quot;: {
+&quot;구매 다음 날 ~ 출발 91일전&quot;: &quot;0 원&quot;,
+&quot;출발 90일 ~ 61일전&quot;: &quot;20,000 원&quot;,
+&quot;출발 60일 ~ 31일전&quot;: &quot;40,000 원&quot;,
+&quot;출발 30일 ~ 4일전&quot;: &quot;60,000 원&quot;
+}
+}
+},
+&quot;수수료 및 위약금&quot;: {
+&quot;운임종류&quot;: &quot;FLYBAG&quot;,
+&quot;위탁 수하물&quot;: &quot;15Kg&quot;,
+&quot;변경 수수료&quot;: {
+&quot;구매 다음날 ~ 출발 당일&quot;: &quot;40,000 원&quot;
+},
+&quot;취소 위약금&quot;: {
+&quot;구매 다음 날 ~ 출발 91일전&quot;: &quot;0 원&quot;,
+&quot;출발 90일 ~ 61일전&quot;: &quot;20,000 원&quot;,
+&quot;출발 60일 ~ 31일전&quot;: &quot;40,000 원&quot;,
+&quot;출발 30일 ~ 4일전&quot;: &quot;60,000 원&quot;,
+&quot;출발 3 ~1일전&quot;: &quot;80,000 원&quot;,
+&quot;출발 당일 ~ 출발 이후&quot;: &quot;120,000 원&quot;
+}
+}
+}</p>
+<p>{
+&quot;예상 결제금액&quot;: &quot;360,000 원&quot;,
+&quot;항공 운송료&quot;: {
+&quot;항공운임&quot;: &quot;190,000 원&quot;,
+&quot;유류할증료&quot;: &quot;54,600 원&quot;,
+&quot;공항시설 사용료&quot;: &quot;54,200 원&quot;
+},
+&quot;부가서비스&quot;: {
+&quot;프리미엄 플러스&quot;: &quot;50,200 원&quot;,
+&quot;좌석 선택&quot;: &quot;11,000 원&quot;
+},
+&quot;추가 안내&quot;: &quot;구매일 및 환율에 따라 차이가 있을 수 있으며, 일부 해외카드 결제수수료로 인해 실제 청구금액은 최종 결제금액과 다를 수 있습니다. 자세한 사항은 해당 카드사를 통해 확인하시기 바랍니다.&quot;,
+&quot;결제 방법&quot;: [
+&quot;빠른결제&quot;,
+&quot;제휴카드 안내&quot;,
+&quot;간편결제&quot;,
+&quot;카드 일반결제&quot;,
+&quot;해외카드 결제&quot;,
+&quot;계좌이체&quot;,
+&quot;이 결제수단을 다음에도 사용합니다.&quot;
+]
+}</p>
+<pre class="hljs"><code><div>{
+    &quot;항목별 운임 상세&quot;: {
+        &quot;항공 운송료&quot;: &quot;190,000 원&quot;,
+        &quot;유류할증료&quot;: &quot;54,600 원&quot;,
+        &quot;공항시설 사용료&quot;: &quot;54,200 원&quot;,
+        &quot;부가서비스&quot;: {
+            &quot;플러스&quot;: &quot;35,000 원&quot;,
+            &quot;사전 좌석&quot;: &quot;16,000 원&quot;,
+            &quot;여행보험&quot;: &quot;15,480 원&quot;
+        },
+        &quot;예상 결제금액&quot;: &quot;365,280 원&quot;
+    },
+    &quot;약관 및 규정 동의&quot;: {
+        &quot;전체 동의&quot;: true,
+        &quot;항공권 운임 규정 동의&quot;: true,
+        &quot;국제선 여객운송 약관 동의&quot;: true,
+        &quot;항공기 반입금지 위험물 확인&quot;: true,
+        &quot;부가서비스 구매, 환불 규정 동의&quot;: true,
+        &quot;단체(취급)여행보험 가입규약 동의&quot;: true,
+        &quot;노선별 주의사항 확인 동의&quot;: true
+    }
+}
+{
+    &quot;탑승객별 운임 상세&quot;: [
+        {
+            &quot;이름&quot;: &quot;LEE&quot;,
+            &quot;성&quot;: &quot;CHUNGHUI&quot;,
+            &quot;가격&quot;: &quot;365,280 원&quot;,
+            &quot;항공 운송료&quot;: &quot;190,000 원&quot;,
+            &quot;유류할증료&quot;: &quot;54,600 원&quot;,
+            &quot;공항시설 사용료&quot;: &quot;54,200 원&quot;,
+            &quot;부가서비스 내역&quot;: [
+                {
+                    &quot;서비스명&quot;: &quot;플러스&quot;,
+                    &quot;가격&quot;: &quot;35,000 원&quot;
+                },
+                {
+                    &quot;서비스명&quot;: &quot;사전 좌석&quot;,
+                    &quot;좌석번호&quot;: &quot;1C&quot;,
+                    &quot;가격&quot;: &quot;16,000 원&quot;
+                },
+                {
+                    &quot;서비스명&quot;: &quot;여행보험&quot;,
+                    &quot;가격&quot;: &quot;15,480 원&quot;
+                }
+            ]
+        }
+    ],
+    &quot;총 결제금액&quot;: &quot;365,280 원&quot;,
+    &quot;항공 운송료&quot;: &quot;298,800 원&quot;,
+    &quot;부가서비스&quot;: &quot;66,480 원&quot;
+}
+{
+    &quot;공항시설 사용료 안내&quot;: [
+        {
+            &quot;항목&quot;: &quot;*INTL PSC DEP TAX &amp; GLOBAL DISEASE ERADICATION(BP)&quot;,
+            &quot;요금&quot;: &quot;28,000 원&quot;
+        },
+        {
+            &quot;항목&quot;: &quot;PASSENGER SECURITY SERVICE CHARGE(OI)&quot;,
+            &quot;요금&quot;: &quot;5,400 원&quot;
+        },
+        {
+            &quot;항목&quot;: &quot;PASSENGER SERVICE FACILITIES CHARGE(SW)&quot;,
+            &quot;요금&quot;: &quot;10,600 원&quot;
+        },
+        {
+            &quot;항목&quot;: &quot;INTERNATIONAL TOURIST TAX(TK)&quot;,
+            &quot;요금&quot;: &quot;10,200 원&quot;
+        },
+        {
+            &quot;항목&quot;: &quot;총 합계&quot;,
+            &quot;요금&quot;: &quot;54,200 원&quot;
+        }
+    ],
+    &quot;한국 출발 세금(BP)&quot;: [
+        {
+            &quot;항목&quot;: &quot;인천, 김포 공항&quot;,
+            &quot;항공권 요금&quot;: &quot;17,000 원&quot;
+        },
+        {
+            &quot;항목&quot;: &quot;기타 공항&quot;,
+            &quot;항공권 요금&quot;: &quot;12,000 원&quot;
+        },
+        {
+            &quot;항목&quot;: &quot;출국납부금&quot;,
+            &quot;항공권 요금&quot;: &quot;10,000 원&quot;
+        },
+        {
+            &quot;항목&quot;: &quot;국제 빈곤퇴치기여금&quot;,
+            &quot;항공권 요금&quot;: &quot;1,000 원&quot;
+        },
+        {
+            &quot;항목&quot;: &quot;총 합계&quot;,
+            &quot;항공권 요금&quot;: &quot;28,000 원 (인천, 김포 공항), 23,000 원 (기타 공항)&quot;
+        }
+    ],
+    &quot;공항시설 사용료 변동 안내&quot;: &quot;공항시설 사용료는 선택하신 여정 종류에 따라 금액이 변동될 수 있습니다.&quot;
+}
+{
+    &quot;운임 규정 및 일반 규정&quot;: {
+        &quot;가는 편&quot;: {
+            &quot;출발지&quot;: &quot;서울(인천)&quot;,
+            &quot;도착지&quot;: &quot;도쿄(나리타)&quot;,
+            &quot;운임종류&quot;: &quot;FLYBAG&quot;,
+            &quot;위탁 수하물&quot;: &quot;15Kg&quot;,
+            &quot;변경 수수료&quot;: {
+                &quot;구매 다음날 ~ 출발 당일&quot;: &quot;40,000 원&quot;
+            },
+            &quot;취소 위약금&quot;: {
+                &quot;구매 다음 날 ~ 출발 91일전&quot;: &quot;0 원&quot;,
+                &quot;출발 90일 ~ 61일전&quot;: &quot;20,000 원&quot;,
+                &quot;출발 60일 ~ 31일전&quot;: &quot;40,000 원&quot;,
+                &quot;출발 30일 ~ 4일전&quot;: &quot;60,000 원&quot;,
+                &quot;출발 3 ~1일전&quot;: &quot;80,000 원&quot;,
+                &quot;출발 당일 ~ 출발 이후&quot;: &quot;120,000 원&quot;
+            }
+        },
+        &quot;오는 편&quot;: {
+            &quot;출발지&quot;: &quot;도쿄(나리타)&quot;,
+            &quot;도착지&quot;: &quot;서울(인천)&quot;,
+            &quot;운임종류&quot;: &quot;FLYBAG&quot;,
+            &quot;위탁 수하물&quot;: &quot;15Kg&quot;,
+            &quot;변경 수수료&quot;: {
+                &quot;구매 다음날 ~ 출발 당일&quot;: &quot;40,000 원&quot;
+            },
+            &quot;취소 위약금&quot;: {
+                &quot;구매 다음 날 ~ 출발 91일전&quot;: &quot;0 원&quot;,
+                &quot;출발 90일 ~ 61일전&quot;: &quot;20,000 원&quot;,
+                &quot;출발 60일 ~ 31일전&quot;: &quot;40,000 원&quot;,
+                &quot;출발 30일 ~ 4일전&quot;: &quot;60,000 원&quot;
+            }
+        }
+    },
+    &quot;수수료 및 위약금&quot;: {
+        &quot;운임종류&quot;: &quot;FLYBAG&quot;,
+        &quot;위탁 수하물&quot;: &quot;15Kg&quot;,
+        &quot;변경 수수료&quot;: {
+            &quot;구매 다음날 ~ 출발 당일&quot;: &quot;40,000 원&quot;
+        },
+        &quot;취소 위약금&quot;: {
+            &quot;구매 다음 날 ~ 출발 91일전&quot;: &quot;0 원&quot;,
+            &quot;출발 90일 ~ 61일전&quot;: &quot;20,000 원&quot;,
+            &quot;출발 60일 ~ 31일전&quot;: &quot;40,000 원&quot;,
+            &quot;출발 30일 ~ 4일전&quot;: &quot;60,000 원&quot;,
+            &quot;출발 3 ~1일전&quot;: &quot;80,000 원&quot;,
+            &quot;출발 당일 ~ 출발 이후&quot;: &quot;120,000 원&quot;
+        }
+    }
+}
+
+
+
+</div></code></pre>
+<p>ticket_id
+int AI PK
+seat_number
+varchar(45)
+ticket_price
+decimal(10,2)
+seg_id
+int
+fare_id
+int
+SEG_seg_id
+int
+SEG_pnr_id
+int
+flight_id
+int
+customer_id
+int
+product_id
+int</p>
+
+</body>
+</html>

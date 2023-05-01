@@ -1,4 +1,10 @@
 # [RequestBody, ModelAttribute, RequestParam](https://mangkyu.tistory.com/72)
+## 목차
+  - [RequestBody, ModelAttribute, RequestParam이란?](#requestbody-modelattribute-requestparam이란)
+  - [RequestBody, ModelAttribute, RequestParam 활용 예시](#requestbody-modelattribute-requestparam-활용-예시)
+    - [Model 객체](#model-객체)
+    - [Spring에서 활용 예시](#spring에서-활용-예시)
+
 ## RequestBody, ModelAttribute, RequestParam이란?
 - @RequestParam
     - 1개의 HTTP 요청 파라미터를 받기 위해 사용
@@ -16,7 +22,7 @@
     - 내부적으로 Reflection을 사용
     - 그래서 반드시 @Setter가 필요한 것은 아닌데, @Getter나 @Setter 혹은 @JsonInclude 등 필드에 있는 변수들의 이름을 찾기 위한 메소드들을 필요로 한다. 그러므로 기본생성자 + @Getter로 클래스를 구현해주면 @Setter가 없어도 값이 바인딩된다.
 - @ModelAttribute
-  - 클라이언트가 전송하는 form(multipart/form-data) 형태의 HTTP body 요청 파라미터들을 생성자나 Setter로 바인딩하기 위해 사용
+  - 클라이언트가 전송하는 form() 형태의 HTTP body 요청 파라미터들을 생성자나 Setter로 바인딩하기 위해 사용
   - 파라미터 타입과 객체타입이 일치하는지 검증작업이 진행
   - @ModelAttribute('writer') String writer {writer:"최강현"}
   - ModelAttribute 동작과정
