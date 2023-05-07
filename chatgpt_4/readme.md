@@ -675,6 +675,7 @@ public class ManagementUserController implements ControllerBase {
     return "userRegist";
   }
 }
+```java
 package com.nhnacademy.springboard.spirngmvcboard.controller;
 
 import com.nhnacademy.springboard.spirngmvcboard.domain.Board;
@@ -696,45 +697,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-  @RequestMapping("/board")
-  public class PostController implements  ControllerBase{
+@RequestMapping("/board")
+public class PostController implements ControllerBase {
 
-    private final PostService postService;
-    private final BoardService boardService;
-    private final UserService userService ;
-    public PostController(PostService postService, BoardService boardService, UserService userService) {
-      this.postService = postService;
-      this.boardService = boardService;
-    this.userService  = userService;
+  private final PostService postService;
+  private final BoardService boardService;
+  private final UserService userService;
+
+  public PostController(PostService postService, BoardService boardService, UserService userService) {
+    this.postService = postService;
+    this.boardService = boardService;
+    this.userService = userService;
+  }
+
+  @GetMapping("/{boardId}/post/{postId}")
+  public String viewPost(@PathVariable("boardId") Long boardId, @PathVariable("postId") Long postId, Model model) {
+    Post post = postService.findById(postId);
+    if (post == null) {
+      try {
+        throw new NotFoundException("Post not found with id " + postId);
+      } catch (NotFoundException e) {
+        throw new RuntimeException(e);
+      }
     }
 
-    @GetMapping("/{boardId}/post/{postId}")
-    public String viewPost(@PathVariable("boardId") Long boardId, @PathVariable("postId") Long postId, Model model) {
-      Post post = postService.findById(postId);
-      User author = userService.findById(post.getAuthor().getId());
-      post.setAuthor(author);
+    User author = userService.findById(post.getAuthor().getId());
+    post.setAuthor(author);
 
-      if (post == null) {
-
-        try {
-          throw new NotFoundException("Post not found with id " + postId);
-        } catch (NotFoundException e) {
-          throw new RuntimeException(e);
-        }
+    Board board = boardService.findById(boardId);
+    if (board == null) {
+      try {
+        throw new NotFoundException("Board not found with id " + boardId);
+      } catch (NotFoundException e) {
+        throw new RuntimeException(e);
       }
-      Board board = boardService.findById(boardId);
-      post.setBoard(board);
-      if (board == null) {
-        try {
-          throw new NotFoundException("Board not found with id " + boardId);
-        } catch (NotFoundException e) {
-          throw new RuntimeException(e);
-        }
-      }
-      model.addAttribute("board", board);
-      model.addAttribute("post", post);
-      return "board/post";
     }
+
+    post.setBoard(board);
+    model.addAttribute("board", board);
+    model.addAttribute("post", post);
+    return "board/post";
+  }
 
   @GetMapping("/{boardId}/post/{postId}/edit")
   public String showEditForm(@PathVariable("boardId") Long boardId, @PathVariable("postId") Long postId, Model model, HttpSession session) {
@@ -763,7 +766,7 @@ import org.springframework.web.bind.annotation.RequestParam;
     if (loginUser != null && post.getAuthor().getId().equals(loginUser.getId())) {
       post.setTitle(updatedPost.getTitle());
       post.setContent(updatedPost.getContent());
-      postService.save(post);
+      postService.update(post);
       return "redirect:/board/" + boardId + "/post/" + postId;
     } else {
       try {
@@ -793,6 +796,8 @@ import org.springframework.web.bind.annotation.RequestParam;
   }
 
 }
+
+```
 
 package com.nhnacademy.springboard.spirngmvcboard.controller;
 
