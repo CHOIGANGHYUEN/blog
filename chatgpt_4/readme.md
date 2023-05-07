@@ -1880,37 +1880,7 @@ body {
   text-decoration: underline;
 }
 
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>게시물 수정</title>
-  <link rel="stylesheet" th:href="@{/resources/style.css}" type="text/css" />
-</head>
-<body>
-<div id="wrapper">
-  <h1>게시물 수정</h1>
-  <form th:method="POST" th:action="@{/board/{boardId}/post/{postId}/edit(boardId=${post.board.id}, postId=${post.id})}" th:object="${post}" class="post-form">
-    <div class="input-group">
-      <label for="input-title" class="input-label">제목 :</label>
-      <input name="title" type="text" th:value="${post.title}" placeholder="제목을 입력하세요." required id="input-title">
-    </div>
-
-    <div class="input-group">
-      <label for="input-content" class="input-label">내용 :</label>
-      <textarea name="content" rows="10" placeholder="내용을 입력하세요." required id="input-content" th:text="${post.content}"></textarea>
-    </div>
-
-    <button type="submit" id="submit-btn">수정</button>
-  </form>
-
-  <!-- 에러 메시지 출력 부분 -->
-  <div th:if="${errorMessage}" class="alert alert-danger mt-3" role="alert">
-    <span th:text="${errorMessage}">Error message goes here</span>
-  </div>
-</div>
-</body>
-</html>
+```html
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -1949,7 +1919,10 @@ body {
 
 <!-- 현재 로그인한 유저가 작성한 글인 경우에만 수정/삭제 버튼을 보여줌 -->
 <div th:if="${session.user != null and session.user.id == post.author.id}">
-  <a class="link" th:href="@{/board/{boardId}/modifyPost(postId=${post.id}, boardId=${board.id})}" th:text="수정"></a>
+  <a th:href="@{/board/{boardId}/post/{postId}/edit(boardId=${board.id}, postId=${post.id})}">
+    <button>수정</button>
+  </a>
+
   <form th:action="@{/board/{boardId}/deletePost(postId=${post.id}, boardId=${board.id})}" method="POST">
     <button type="submit">삭제</button>
   </form>
@@ -1957,6 +1930,8 @@ body {
 
 </body>
 </html>
+
+```
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>

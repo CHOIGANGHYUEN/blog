@@ -2005,80 +2005,57 @@ color: #3498db;
 <p>.board-list a:hover {
 text-decoration: underline;
 }</p>
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>&#xAC8C;&#xC2DC;&#xBB3C; &#xC218;&#xC815;</title>
-  <link rel="stylesheet" th:href="@{/resources/style.css}" type="text/css">
-</head>
-<body>
-<div id="wrapper">
-  <h1>&#xAC8C;&#xC2DC;&#xBB3C; &#xC218;&#xC815;</h1>
-  <form th:method="POST" th:action="@{/board/{boardId}/post/{postId}/edit(boardId=${post.board.id}, postId=${post.id})}" th:object="${post}" class="post-form">
-    <div class="input-group">
-      <label for="input-title" class="input-label">&#xC81C;&#xBAA9; :</label>
-      <input name="title" type="text" th:value="${post.title}" placeholder="&#xC81C;&#xBAA9;&#xC744; &#xC785;&#xB825;&#xD558;&#xC138;&#xC694;." required id="input-title">
-    </div>
-</form></div></body></html><pre><code>&lt;div class=&quot;input-group&quot;&gt;
-  &lt;label for=&quot;input-content&quot; class=&quot;input-label&quot;&gt;내용 :&lt;/label&gt;
-  &lt;textarea name=&quot;content&quot; rows=&quot;10&quot; placeholder=&quot;내용을 입력하세요.&quot; required id=&quot;input-content&quot; th:text=&quot;${post.content}&quot;&gt;&lt;/textarea&gt;
-&lt;/div&gt;
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">"http://www.thymeleaf.org"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>게시물 상세보기<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>게시물 상세보기<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>게시물 ID<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${post.id}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>게시판 ID<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${post.board.name}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>제목<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${post.title}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>작성자<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${post.author.username}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>내용<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${post.content}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>작성일시<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${post.createdAt}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"link"</span> <span class="hljs-attr">th:href</span>=<span class="hljs-string">"@{/board/{boardId}(boardId=${board.id})}"</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"돌아가기"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
 
-&lt;button type=&quot;submit&quot; id=&quot;submit-btn&quot;&gt;수정&lt;/button&gt;
-</code></pre>
-  
-  <!-- 에러 메시지 출력 부분 -->
-  <div th:if="${errorMessage}" class="alert alert-danger mt-3" role="alert">
-    <span th:text="${errorMessage}">Error message goes here</span>
-  </div>
+<span class="hljs-comment">&lt;!-- 현재 로그인한 유저가 작성한 글인 경우에만 수정/삭제 버튼을 보여줌 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">th:if</span>=<span class="hljs-string">"${session.user != null and session.user.id == post.author.id}"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">th:href</span>=<span class="hljs-string">"@{/board/{boardId}/post/{postId}/edit(boardId=${board.id}, postId=${post.id})}"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>수정<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
 
+  <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">th:action</span>=<span class="hljs-string">"@{/board/{boardId}/deletePost(postId=${post.id}, boardId=${board.id})}"</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"POST"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>&gt;</span>삭제<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>&#xAC8C;&#xC2DC;&#xBB3C; &#xC0C1;&#xC138;&#xBCF4;&#xAE30;</title>
-</head>
-<body>
-<h1>&#xAC8C;&#xC2DC;&#xBB3C; &#xC0C1;&#xC138;&#xBCF4;&#xAE30;</h1>
-<table>
-  <tr>
-    <th>&#xAC8C;&#xC2DC;&#xBB3C; ID</th>
-    <td th:text="${post.id}"></td>
-  </tr>
-  <tr>
-    <th>&#xAC8C;&#xC2DC;&#xD310; ID</th>
-    <td th:text="${post.board.name}"></td>
-  </tr>
-  <tr>
-    <th>&#xC81C;&#xBAA9;</th>
-    <td th:text="${post.title}"></td>
-  </tr>
-  <tr>
-    <th>&#xC791;&#xC131;&#xC790;</th>
-    <td th:text="${post.author.username}"></td>
-  </tr>
-  <tr>
-    <th>&#xB0B4;&#xC6A9;</th>
-    <td th:text="${post.content}"></td>
-  </tr>
-  <tr>
-    <th>&#xC791;&#xC131;&#xC77C;&#xC2DC;</th>
-    <td th:text="${post.createdAt}"></td>
-  </tr>
-</table>
-<a class="link" th:href="@{/board/{boardId}(boardId=${board.id})}" th:text="&#xB3CC;&#xC544;&#xAC00;&#xAE30;"></a>
-</body></html><!-- 현재 로그인한 유저가 작성한 글인 경우에만 수정/삭제 버튼을 보여줌 -->
-<div th:if="${session.user != null and session.user.id == post.author.id}">
-  <a class="link" th:href="@{/board/{boardId}/modifyPost(postId=${post.id}, boardId=${board.id})}" th:text="&#xC218;&#xC815;"></a>
-  <form th:action="@{/board/{boardId}/deletePost(postId=${post.id}, boardId=${board.id})}" method="POST">
-    <button type="submit">&#xC0AD;&#xC81C;</button>
-  </form>
-</div>
-
-
+</div></code></pre>
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
