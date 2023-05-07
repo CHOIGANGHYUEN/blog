@@ -166,7 +166,6 @@ public class DataBaseProperties {
 
 package com.nhnacademy.springboard.spirngmvcboard.config;
 
-
 import javax.sql.DataSource;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -241,14 +240,12 @@ public class RootConfig {
     return resourceBundleMessageSource;
   }
 
-
   @Bean
   public MapperScannerConfigurer mapperScannerConfigurer() {
     MapperScannerConfigurer configurer = new MapperScannerConfigurer();
     configurer.setBasePackage("com.nhnacademy.springboard.spirngmvcboard.mapper");
     return configurer;
   }
-
 
 }package com.nhnacademy.springboard.spirngmvcboard.config;
 
@@ -390,7 +387,6 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware , Me
         .addResolver(new PathResourceResolver());
   }
 
-
   @Override
   public void configureViewResolvers(ViewResolverRegistry registry) {
     registry.viewResolver(thymeleafViewResolver());
@@ -447,7 +443,6 @@ public class BoardController implements ControllerBase {
     log.info("posts={}", posts);
     return "board/posts";
   }
-
 
   @PostMapping("/{boardId}/write")
   public String createPost(@ModelAttribute Post post, HttpSession session, @PathVariable Long boardId) { // 수정
@@ -544,8 +539,6 @@ public class LoginController implements ControllerBase {
       return "login/loginForm";
     }
   }
-
-
 
   @GetMapping("/logout")
   public String doLogout(HttpServletRequest request, HttpServletResponse response) {
@@ -743,7 +736,6 @@ import org.springframework.web.bind.annotation.RequestParam;
       return "board/post";
     }
 
-
   @GetMapping("/{boardId}/post/{postId}/edit")
   public String showEditForm(@PathVariable("boardId") Long boardId, @PathVariable("postId") Long postId, Model model, HttpSession session) {
     User user = (User) session.getAttribute("user");
@@ -800,13 +792,7 @@ import org.springframework.web.bind.annotation.RequestParam;
     }
   }
 
-
-
-
-
-
 }
-
 
 package com.nhnacademy.springboard.spirngmvcboard.controller;
 
@@ -877,8 +863,6 @@ public class Board {
       this.name = name;
       this.description = description;
     }
-
-
 
   }
 
@@ -1012,8 +996,6 @@ public class User {
     this.birthDate = birthDate;
   }
 
-
-
 }
 package com.nhnacademy.springboard.spirngmvcboard.init;
 
@@ -1050,7 +1032,6 @@ public class DatabaseInitializer {
     this.postMapper = postMapper;
     this.userMapper = userMapper;
   }
-
 
   @Bean
   public void initializeDatabase() {
@@ -1149,7 +1130,6 @@ public interface PostMapper {
 
   Post findById(Long id);
 
-
   void update(Post post);
 
   void delete(Long id);
@@ -1206,8 +1186,6 @@ public class BoardServiceyImpl implements BoardService {
   public Board findById(Long id) {
     return boardMapper.findById(id);
   }
-
-
 
   @Override
   public void update(Board board) {
@@ -1398,7 +1376,6 @@ import org.springframework.stereotype.Service;
 public class LoginService {
   private final UserMapper userMapper;
 
-
   public boolean isValidate(LoginRequest loginRequest) {
     User user = userMapper.findByUseremail(loginRequest.getEmail());
     boolean result = user != null && user.getPassword().equals(loginRequest.getPwd());
@@ -1479,7 +1456,6 @@ public class CustomTagDialet extends AbstractDialect implements IExpressionObjec
 }
 package com.nhnacademy.springboard.spirngmvcboard.thymeleaf;
 
-
 import com.nhnacademy.springboard.spirngmvcboard.domain.Gender;
 
 //todo#14 thymeleaf에서 사용할 custom 함수, M or F 받아서 남성 or 여성을 리턴하는 함수
@@ -1545,8 +1521,6 @@ public interface Base {
   </select>
 </mapper>
 
-
-
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -1561,7 +1535,6 @@ public interface Base {
   <select id="findById" parameterType="Long" resultMap="postWithAuthorAndBoard">
     SELECT * FROM post WHERE id=#{id}
   </select>
-
 
   <update id="update" parameterType="com.nhnacademy.springboard.spirngmvcboard.domain.Post">
     UPDATE post SET title=#{title}, content=#{content}, updated_at=NOW(), author_id=#{author.id}, board_id=#{board.id} WHERE id=#{id}
@@ -1641,14 +1614,14 @@ public interface Base {
   </select>
 
   <select id="findByUsername" parameterType="string" resultType="com.nhnacademy.springboard.spirngmvcboard.domain.User">
-    SELECT * FROM User WHERE username = #{username}
+    SELECT *FROM User WHERE username = #{username}
   </select>
   <select id="findByUseremail"
     resultType="com.nhnacademy.springboard.spirngmvcboard.domain.User">
-    SELECT * FROM User WHERE email=#{email}
+SELECT* FROM User WHERE email=#{email}
   </select>
 </mapper>
-/* 공통 스타일 */
+/*공통 스타일*/
 body {
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
@@ -1680,7 +1653,7 @@ body {
   gap: 20px;
 }
 
-/* 로그인 정보 스타일 */
+/*로그인 정보 스타일*/
 .login-info {
   display: flex;
   justify-content: space-between;
@@ -1701,7 +1674,7 @@ body {
   display: inline;
 }
 
-/* 메인 페이지 스타일 */
+/*메인 페이지 스타일*/
 .main-title {
   text-align: center;
   margin-bottom: 30px;
@@ -1721,7 +1694,7 @@ body {
   margin-right: 10px;
 }
 
-/* 유저 리스트 페이지 스타일 */
+/*유저 리스트 페이지 스타일*/
 .user-row:hover {
   background-color: #f8f9fa;
 }
@@ -1741,7 +1714,7 @@ body {
   margin-left: 15px;
 }
 
-/* 로그인 및 회원가입 페이지 스타일 */
+/*로그인 및 회원가입 페이지 스타일*/
 .form {
   width: 300px;
   margin: 50px auto;
@@ -1769,7 +1742,7 @@ body {
   margin-top: 10px;
 }
 
-/* 유저 리스트 페이지 스타일 */
+/*유저 리스트 페이지 스타일*/
 .user-list-title {
   text-align: center;
   margin-bottom: 30px;
@@ -1792,8 +1765,8 @@ body {
   color: #fff;
 }
 
-/* 추가 및 수정된 스타일 코드 */
-#wrapper {
+/*추가 및 수정된 스타일 코드*/
+# wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1863,7 +1836,7 @@ body {
 .form button:active {
   transform: translateY(2px);
 }
-/* 게시판 목록 스타일 */
+/*게시판 목록 스타일*/
 .board-list {
   display: flex;
   flex-direction: column;
@@ -1932,6 +1905,7 @@ body {
 </html>
 
 ```
+
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -1972,7 +1946,6 @@ body {
   <div th:if="${session.user != null}">
     <a th:href="@{/board/{boardId}/write(boardId=${board.id})}" class="btn write-btn">글쓰기</a>
   </div>
-
 
 </div>
 </body>
