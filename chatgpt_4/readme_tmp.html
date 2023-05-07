@@ -376,7 +376,7 @@ src/main/java/com/nhnacademy/springboard/spirngmvcboard/controller/ControllerBas
 src/main/java/com/nhnacademy/springboard/spirngmvcboard/controller/LoginController.java
 src/main/java/com/nhnacademy/springboard/spirngmvcboard/controller/MainController.java
 src/main/java/com/nhnacademy/springboard/spirngmvcboard/controller/ManagementUserController.java
-src/main/java/com/nhnacademy/springboard/spirngmvcboard/controller/PostController.java
+src/main/java/com/nhnacademy/springboard/spirngmvcboard/controller/<code>PostController</code>.java
 src/main/java/com/nhnacademy/springboard/spirngmvcboard/controller/RegistController.java
 src/main/java/com/nhnacademy/springboard/spirngmvcboard/domain/Board.java
 src/main/java/com/nhnacademy/springboard/spirngmvcboard/domain/Domain.java
@@ -1003,13 +1003,13 @@ return &quot;userRegist&quot;;
 
 <span class="hljs-meta">@Controller</span>
 <span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">"/board"</span>)
-<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PostController</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ControllerBase</span> </span>{
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> ```<span class="hljs-title">PostController</span>``` <span class="hljs-keyword">implements</span> <span class="hljs-title">ControllerBase</span> </span>{
 
   <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> PostService postService;
   <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> BoardService boardService;
   <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> UserService userService;
 
-  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">PostController</span><span class="hljs-params">(PostService postService, BoardService boardService, UserService userService)</span> </span>{
+  <span class="hljs-keyword">public</span> ```PostController```(PostService postService, BoardService boardService, UserService userService) {
     <span class="hljs-keyword">this</span>.postService = postService;
     <span class="hljs-keyword">this</span>.boardService = boardService;
     <span class="hljs-keyword">this</span>.userService = userService;
@@ -2015,6 +2015,7 @@ color: #3498db;
 <p>.board-list a:hover {
 text-decoration: underline;
 }</p>
+<h1 id="posthtml">post.html</h1>
 <pre class="hljs"><code><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">"http://www.thymeleaf.org"</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
@@ -2066,82 +2067,289 @@ text-decoration: underline;
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 
 </div></code></pre>
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" th:href="@{/resources/style.css}" type="text/css">
-  <title>&#xAC8C;&#xC2DC;&#xBB3C; &#xBAA9;&#xB85D;</title>
-</head>
-<body>
-<div id="wrapper">
-  <a href="/" class="home-link">&#xD648;&#xC73C;&#xB85C;</a>
-  <div class="container">
-    <h1 class="main-title">&#xAC8C;&#xC2DC;&#xBB3C; &#xBAA9;&#xB85D;</h1>
-</div></div></body></html><pre><code>&lt;!-- 로그인 유저 정보 --&gt;
-&lt;div th:replace=&quot;loginInfo :: userinfo&quot;&gt;&lt;/div&gt;
+<h1 id="postshtml">posts.html</h1>
+<pre class="hljs"><code><div>
+<span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"ko"</span> <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">"http://www.thymeleaf.org"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">th:href</span>=<span class="hljs-string">"@{/resources/style.css}"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>게시물 목록<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"wrapper"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"home-link"</span>&gt;</span>홈으로<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"main-title"</span>&gt;</span>게시물 목록<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
 
-&lt;table class=&quot;post-table&quot;&gt;
-  &lt;thead&gt;
-  &lt;tr&gt;
-    &lt;th&gt;글번호&lt;/th&gt;
-    &lt;th&gt;제목&lt;/th&gt;
-    &lt;th&gt;작성자&lt;/th&gt;
-    &lt;th&gt;작성일&lt;/th&gt;
-  &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-  &lt;tr th:each=&quot;post : ${posts}&quot;&gt;
-    &lt;td th:text=&quot;${post.id}&quot;&gt;&lt;/td&gt;
-    &lt;td&gt;
-      &lt;a class=&quot;post-link&quot; th:if=&quot;${post.board != null}&quot; th:href=&quot;@{/board/{boardId}/post/{postId}(boardId=${post.board.id},postId=${post.id})}&quot; th:text=&quot;${post.title}&quot;&gt;&lt;/a&gt;
-    &lt;/td&gt;
-    &lt;td th:text=&quot;${post.author.username}&quot;&gt;&lt;/td&gt;
-    &lt;td th:text=&quot;${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm:ss')}&quot;&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-</code></pre>
-  
-  <div th:if="${session.user != null}">
-    <a th:href="@{/board/{boardId}/write(boardId=${board.id})}" class="btn write-btn">&#xAE00;&#xC4F0;&#xAE30;</a>
-  </div>
+    <span class="hljs-comment">&lt;!-- 로그인 유저 정보 --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">th:replace</span>=<span class="hljs-string">"loginInfo :: userinfo"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
+    <span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"post-table"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">thead</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>글번호<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>제목<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>작성자<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">th</span>&gt;</span>작성일<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">thead</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">tr</span> <span class="hljs-attr">th:each</span>=<span class="hljs-string">"post : ${posts}"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${post.id}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"post-link"</span> <span class="hljs-attr">th:if</span>=<span class="hljs-string">"${post.board != null}"</span> <span class="hljs-attr">th:href</span>=<span class="hljs-string">"@{/board/{boardId}/post/{postId}(boardId=${post.board.id},postId=${post.id})}"</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${post.title}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${post.author.username}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">td</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm:ss')}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">td</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">th:if</span>=<span class="hljs-string">"${session.user != null}"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">th:href</span>=<span class="hljs-string">"@{/board/{boardId}/write(boardId=${board.id})}"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn write-btn"</span>&gt;</span>글쓰기<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</div></code></pre>
+<h1 id="writehtml">write.html</h1>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"ko"</span> <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">"http://www.thymeleaf.org"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>글쓰기 폼<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">th:href</span>=<span class="hljs-string">"@{/resources/style.css}"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"wrapper"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"home-link"</span>&gt;</span>홈으로<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">th:with</span>=<span class="hljs-string">"boardId=${board.id}"</span>&gt;</span>
 
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>&#xAE00;&#xC4F0;&#xAE30; &#xD3FC;</title>
-  <link rel="stylesheet" th:href="@{/resources/style.css}" type="text/css">
-</head>
-<body>
-<div id="wrapper">
-  <a href="/" class="home-link">&#xD648;&#xC73C;&#xB85C;</a>
-  <div th:with="boardId=${board.id}">
-</div></div></body></html><pre><code>&lt;form th:method=&quot;POST&quot; th:action=&quot;@{/board/{boardId}/write(boardId=${boardId})}&quot; th:object=&quot;${post}&quot; class=&quot;post-form&quot;&gt;
-  &lt;div class=&quot;input-group&quot;&gt;
-    &lt;label for=&quot;input-title&quot; class=&quot;input-label&quot;&gt;제목 :&lt;/label&gt;
-    &lt;input name=&quot;title&quot; type=&quot;text&quot; placeholder=&quot;제목을 입력하세요.&quot; required id=&quot;input-title&quot;&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;input-group&quot;&gt;
-    &lt;label for=&quot;input-content&quot; class=&quot;input-label&quot;&gt;내용 :&lt;/label&gt;
-    &lt;textarea name=&quot;content&quot; rows=&quot;10&quot; placeholder=&quot;내용을 입력하세요.&quot; required id=&quot;input-content&quot;&gt;&lt;/textarea&gt;
-  &lt;/div&gt;
-  &lt;input name=&quot;authorId&quot; type=&quot;hidden&quot; th:value=&quot;${session.user.id}&quot;&gt;
-  &lt;input name=&quot;board.id&quot; type=&quot;hidden&quot; th:value=&quot;${board.id}&quot;&gt;
-  &lt;button type=&quot;submit&quot; id=&quot;submit-btn&quot;&gt;글쓰기&lt;/button&gt;
-&lt;/form&gt;
-</code></pre>
-  
-  <!-- 에러 메시지 출력 부분 -->
-  <div th:if="${errorMessage}" class="alert alert-danger mt-3" role="alert">
-    <span th:text="${errorMessage}">Error message goes here</span>
-  </div>
+    <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">th:method</span>=<span class="hljs-string">"POST"</span> <span class="hljs-attr">th:action</span>=<span class="hljs-string">"@{/board/{boardId}/write(boardId=${boardId})}"</span> <span class="hljs-attr">th:object</span>=<span class="hljs-string">"${post}"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"post-form"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-group"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"input-title"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-label"</span>&gt;</span>제목 :<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"title"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"제목을 입력하세요."</span> <span class="hljs-attr">required</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"input-title"</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-group"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"input-content"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-label"</span>&gt;</span>내용 :<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"content"</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">"10"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"내용을 입력하세요."</span> <span class="hljs-attr">required</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"input-content"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"authorId"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"hidden"</span> <span class="hljs-attr">th:value</span>=<span class="hljs-string">"${session.user.id}"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"board.id"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"hidden"</span> <span class="hljs-attr">th:value</span>=<span class="hljs-string">"${board.id}"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"submit-btn"</span>&gt;</span>글쓰기<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
 
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- 에러 메시지 출력 부분 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">th:if</span>=<span class="hljs-string">"${errorMessage}"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"alert alert-danger mt-3"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"alert"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${errorMessage}"</span>&gt;</span>Error message goes here<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</div></code></pre>
+<h1 id="edithtml">edit.html</h1>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"ko"</span> <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">"http://www.thymeleaf.org"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>게시물 수정<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">th:href</span>=<span class="hljs-string">"@{/resources/style.css}"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"wrapper"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>게시물 수정<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">th:action</span>=<span class="hljs-string">"@{/board/{boardId}/post/{postId}/edit(boardId=${post.board.id}, postId=${post.id})}"</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"post"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-group"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"input-title"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-label"</span>&gt;</span>제목 :<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"title"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">th:value</span>=<span class="hljs-string">"${post.title}"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"제목을 입력하세요."</span> <span class="hljs-attr">required</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"input-title"</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-group"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"input-content"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-label"</span>&gt;</span>내용 :<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"content"</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">"10"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"내용을 입력하세요."</span> <span class="hljs-attr">required</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"input-content"</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${post.content}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"submit-btn"</span>&gt;</span>수정<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+
+  <span class="hljs-comment">&lt;!-- 에러 메시지 출력 부분 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">th:if</span>=<span class="hljs-string">"${errorMessage}"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"alert alert-danger mt-3"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"alert"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${errorMessage}"</span>&gt;</span>Error message goes here<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</div></code></pre>
+<h1 id="categoryhtml">category.html</h1>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"ko"</span> <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">"http://www.thymeleaf.org"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">th:href</span>=<span class="hljs-string">"@{/resources/style.css}"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Title<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"wrapper"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"home-link"</span>&gt;</span>홈으로<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container"</span> <span class="hljs-attr">th:fragment</span>=<span class="hljs-string">"category"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"main-title"</span>&gt;</span>게시판<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"board-list"</span> <span class="hljs-attr">th:each</span>=<span class="hljs-string">"board: ${boards}"</span> &gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"link"</span> <span class="hljs-attr">th:href</span>=<span class="hljs-string">"@{/board/{boardId}(boardId=${board.id})}"</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${board.name}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+
+</div></code></pre>
+<h1 id="loginformhtml">loginForm.html</h1>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"ko"</span> <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">"http://www.thymeleaf.org"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">th:href</span>=<span class="hljs-string">"@{/resources/style.css}"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Title<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"wrapper"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"home-link"</span>&gt;</span>홈으로<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container"</span> <span class="hljs-attr">th:fragment</span>=<span class="hljs-string">"category"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"main-title"</span>&gt;</span>게시판<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"board-list"</span> <span class="hljs-attr">th:each</span>=<span class="hljs-string">"board: ${boards}"</span> &gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"link"</span> <span class="hljs-attr">th:href</span>=<span class="hljs-string">"@{/board/{boardId}(boardId=${board.id})}"</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${board.name}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+
+</div></code></pre>
+<h1 id="find-idhtml">find-id.html</h1>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"ko"</span> <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">"http://www.thymeleaf.org"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">th:href</span>=<span class="hljs-string">"@{/resources/style.css}"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Title<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"wrapper"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"home-link"</span>&gt;</span>홈으로<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container"</span> <span class="hljs-attr">th:fragment</span>=<span class="hljs-string">"category"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"main-title"</span>&gt;</span>게시판<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"board-list"</span> <span class="hljs-attr">th:each</span>=<span class="hljs-string">"board: ${boards}"</span> &gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"link"</span> <span class="hljs-attr">th:href</span>=<span class="hljs-string">"@{/board/{boardId}(boardId=${board.id})}"</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${board.name}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+
+</div></code></pre>
+<h1 id="find-id-resulthtml">find-id-result.html</h1>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"ko"</span> <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">"http://www.thymeleaf.org"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>아이디 찾기 결과<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">th:href</span>=<span class="hljs-string">"@{/resources/style.css}"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"wrapper"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"home-link"</span>&gt;</span>홈<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"message"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${message}"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+  <span class="hljs-comment">&lt;!-- 에러 메시지 출력 부분 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">th:if</span>=<span class="hljs-string">"${errorMessage}"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"alert alert-danger mt-3"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"alert"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${errorMessage}"</span>&gt;</span>Error message goes here<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+
+</div></code></pre>
+<h1 id="find-passwordhtml">find-password.html</h1>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"ko"</span> <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">"http://www.thymeleaf.org"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>비밀번호 찾기<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">th:href</span>=<span class="hljs-string">"@{/resources/style.css}"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"wrapper"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"home-link"</span>&gt;</span>홈<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">th:method</span>=<span class="hljs-string">"POST"</span> <span class="hljs-attr">th:action</span>=<span class="hljs-string">"@{/find-password}"</span> <span class="hljs-attr">th:object</span>=<span class="hljs-string">"${FindPasswordRequest}"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"find-form"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-group"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"input-email"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"input-label"</span>&gt;</span>이메일 :<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"email"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"email"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"example@gmail.com"</span> <span class="hljs-attr">required</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"input-email"</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"submit-btn"</span>&gt;</span>비밀번호 찾기<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+
+  <span class="hljs-comment">&lt;!-- 에러 메시지 출력 부분 --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">th:if</span>=<span class="hljs-string">"${errorMessage}"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"alert alert-danger mt-3"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"alert"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${errorMessage}"</span>&gt;</span>Error message goes here<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</div></code></pre>
+<h1 id="find-password-result">find-password-result</h1>
+<pre class="hljs"><code><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"ko"</span> <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">"http://www.thymeleaf.org"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>비밀번호 찾기 결과<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">th:href</span>=<span class="hljs-string">"@{/resources/style.css}"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"wrapper"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"home-link"</span>&gt;</span>홈<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">th:if</span>=<span class="hljs-string">"${message}"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"alert alert-success mt-3"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"alert"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${message}"</span>&gt;</span>Success message goes here<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">th:if</span>=<span class="hljs-string">"${errorMessage}"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"alert alert-danger mt-3"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"alert"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${errorMessage}"</span>&gt;</span>Error message goes here<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</div></code></pre>
+<h1 id="login-infohtml">login-info.html</h1>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"ko"</span> <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">"http://www.thymeleaf.org"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">th:fragment</span>=<span class="hljs-string">"userinfo"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"login-info"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${#messages.msg('info.id')}"</span>/&gt;</span> : <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${user?.id}"</span> &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${#messages.msg('info.name')}"</span>/&gt;</span> : <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">"${user?.username}"</span> &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"button"</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">"location.href=location.pathname + '?locale=ko' "</span>&gt;</span>한국어<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"button"</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">"location.href=location.pathname + '?locale=en' "</span>&gt;</span>영어<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+
+</div></code></pre>
 
 </body>
 </html>

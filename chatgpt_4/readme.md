@@ -10,7 +10,7 @@ src/main/java/com/nhnacademy/springboard/spirngmvcboard/controller/ControllerBas
 src/main/java/com/nhnacademy/springboard/spirngmvcboard/controller/LoginController.java
 src/main/java/com/nhnacademy/springboard/spirngmvcboard/controller/MainController.java
 src/main/java/com/nhnacademy/springboard/spirngmvcboard/controller/ManagementUserController.java
-src/main/java/com/nhnacademy/springboard/spirngmvcboard/controller/PostController.java
+src/main/java/com/nhnacademy/springboard/spirngmvcboard/controller/```PostController```.java
 src/main/java/com/nhnacademy/springboard/spirngmvcboard/controller/RegistController.java
 src/main/java/com/nhnacademy/springboard/spirngmvcboard/domain/Board.java
 src/main/java/com/nhnacademy/springboard/spirngmvcboard/domain/Domain.java
@@ -698,13 +698,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/board")
-public class PostController implements ControllerBase {
+public class ```PostController``` implements ControllerBase {
 
   private final PostService postService;
   private final BoardService boardService;
   private final UserService userService;
 
-  public PostController(PostService postService, BoardService boardService, UserService userService) {
+  public ```PostController```(PostService postService, BoardService boardService, UserService userService) {
     this.postService = postService;
     this.boardService = boardService;
     this.userService = userService;
@@ -1858,6 +1858,8 @@ body {
   text-decoration: underline;
 }
 
+# post.html
+
 ```html
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
@@ -1911,6 +1913,10 @@ body {
 
 ```
 
+# posts.html
+
+```html
+
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -1955,6 +1961,11 @@ body {
 </div>
 </body>
 </html>
+```
+
+# write.html
+
+```html
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -1990,3 +2001,215 @@ body {
 </div>
 </body>
 </html>
+```
+# edit.html
+
+```html
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>게시물 수정</title>
+  <link rel="stylesheet" th:href="@{/resources/style.css}" type="text/css" />
+</head>
+<body>
+<div id="wrapper">
+  <h1>게시물 수정</h1>
+  <form th:action="@{/board/{boardId}/post/{postId}/edit(boardId=${post.board.id}, postId=${post.id})}" method="post">
+    <div class="input-group">
+      <label for="input-title" class="input-label">제목 :</label>
+      <input name="title" type="text" th:value="${post.title}" placeholder="제목을 입력하세요." required id="input-title">
+    </div>
+
+    <div class="input-group">
+      <label for="input-content" class="input-label">내용 :</label>
+      <textarea name="content" rows="10" placeholder="내용을 입력하세요." required id="input-content" th:text="${post.content}"></textarea>
+    </div>
+
+    <button type="submit" id="submit-btn">수정</button>
+  </form>
+
+  <!-- 에러 메시지 출력 부분 -->
+  <div th:if="${errorMessage}" class="alert alert-danger mt-3" role="alert">
+    <span th:text="${errorMessage}">Error message goes here</span>
+  </div>
+</div>
+</body>
+</html>
+```
+# category.html
+```html 
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/resources/style.css}" type="text/css" />
+  <title>Title</title>
+</head>
+<body>
+<div id="wrapper">
+  <a href="/" class="home-link">홈으로</a>
+  <div class="container" th:fragment="category">
+    <h1 class="main-title">게시판</h1>
+    <div class="board-list" th:each="board: ${boards}" >
+      <a class="link" th:href="@{/board/{boardId}(boardId=${board.id})}" th:text="${board.name}"></a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+```
+# loginForm.html
+
+```html
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/resources/style.css}" type="text/css" />
+  <title>Title</title>
+</head>
+<body>
+<div id="wrapper">
+  <a href="/" class="home-link">홈으로</a>
+  <div class="container" th:fragment="category">
+    <h1 class="main-title">게시판</h1>
+    <div class="board-list" th:each="board: ${boards}" >
+      <a class="link" th:href="@{/board/{boardId}(boardId=${board.id})}" th:text="${board.name}"></a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+```
+# find-id.html
+```html
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/resources/style.css}" type="text/css" />
+  <title>Title</title>
+</head>
+<body>
+<div id="wrapper">
+  <a href="/" class="home-link">홈으로</a>
+  <div class="container" th:fragment="category">
+    <h1 class="main-title">게시판</h1>
+    <div class="board-list" th:each="board: ${boards}" >
+      <a class="link" th:href="@{/board/{boardId}(boardId=${board.id})}" th:text="${board.name}"></a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+```
+
+# find-id-result.html
+```html
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>아이디 찾기 결과</title>
+  <link rel="stylesheet" th:href="@{/resources/style.css}" type="text/css" />
+</head>
+<body>
+<div id="wrapper">
+  <a href="/" class="home-link">홈</a>
+
+  <div class="message">
+    <span th:text="${message}"></span>
+  </div>
+
+  <!-- 에러 메시지 출력 부분 -->
+  <div th:if="${errorMessage}" class="alert alert-danger mt-3" role="alert">
+    <span th:text="${errorMessage}">Error message goes here</span>
+  </div>
+</div>
+</body>
+</html>
+
+```
+
+# find-password.html
+```html
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>비밀번호 찾기</title>
+  <link rel="stylesheet" th:href="@{/resources/style.css}" type="text/css" />
+</head>
+<body>
+<div id="wrapper">
+  <a href="/" class="home-link">홈</a>
+
+  <form th:method="POST" th:action="@{/find-password}" th:object="${FindPasswordRequest}" class="find-form">
+    <div class="input-group">
+      <label for="input-email" class="input-label">이메일 :</label>
+      <input name="email" type="email" placeholder="example@gmail.com" required id="input-email">
+    </div>
+
+    <button type="submit" id="submit-btn">비밀번호 찾기</button>
+  </form>
+
+  <!-- 에러 메시지 출력 부분 -->
+  <div th:if="${errorMessage}" class="alert alert-danger mt-3" role="alert">
+    <span th:text="${errorMessage}">Error message goes here</span>
+  </div>
+
+</div>
+</body>
+</html>
+```
+# find-password-result
+```html
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>비밀번호 찾기 결과</title>
+  <link rel="stylesheet" th:href="@{/resources/style.css}" type="text/css" />
+</head>
+<body>
+<div id="wrapper">
+  <a href="/" class="home-link">홈</a>
+
+  <div th:if="${message}" class="alert alert-success mt-3" role="alert">
+    <span th:text="${message}">Success message goes here</span>
+  </div>
+
+  <div th:if="${errorMessage}" class="alert alert-danger mt-3" role="alert">
+    <span th:text="${errorMessage}">Error message goes here</span>
+  </div>
+
+</div>
+</body>
+</html>
+```
+# login-info.html
+```html
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="userinfo">
+  <div class="login-info">
+    <ul>
+      <li><span th:text="${#messages.msg('info.id')}"/> : <span th:text="${user?.id}" ></span></li>
+      <li><span th:text="${#messages.msg('info.name')}"/> : <span th:text="${user?.username}" ></span></li>
+      <li>
+        <button type="button" onclick="location.href=location.pathname + '?locale=ko' ">한국어</button>
+      </li>
+      <li>
+        <button type="button" onclick="location.href=location.pathname + '?locale=en' ">영어</button>
+      </li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
+
+```
