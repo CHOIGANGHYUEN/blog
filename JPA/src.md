@@ -257,3 +257,131 @@ public class JpaConfig {
 }
 
 ```
+```java
+package com.nhnacademy.springjpa.entity;
+
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import lombok.Getter;
+import lombok.Setter;
+
+// TODO #1: `Items` 테이블과 맵핑될 `Item` Entity 클래스를 작성하세요.
+/*
+ *
+ * create table if not exists `Items` (
+ *   `item_id` bigint not null auto_increment,
+ *   `item_name` varchar(40) not null,
+ *   `price` bigint not null,
+ *
+ *   primary key(`item_id`)
+ * );
+ *
+ */
+@Entity
+@Table(name="Items")
+@Getter
+@Setter
+public class Item {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // 객체가 생성될때 오토 인크리먼트로 아이디를 설정해준다?
+    @Column(name="item_id")
+    private Long itemId;
+    @Column(name="item_name")
+    private String itemName;
+    private Long price;
+    @Transient
+    private String test;
+
+}
+
+```
+
+```java
+package com.nhnacademy.springjpa.entity;
+
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
+// TODO #1: `Orders` 테이블과 맵핑될 `Order` Entity 클래스를 작성하세요.
+/*
+ * create table if not exists `Orders` (
+ *   `order_id` bigint not null auto_increment,
+ *   `order_date` timestamp not null,
+ *
+ *   primary key(`order_id`)
+ * );
+ *
+ */
+@Entity
+@Table(name="Orders")
+@Getter
+@Setter
+public class Order {
+  @Id
+  @Column(name = "order_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long orderId;
+  @Column(name = "order_date")
+  private LocalDate orderDate;
+}
+
+```
+```java
+package com.nhnacademy.springjpa.entity;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import com.nhnacademy.springjpa.config.RootConfig;
+import com.nhnacademy.springjpa.config.WebConfig;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.ContextHierarchy;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.transaction.annotation.Transactional;
+
+// TODO #2: 아래 `@Disabled` 어노테이션을 삭제하고 테스트를 통과시키세요.
+@ExtendWith(SpringExtension.class)
+@WebAppConfiguration
+@Transactional
+@ContextHierarchy({
+    @ContextConfiguration(classes = RootConfig.class),
+    @ContextConfiguration(classes = WebConfig.class)
+})
+public class OrderEntityTest {
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Test
+    public void testOrderEntity() {
+        Order order1 = entityManager.find(Order.class, 1001L);
+
+        assertThat(ReflectionTestUtils.invokeGetterMethod(order1, "orderId")).isEqualTo(1001L);
+        assertThat(ReflectionTestUtils.invokeGetterMethod(order1, "orderDate")).isNotNull();
+    }
+
+}
+
+```
