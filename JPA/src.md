@@ -239,6 +239,7 @@ public class JpaConfig {
     jpaProperties.setProperty("hibernate.format_sql", "true"); // SQL을 잘 보기 좋게 포맷팅
     jpaProperties.setProperty("hibernate.use_sql_comments", "true"); // SQL 쿼리에 대한 주석 추가
     jpaProperties.setProperty("hibernate.globally_quoted_identifiers", "true"); // 모든 데이터베이스 객체에 대해 쿼리 작성 시 인용 부호(따옴표) 사용
+    // 만약 order라는 테이블이 생성되어야 하면, 이때 order는 예약어이기에 sql에서 오류가 뜬다. 그래서 쿼리 작성시 따옴표를 붙이는것이기도하다.
     jpaProperties.setProperty("hibernate.temp.use_jdbc_metadata_defaults", "false"); // JDBC 메타데이터 기본값 사용하지 않음
 
     return jpaProperties;
@@ -387,7 +388,88 @@ public class OrderEntityTest {
 }
 
 ```
+```java
+package com.nhnacademy.springjpa.entity;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name="OrterItems")
+@IdClass(OrderItem.PK.class)
+public class OrderItem {
+  //두개의 키를 기본키로 지정하고싶음
+  // 두개의 컬럼에 @Id를 붙이고
+//  static class PK를 선언해서 @IdClass(OrderItem.PK.class)로 명시적인 키를 지정해줌
+  @Id
+  @Column(name="order_id")
+private Long orderId;
+  @Id
+  @Column(name="line_number")
+private Integer lineNumber;
+@NoArgsConstructor
+@EqualsAndHashCode
+  public static class PK implements Serializable {
+    private Long orderId;
+    private Integer lineNumber;
+  }
+//  인스턴스같은지 확인해야해서 public이어야해고 기본 생성자가 반드시 존재해야한다. 그래야 key값을 jpa가 만들 수 있다.
+//
+//  저장되고 읽어야 하니까 e앤티티 매니저가 유일하게 구별해야해서 시리얼라이저블해야한다
+//
+//  서로 다른 인스턴스가 같은값인지 ( 동등한지 확인하기위해 내가 만든 유저인스턴스와 , 디비에서 가져온거를 확인)확인하기위해 equals랑 hashcode 메소드가 구현되어야한다.
+
+}
+
+```
+```java
+package com.nhnacademy.springjpa.entity;
+
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name="OrterItems")
+@IdClass(OrderItem.PK.class)
+public class OrderItem {
+  //두개의 키를 기본키로 지정하고싶음
+  // 두개의 컬럼에 @Id를 붙이고
+//  static class PK를 선언해서 @IdClass(OrderItem.PK.class)로 명시적인 키를 지정해줌
+@EmbeddedId
+private PK pk;
+@Embeddable
+@NoArgsConstructor
+@EqualsAndHashCode
+  public static class PK implements Serializable {
+    @Column(name="order_id")
+    private Long orderId;
+  @Column(name="line_number")
+    private Integer lineNumber;
+  }
+//  인스턴스같은지 확인해야해서 public이어야해고 기본 생성자가 반드시 존재해야한다. 그래야 key값을 jpa가 만들 수 있다.
+//
+//  저장되고 읽어야 하니까 e앤티티 매니저가 유일하게 구별해야해서 시리얼라이저블해야한다
+//
+//  서로 다른 인스턴스가 같은값인지 ( 동등한지 확인하기위해 내가 만든 유저인스턴스와 , 디비에서 가져온거를 확인)확인하기위해 equals랑 hashcode 메소드가 구현되어야한다.
+
+}
+
+```
 # 스프링없이 구현하는 파트
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -415,5 +497,57 @@ public class OrderEntityTest {
   </persistence-unit>
 
 </persistence>
+
+```
+> com/nhnacademy/jpa/entity
+
+```java
+package com.nhnacademy.jpa.entity;
+
+import java.time.LocalDateTime;
+import javax.persistence.Entity;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Entity
+@Getter
+@Setter
+public class User {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long Id;
+private String name;
+}
+
+```
+> com/nhnacademy/jpa/Main.java
+
+```java
+package com.nhnacademy.jpa;
+
+import com.nhnacademy.jpa.entity.User;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+public class Main {
+
+  public static void main(String[] args) {
+    User user= new User();
+    user.setName("홍길동");
+    EntityManagerFactory enf= Persistence.createEntityManagerFactory("default");
+    EntityManager entityManager= enf.createEntityManager();
+    entityManager.getTransaction().begin();
+    entityManager.persist(user);
+    entityManager.close();
+    enf.close();
+  }
+
+}
 
 ```

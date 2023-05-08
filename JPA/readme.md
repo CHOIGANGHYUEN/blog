@@ -347,6 +347,7 @@ cf.) Java 8의 `date/time` (`LocalTime`, `LocalDate`, `ZonedDateTime`) 타입은
 <img src="../image/스크린샷 2023-05-08 오후 1.28.29 1.png">
 
 실습: Items 테이블에 대한 Entity 맵핑
+
 Items 테이블에 대한 Entity 맵핑을 위해 Entity 클래스를 생성하고 컬럼 맵핑을 해보세요.
 ```git checkout entity```
 
@@ -384,7 +385,9 @@ public enum GenerationType {
 }
 ```
 실습
+
 Orders 테이블에 대한 Entity 맵핑
+
 Orders 테이블에 대한 Entity 맵핑을 위해 Entity 클래스를 생성하고 컬럼 맵핑을 해봅시다.
 ```java
 @Entity
@@ -410,6 +413,7 @@ public class Order {
 ```
 
 복합 Key (Composite key)
+
 복합 키란 둘 이상의 필드를 조합하여 기본 키(PK)를 생성하는 방식입니다. 복합 키를 사용하려면 `@IdClass` 어노테이션 또는 `@EmbeddedId`와 `@Embeddable` 어노테이션을 사용해야 합니다.
 
 @IdClass
@@ -462,6 +466,9 @@ public class OrderItem {
     }
 }
 ```
+```
+복합키를 하나의 필드에서 사용할수 있다는 장점이 있다. 구조적으로 접근할수 있는 장점
+```
 ```java
 @NoArgsConstructor
 @AllArgsConstructor
@@ -484,7 +491,14 @@ public static class Pk implements Serializable {
   - The primary key class must be public and must have a public no-arg constructor.
   - The primary key class must be serializable.
   - The primary key class must define equals and hashCode methods.
+```
+인스턴스같은지 확인해야해서 public이어야해고 기본 생성자가 반드시 존재해야한다. 그래야 key값을 jpa가 만들 수 있다.
 
+저장되고 읽어야 하니까 e앤티티 매니저가 유일하게 구별해야해서 시리얼라이저블해야한다
+
+서로 다른 인스턴스가 같은값인지 ( 동등한지 확인하기위해 내가 만든 유저인스턴스와 , 디비에서 가져온거를 확인)확인하기위해 equals랑 hashcode 메소드가 구현되어야한다.
+
+```
 #### 실습
 
 OrderItems 테이블에 대한 Entity 맵핑을 위해 Entity 클래스를 생성하고 컬럼 맵핑을 해봅시다. 복합 Key 맵핑을 위한 두 가지 방법을 모두 실습해봅시다.
@@ -516,17 +530,54 @@ OrderItems 테이블에 대한 Entity 맵핑을 위해 Entity 클래스를 생�
 jpa 엔터티 매니저를 써야 하는것이기 때문이다.
 
 entity 매니저 팩토리는 어플리케이션 전체에 하나만 있으면 되기때문에  싱글톤으로 되있다
+
+커넥션이 달라지면 공장이 하나 더있어야하고
+커넥션이 같으면 공장 하나만 있으면 된다.
 ```
 
 #### 영속성 컨텍스트
-
 - Entity를 영구 저장하는 환경
+  - @PersistenceContext
 - EntityManager가 관리하는 영역
 - 영속성 컨텍스트에서 Entity의 생명주기
   - 비영속 (new/transient): 영속성 컨텍스트와 전혀 관계가 없는 상태
   - 영속 (managed): 영속성 컨텍스트에 저장된 상태
   - 준영속 (detached): 영속성 컨텍스트에 저장되었다가 분리된 상태
   - 삭제 (removed): 삭제하기 위해 표시한 상태
+
+
+<img src="../image/스크린샷 2023-05-08 오후 3.22.35.png">
+
+```
+detach는 데이터베이스에 저장하지 않는다
+remove 만으론 디비반영 x
+flush를 하면 디비반영 o
+```
+
+```
+- 영속성 컨텍스트에서 Entity의 생명주기
+- 비영속 (new/transient): 영속성 컨텍스트와 전혀 관계가 없는 상태
+- 영속 (managed): 영속성 컨텍스트에 저장된 상태
+- 준영속 (detached): 영속성 컨텍스트에 저장되었다가 분리된 상태
+- 삭제 (removed): 삭제하기 위해 표시한 상태
+```
+
+#### 영속성 컨텍스트가 Entity를 관리하면 얻을 수 있는 이점
+- 1차 캐시
+- 동일성 보장
+- 트랜잭션을 지원하는 쓰기 지연
+- 변경 감지
+- 지연 로딩
+
+```
+1. 엔티티 매니저랑 상관없이 new 로 생성된 객체는 비영속상태
+2. persist() 메소드를 통하면 엔티티매니저가 관리하는 상태로 변환(db 에 들어간 상태는 아님) -> flush 후 db에 저장
+3. 추상화된 리포지토리를 보면 entitymanager를 볼일이 없다??? 스프링 레포지토리에는 save save delete find
+엔터티매니저 => 스프링 레포지토리
+persist,merge => save => saveAndFlush()
+remove => delete
+find = > find
+```
 
 #### @PersistenceContext
 
