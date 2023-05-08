@@ -42,6 +42,13 @@ public class RootConfig {
 
         return dataSource;
     }
+    @Bean
+    //플랫폼 트랜잭션 매니저
+    //트랜잭션 추상화를 위한 중심 API
+    // jdbc를 쓰지만 다른걸 쓰면  DataSource가아니라 다른게 들어갈수도있음
+    public PlatformTransactionManager transactionManager() {
+        return new DataSourceTransactionManager(dataSource());
+    }
 }
 
 ```
@@ -198,4 +205,55 @@ Content-Type: application/json
 {
   "password": "hahaha"
 }
+```
+
+```java
+// Component 스캔과 비슷한 기능을 한다.
+// SPRING에서 jpa 쓰려면 이게 필요하다.
+@EnableJpaRepositories(basePackageClasses = RepositoryBase.class)
+@Configuration
+public class JpaConfig {
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+        emf.setDataSource(dataSource);
+        emf.setPackagesToScan("com.nhnacademy.springjpa.entity");
+        emf.setJpaVendorAdapter(jpaVendorAdapters());
+        emf.setJpaProperties(jpaProperties());
+
+        return emf;
+    }
+
+    private JpaVendorAdapter jpaVendorAdapters() {
+        HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
+        hibernateJpaVendorAdapter.setDatabase(Database.H2);
+
+        return hibernateJpaVendorAdapter;
+    }
+
+    private Properties jpaProperties() {
+        Properties jpaProperties = new Properties();
+        jpaProperties.setProperty("hibernate.show_sql", "true");
+        jpaProperties.setProperty("hibernate.format_sql", "true");
+        jpaProperties.setProperty("hibernate.use_sql_comments", "true");
+        jpaProperties.setProperty("hibernate.globally_quoted_identifiers", "true");
+        jpaProperties.setProperty("hibernate.temp.use_jdbc_metadata_defaults", "false");
+
+        return jpaProperties;
+    }
+
+    //jpa에서 사용하기 위한 트랜잭션 매니저
+    // datasource는 jdbc꺼엿고 얘는 jp
+    // root컨피그에선 platformtransactionManager가 필요없다.
+    //setEntityManagerFactory(entityManagerFactory); 이게 필요하더라
+    @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory);
+
+        return transactionManager;
+    }
+
+}
+
 ```
