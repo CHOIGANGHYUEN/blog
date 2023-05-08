@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>readme.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="%EA%B4%80%EA%B3%84%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%99%80-orm">관계형 데이터베이스와 ORM</h1>
+<h2 id="%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-database">데이터베이스 (Database)</h2>
+<h3 id="%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%EC%9D%98-%EC%A0%95%EC%9D%98">데이터베이스의 정의</h3>
+<ul>
+<li>데이터를 효율적으로 관리하기 위한 일종의 창고</li>
+<li>특정 조직의 여러 사용자가 데이터를 공유하여 사용할 수 있도록 통합 저장된 데이터의 집합</li>
+<li>행과 열로 구성된 시트에서 사용자가 정의한 형식으로 데이터를 관리하는 엑셀파일과 유사</li>
+</ul>
+<h2 id="%EA%B4%80%EA%B3%84%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-relational-database">관계형 데이터베이스 (Relational Database)</h2>
+<h3 id="%EA%B4%80%EA%B3%84%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4">관계형 데이터베이스</h3>
+<ul>
+<li>1970년에 E. F. Codd 가 제안한 데이터 관계형 모델에 기초하는 디지털 데이터베이스</li>
+</ul>
+<h3 id="%EA%B4%80%EA%B3%84%ED%98%95-%EB%AA%A8%EB%8D%B8-relational-model">관계형 모델 (Relational Model)</h3>
+<ul>
+<li>데이터를 컬럼(column)과 로우(row)를 이루는 하나 이상의 테이블(또는 관계)로 정리</li>
+<li>고유 키(Primary key)가 각 로우(row)를 식별
+로우(row)는 레코드(record)나 튜플(tuple)로 부른다</li>
+<li>관계(Relationship)는 서로 다른 테이블들 사이의 상호작용에 기반을 두고 형성된 논리적 연결이다.</li>
+<li>관계(Relationship)는 테이블 간에 둘 다 존재한다.
+<ul>
+<li>이 관계들은 일대일, 일대다, 다대다, 이렇게 세 가지 형태로 이루어진다.</li>
+<li>모두 다 관계형 데이터베이스</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>column, row, primary key, foreign key, relationship, transaction, SQL, MySQL, Oracle</p>
+</blockquote>
+<h2 id="%ED%95%98%EC%A7%80%EB%A7%8C-%EB%82%B4%EA%B0%80-%EC%95%84%EB%8A%94-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%96%B8%EC%96%B4%EB%8A%94">하지만 내가 아는 프로그래밍 언어는</h2>
+<h3 id="java">Java</h3>
+<ul>
+<li>객체지향(Object-oriented) 프로그래밍 언어</li>
+<li>패러다임의 불일치 발생
+<ul>
+<li>관계형 데이터베이스 ≠ 객체 지향 프로그래밍 언어</li>
+</ul>
+</li>
+</ul>
+<h2 id="%EB%8D%B0%EB%AA%A8">데모</h2>
+<ul>
+<li>
+<p>IntelliJ에서 VCS에서 가져와 프로젝트 생성</p>
+</li>
+<li>
+<p>URL: https://github.com/dongmyo/academy-spring-jpa</p>
+</li>
+<li>
+<p>복제(Clone)</p>
+</li>
+<li>
+<p>실행 구성: Tomcat 서버, 로컬, 데모</p>
+</li>
+<li>
+<p>전체 소스 코드 살펴보기:</p>
+<ul>
+<li><code>pom.xml</code>: 메이븐 프로젝트</li>
+<li>패키징: war</li>
+<li>Spring MVC + Spring JDBC</li>
+<li>JdbcTemplate</li>
+<li>H2 데이터베이스</li>
+<li>자바 기반</li>
+<li>오픈소스</li>
+<li>관계형 데이터베이스</li>
+</ul>
+</li>
+<li>
+<p>H2 데이터베이스 다운로드 및 실행:</p>
+<ul>
+<li>Download &gt; All Platforms: https://www.h2database.com/html/main.html</li>
+<li>압축 파일 해제</li>
+<li>jar 파일 실행: <code>java -jar h2/bin/h2-2.1.214.jar</code></li>
+</ul>
+</li>
+<li>
+<p>연습:</p>
+<ul>
+<li>이전 Demo 프로그램에서 <code>User</code> 클래스에 <code>age</code> 필드 추가하기</li>
+<li>하지만...
+<ul>
+<li>SQL 직접 수정</li>
+<li>텍스트 편집으로 오타가 있어도 런타임에서 확인 가능</li>
+<li>객체와의 맵핑은 별개의 작업</li>
+<li>쿼리 수행 결과와 객체와의 맵핑은 별도 수작업 필요</li>
+<li>Repository의 CRUD 메서드와 SQL을 함께 변경</li>
+</ul>
+</li>
+<li>추가적으로:
+<ul>
+<li>상속 구조의 표현</li>
+<li>연관관계 참조</li>
+<li>객체 그래프 탐색 등</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="orm">ORM</h2>
+<ul>
+<li>ORM (Object-Relational Mapping)</li>
+<li>ORM 프레임워크가 중간에서 객체와 관계형 데이터베이스를 맵핑</li>
+<li>ORM을 사용하면 DBMS 벤더마다 다른 SQL에 대한 종속성을 줄이고 호환성을 향상시킬 수 있음</li>
+</ul>
+<pre class="hljs"><code><div>데이터베이스 벤더들 마다 다른 쿼리를 작성해주라는 뜻
+
+</div></code></pre>
+<h2 id="jpa">JPA</h2>
+<ul>
+<li>
+<p>JPA (Java Persistence API)</p>
+<ul>
+<li>자바 ORM 기술 표준</li>
+<li>표준 명세:
+<ul>
+<li>JSR 338 - Java Persistence 2.2</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>JPA (Jakarta Persistence API)</p>
+<ul>
+<li>Jakarta Persistence 3.1</li>
+</ul>
+</li>
+<li>
+<p>JPA 구현: <p>JPA는 스펙이다. <a href="#footnote1" id="ref1" style="text-decoration:none;">[1]</a></p></p>
+<ul>
+<li>Hibernate, EclipseLink, DataNucleus</li>
+<li>Hibernate가 사실상 표준 (de facto) JPA 구현체임.
+JPA를 사용해야 하는 이유</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>ORM을 자바에서 쓰려면 JPA를 써야함.
+서블릿과 톰켓의 차이?
+서블릿은 스펙이고 톰캣은 구현
+JPA는 스펙이다.
+</div></code></pre>
+<ol>
+<li>
+<p>SQL 중심적인 개발 -&gt; 객체 중심으로 개발</p>
+<ul>
+<li>JPA를 사용하면 객체를 중심으로 개발하고, 지루하고 반복적인 CRUD용 SQL을 개발자가 직접 작성하지 않아도 된다.</li>
+</ul>
+</li>
+<li>
+<p>패러다임 불일치 해결</p>
+<ul>
+<li>JPA는 객체와 관계형 데이터베이스 사이의 패러다임의 불일치로 인해 발생하는 문제(상속, 연관관계, 객체 그래프 탐색 등)를 해결한다.</li>
+</ul>
+</li>
+<li>
+<p>생산성</p>
+<ul>
+<li>Spring Data JPA를 사용하면 interface 선언만으로도 쿼리 구현이 가능하기 때문에, 지루하고 반복적인 CRUD 쿼리를 손쉽게 대처할 수 있다.</li>
+</ul>
+</li>
+<li>
+<p>유지보수성</p>
+<ul>
+<li>JPA를 사용하면 컬럼 추가/삭제 시 관련된 CRUD 쿼리를 모두 수정하는 대신, JPA가 관리하는 모델(Entity)을 수정하면 된다.</li>
+</ul>
+</li>
+<li>
+<p>데이터 접근 추상화와 벤더 독립성</p>
+<ul>
+<li>데이터베이스 벤더마다 미묘하게 다른 데이터 타입이나 SQL을 JPA를 이용하면 손쉽게 해결이 가능하다.</li>
+</ul>
+</li>
+</ol>
+<p>Spring Framework과 JPA</p>
+<ul>
+<li>Spring Data: 다양한 데이터 저장소에 대한 접근을 추상화하기 위한 Spring 프로젝트 (JPA, JDBC, Redis, MongoDB, Elasticsearch 등을 지원한다)</li>
+<li>Spring Data JPA: repository 추상화를 통해 interface 선언만으로도 구현 가능하며, 메서드 이름으로 쿼리를 생성할 수 있다. 또한 Web Support(페이징, 정렬, 도메인 클래스 컨버터 기능)을 제공한다.</li>
+</ul>
+<p>Demo</p>
+<ul>
+<li>
+<p>앞선 Demo 프로그램에서는 트랜잭션 적용, Spring + JPA 셋팅을 살펴보았다.</p>
+</li>
+<li>
+<p>Spring Framework의 트랜잭션 추상화</p>
+<ul>
+<li>PlatformTransactionManager: Spring Framework 트랜잭션 추상화의 핵심 interface<pre class="hljs"><code><div>public interface PlatformTransactionManager extends TransactionManager {
+    TransactionStatus getTransaction(TransactionDefinition definition) /*..*/;
+    void commit(TransactionStatus status) throws TransactionException;
+    void rollback(TransactionStatus status) throws TransactionException;
+}
+</div></code></pre>
+</li>
+<li>선언적 트랜잭션: @Transactional</li>
+</ul>
+</li>
+<li>
+<p>Demo: Spring + JPA 셋팅을 살펴본다.</p>
+<ul>
+<li>설정:
+<ul>
+<li>pom.xml: dependencyManagement에 spring-data-bom 추가
+죄송합니다. 아래에 한번에 복사할 수 있게 코드를 올려드리겠습니다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">dependencyManagement</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.data<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-data-bom<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2021.2.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>import<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">type</span>&gt;</span>pom<span class="hljs-tag">&lt;/<span class="hljs-name">type</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependencyManagement</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.data<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-data-jpa<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-meta">@Bean</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> LocalContainerEntityManagerFactoryBean <span class="hljs-title">entityManagerFactory</span><span class="hljs-params">(DataSource dataSource)</span> </span>{
+    LocalContainerEntityManagerFactoryBean emf = <span class="hljs-keyword">new</span> LocalContainerEntityManagerFactoryBean();
+    emf.setDataSource(dataSource);
+    emf.setPackagesToScan(<span class="hljs-string">"com.nhnacademy.springjpa.entity"</span>);
+    emf.setJpaVendorAdapter(jpaVendorAdapters());
+    emf.setJpaProperties(jpaProperties());
+
+    <span class="hljs-keyword">return</span> emf;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">private</span> JpaVendorAdapter <span class="hljs-title">jpaVendorAdapters</span><span class="hljs-params">()</span> </span>{
+    HibernateJpaVendorAdapter hibernateJpaVendorAdapter = <span class="hljs-keyword">new</span> HibernateJpaVendorAdapter();
+    hibernateJpaVendorAdapter.setDatabase(Database.H2);
+
+    <span class="hljs-keyword">return</span> hibernateJpaVendorAdapter;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">private</span> Properties <span class="hljs-title">jpaProperties</span><span class="hljs-params">()</span> </span>{
+    Properties jpaProperties = <span class="hljs-keyword">new</span> Properties();
+    jpaProperties.setProperty(<span class="hljs-string">"hibernate.show_sql"</span>, <span class="hljs-string">"true"</span>);
+    jpaProperties.setProperty(<span class="hljs-string">"hibernate.format_sql"</span>, <span class="hljs-string">"true"</span>);
+    jpaProperties.setProperty(<span class="hljs-string">"hibernate.use_sql_comments"</span>, <span class="hljs-string">"true"</span>);
+    jpaProperties.setProperty(<span class="hljs-string">"hibernate.globally_quoted_identifiers"</span>, <span class="hljs-string">"true"</span>);
+    jpaProperties.setProperty(<span class="hljs-string">"hibernate.temp.use_jdbc_metadata_defaults"</span>, <span class="hljs-string">"false"</span>);
+
+    <span class="hljs-keyword">return</span> jpaProperties;
+}
+</div></code></pre>
+<p>해당 내용을 마크다운 문법으로 수정하겠습니다.</p>
+<p>위 코드는 Spring Data JPA 설정 예시입니다. 위 코드에서는 <code>dependencyManagement</code> 태그 내에서 <code>spring-data-bom</code>을 추가하여 Spring Data JPA에 필요한 라이브러리들의 버전을 일괄적으로 관리할 수 있습니다. <code>dependency</code> 태그 내에서 <code>spring-data-jpa</code> 라이브러리를 추가하여 Spring Data JPA를 사용할 수 있습니다.</p>
+<p><code>LocalContainerEntityManagerFactoryBean</code>을 사용하여 <code>EntityManagerFactory</code>를 설정합니다. <code>DataSource</code>를 주입받아 <code>emf.setDataSource(dataSource)</code> 메서드를 호출하여 <code>DataSource</code>를 설정합니다. <code>emf.setPackagesToScan(&quot;com.nhnacademy.springjpa.entity&quot;)</code> 메서드를 호출하여 Entity 클래스들이 위치한 패키지를 설정합니다. <code>jpaVendorAdapters()</code> 메서드를 호출하여 Hibernate JPA 구현체를 설정합니다. <code>jpaProperties()</code> 메서드를 호출하여 Hibernate JPA 설정을 추가로 설정합니다. 위 예제에서는 SQL 출력, SQL 포맷팅, SQL 코멘트, Globally quoted identifiers 설정, JDBC metadata 설정 등을 추가로 설정하였습니다.</p>
+<h3 id="bean-configuration">Bean Configuration</h3>
+<h4 id="transaction-manager">Transaction Manager</h4>
+<p>Spring Framework은 트랜잭션을 추상화하여 다양한 방식으로 트랜잭션을 다룰 수 있게 해주는데, 그 중에서 <code>DataSourceTransactionManager</code>와 <code>JpaTransactionManager</code>를 살펴보겠습니다.</p>
+<p><code>DataSourceTransactionManager</code>는 JDBC의 <code>Connection</code>을 사용하여 트랜잭션을 다룹니다. 따라서 JDBC 기반의 프로그램에서 사용하기 적합합니다.</p>
+<p>반면에 <code>JpaTransactionManager</code>는 JPA의 <code>EntityManager</code>를 사용하여 트랜잭션을 다룹니다. JPA 기반의 프로그램에서 사용하기 적합합니다.</p>
+<p>또한 <code>@Transactional</code> 어노테이션을 사용하여 선언적 트랜잭션을 사용할 수 있습니다. 이를 사용하면 메서드 단위로 트랜잭션을 관리할 수 있습니다.</p>
+<h2 id="bean-configuration">Bean Configuration</h2>
+<h3 id="transaction-manager">Transaction Manager</h3>
+<pre class="hljs"><code><div><span class="hljs-meta">@Bean</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> PlatformTransactionManager <span class="hljs-title">transactionManager</span><span class="hljs-params">(EntityManagerFactory entityManagerFactory)</span> </span>{
+    JpaTransactionManager transactionManager = <span class="hljs-keyword">new</span> JpaTransactionManager();
+    transactionManager.setEntityManagerFactory(entityManagerFactory);
+
+    <span class="hljs-keyword">return</span> transactionManager;
+}
+</div></code></pre>
+<h3 id="entitymanager">EntityManager</h3>
+<p>엔터티의 저장, 수정, 삭제, 조회 등 엔터티와 관련된 모든 일을 처리하는 관리자</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">EntityManager</span> </span>{
+    <span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-function">T <span class="hljs-title">find</span><span class="hljs-params">(Class&lt;T&gt; entityClass, Object primaryKey)</span></span>;
+    <span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-function">T <span class="hljs-title">find</span><span class="hljs-params">(Class&lt;T&gt; entityClass, Object primaryKey, Map&lt;String, Object&gt; properties)</span></span>; 
+    <span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-function">T <span class="hljs-title">find</span><span class="hljs-params">(Class&lt;T&gt; entityClass, Object primaryKey, LockModeType lockMode)</span></span>;
+    <span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-function">T <span class="hljs-title">find</span><span class="hljs-params">(Class&lt;T&gt; entityClass, Object primaryKey, LockModeType lockMode, Map&lt;String, Object&gt; properties)</span></span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">persist</span><span class="hljs-params">(Object entity)</span></span>;
+
+    <span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-function">T <span class="hljs-title">merge</span><span class="hljs-params">(T entity)</span></span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(Object entity)</span></span>;
+
+    <span class="hljs-comment">// ...</span>
+}
+</div></code></pre>
+<h3 id="entitymanagerfactory">EntityManagerFactory</h3>
+<p>EntityManager를 생성하는 팩토리</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">EntityManagerFactory</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">public</span> EntityManager <span class="hljs-title">createEntityManager</span><span class="hljs-params">()</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">public</span> EntityManager <span class="hljs-title">createEntityManager</span><span class="hljs-params">(Map map)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">public</span> EntityManager <span class="hljs-title">createEntityManager</span><span class="hljs-params">(SynchronizationType synchronizationType)</span></span>;
+  <span class="hljs-function"><span class="hljs-keyword">public</span> EntityManager <span class="hljs-title">createEntityManager</span><span class="hljs-params">(SynchronizationType synchronizationType, Map map)</span></span>;
+
+  <span class="hljs-comment">// ...</span>
+}
+</div></code></pre>
+<h1 id="cf-jpahibernate-logging">cf.) JPA/Hibernate Logging</h1>
+<h2 id="sql">SQL</h2>
+<ul>
+<li>JPA properties
+<ul>
+<li>hibernate.show-sql=true</li>
+<li>hibernate.format_sql=true</li>
+</ul>
+</li>
+<li>logback logger</li>
+</ul>
+<pre class="hljs"><code><div>&lt;logger name=&quot;org.hibernate.SQL&quot; level=&quot;debug&quot; additivity=&quot;false&quot;&gt;
+    &lt;appender-ref ref=&quot;console&quot; /&gt;
+&lt;/logger&gt;
+</div></code></pre>
+<ul>
+<li>binding parameters</li>
+</ul>
+<pre class="hljs"><code><div>&lt;logger name=&quot;org.hibernate.type.descriptor.sql.BasicBinder&quot; level=&quot;trace&quot; additivity=&quot;false&quot;&gt;
+    &lt;appender-ref ref=&quot;console&quot; /&gt;
+&lt;/logger&gt;
+</div></code></pre>
+<ul>
+<li>cf.) org.hibernate.type.descriptor.sql.BasicExtractor</li>
+</ul>
+<h2 id="demo">Demo</h2>
+<ul>
+<li>cf.) Spring 없이 JPA 사용하기
+<ul>
+<li>https://blog.jetbrains.com/idea/2021/02/creating-a-simple-jpa-application/</li>
+</ul>
+</li>
+<li>IntelliJ에서 Jakarta EE 프로젝트 시작
+<ul>
+<li>Project template: Library</li>
+<li>Java EE 8 &gt; Hibernate 선택</li>
+<li>h2 DB 사용</li>
+<li>View &gt; Tool Windows &gt; Persistence</li>
+<li>persistence.xml 생성</li>
+<li>User Entity 생성
+<ul>
+<li>주의! @Table(name = &quot;Users&quot;)</li>
+</ul>
+</li>
+<li>Main class 생성</li>
+<li>EntityManagerFactort / EntityManager 를 이용해서 Entity 를 저장</li>
+<li>h2 web console 에서 데이터 확인</li>
+</ul>
+</li>
+</ul>
+<h1 id="entity-%EB%A7%B5%ED%95%91">Entity 맵핑</h1>
+<h2 id="entity--entity-%EB%A7%B5%ED%95%91">Entity / Entity 맵핑</h2>
+<ul>
+<li>Entity란?
+<ul>
+<li>JPA를 이용해서 데이터베이스 테이블과 맵핑할 클래스</li>
+</ul>
+</li>
+<li>Entity 맵핑
+<ul>
+<li>Entity 클래스에 데이터베이스 테이블과 컬럼, 기본 키, 외래 키 등을 설정하는 것</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>컬럼들은 클래스의 필드들과 매핑
+</div></code></pre>
+<ul>
+<li>어노테이션
+<ul>
+<li>@Entity : JPA가 관리할 객체임을 명시</li>
+<li>@Table : 맵핑할 DB 테이블 명 지정</li>
+<li>@Id : 기본 키(PK) 맵핑</li>
+<li>@Column : 필드와 컬럼 맵핑 (생략 가능)</li>
+</ul>
+</li>
+<li>예제</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-meta">@Entity</span>
+<span class="hljs-comment">//맴버스란 테이블이 자바의 맴버 클래스와 맵핑</span>
+<span class="hljs-meta">@Table</span>(name = <span class="hljs-string">"Members"</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Member</span> </span>{
+    <span class="hljs-meta">@Id</span>
+    <span class="hljs-meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+    <span class="hljs-keyword">private</span> Long id;
+
+    <span class="hljs-keyword">private</span> String name;
+
+    <span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"created_dt"</span>)
+    <span class="hljs-keyword">private</span> LocalDateTime createdDate;
+}
+``````java
+<span class="hljs-meta">@Entity</span>
+<span class="hljs-meta">@Table</span>(name = <span class="hljs-string">"Members"</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Member</span> </span>{
+    <span class="hljs-meta">@Id</span>
+    <span class="hljs-meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+    <span class="hljs-keyword">private</span> Long id;
+
+    <span class="hljs-keyword">private</span> String name;<span class="hljs-comment">//컬럼어노테이션은 생략 가능</span>
+
+    <span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"created_dt"</span>)<span class="hljs-comment">//dbtable의 컬럼을 명시, 이름이 달라서</span>
+    <span class="hljs-keyword">private</span> LocalDateTime createdDate;
+}
+</div></code></pre>
+<p>필드와 컬럼 맵핑
+<code>@Column</code> : 객체 필드를 컬럼에 맵핑, 생략 가능</p>
+<p><code>@Temporal</code> : 날짜 타입 맵핑</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> TemporalType {
+    DATE, 
+    TIME, 
+    TIMESTAMP
+}
+</div></code></pre>
+<p>cf.) Java 8의 <code>date/time</code> (<code>LocalTime</code>, <code>LocalDate</code>, <code>ZonedDateTime</code>) 타입은 <code>@Temporal</code>을 붙이지 않는다.</p>
+<pre class="hljs"><code><div>명확한 타입이기에 굳이 Temporal을 붙 일 필요가 없다는 거같음
+</div></code></pre>
+<p><code>@Transient</code> : 특정 필드를 컬럼에 맵핑하지 않을 경우에 지정</p>
+<pre class="hljs"><code><div>임시 값 같은애들은 따로 빼줌
+</div></code></pre>
+<p>도메인
+<img src="../image/스크린샷 2023-05-08 오후 1.28.29 1.png"></p>
+<p>실습: Items 테이블에 대한 Entity 맵핑
+Items 테이블에 대한 Entity 맵핑을 위해 Entity 클래스를 생성하고 컬럼 맵핑을 해보세요.
+<code>git checkout entity</code></p>
+<p>기본 키(Primary Key) 맵핑 전략
+자동 생성</p>
+<ul>
+<li>TABLE 전략 : 채번 테이블을 사용</li>
+<li>SEQUENCE 전략 : 데이터베이스 시퀀스를 사용해서 기본 키를 할당 (예: Oracle)</li>
+<li>IDENTITY 전략 : 기본 키 생성을 데이터베이스에 위임 (예: MySQL)</li>
+<li>AUTO 전략 : 선택한 데이터베이스 방언(dialect)에 따라 기본 키 맵핑 전략을 자동으로 선택</li>
+</ul>
+<p>직접 할당</p>
+<ul>
+<li>애플리케이션에서 직접 식별자 값을 할당</li>
+</ul>
+<p>예제</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Item</span> </span>{
+    <span class="hljs-meta">@Id</span>
+    <span class="hljs-meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+    <span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"item_id"</span>)
+    <span class="hljs-keyword">private</span> Long itemId;
+
+    <span class="hljs-comment">// ...</span>
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> GeneratedValue {
+  <span class="hljs-function">GenerationType <span class="hljs-title">strategy</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> AUTO</span>;
+  <span class="hljs-function">String <span class="hljs-title">generator</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> ""</span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> GenerationType {
+    TABLE, 
+    SEQUENCE, 
+    IDENTITY, 
+    AUTO
+}
+</div></code></pre>
+<p>실습
+Orders 테이블에 대한 Entity 맵핑
+Orders 테이블에 대한 Entity 맵핑을 위해 Entity 클래스를 생성하고 컬럼 맵핑을 해봅시다.</p>
+<pre class="hljs"><code><div><span class="hljs-meta">@Entity</span>
+<span class="hljs-meta">@Table</span>(name = <span class="hljs-string">"Orders"</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Order</span> </span>{
+    <span class="hljs-meta">@Id</span>
+    <span class="hljs-meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+    <span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"order_id"</span>)
+    <span class="hljs-keyword">private</span> Long orderId;
+
+    <span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"order_date"</span>)
+    <span class="hljs-keyword">private</span> LocalDateTime orderDate;
+
+    <span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"status"</span>)
+    <span class="hljs-keyword">private</span> String status;
+
+    <span class="hljs-meta">@ManyToOne</span>
+    <span class="hljs-meta">@JoinColumn</span>(name = <span class="hljs-string">"user_id"</span>)
+    <span class="hljs-keyword">private</span> User user;
+
+    <span class="hljs-comment">// ...</span>
+}
+</div></code></pre>
+<p>복합 Key (Composite key)
+복합 키란 둘 이상의 필드를 조합하여 기본 키(PK)를 생성하는 방식입니다. 복합 키를 사용하려면 <code>@IdClass</code> 어노테이션 또는 <code>@EmbeddedId</code>와 <code>@Embeddable</code> 어노테이션을 사용해야 합니다.</p>
+<p>@IdClass
+복합 키를 사용할 때는 <code>@IdClass</code> 어노테이션을 이용해 Entity class 레벨에서 지정해줍니다. <code>@Id</code> 어노테이션을 필드에 지정하며, 복합 키를 구성하는 모든 필드에 <code>@Id</code> 어노테이션을 붙여줍니다.</p>
+<pre class="hljs"><code><div><span class="hljs-meta">@Entity</span>
+<span class="hljs-meta">@Table</span>(name = <span class="hljs-string">"OrderItems"</span>)
+<span class="hljs-meta">@IdClass</span>(OrderItem.Pk<span class="hljs-class">.<span class="hljs-keyword">class</span>)
+<span class="hljs-title">public</span> <span class="hljs-title">class</span> <span class="hljs-title">OrderItem</span> </span>{
+    <span class="hljs-meta">@Id</span>
+    <span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"order_id"</span>)
+    <span class="hljs-keyword">private</span> Long orderId;
+
+    <span class="hljs-meta">@Id</span>
+    <span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"line_number"</span>)
+    <span class="hljs-keyword">private</span> Integer lineNumber;
+
+    <span class="hljs-comment">// ...</span>
+
+    <span class="hljs-meta">@NoArgsConstructor</span>
+    <span class="hljs-meta">@AllArgsConstructor</span>
+    <span class="hljs-meta">@EqualsAndHashCode</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pk</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>{
+        <span class="hljs-keyword">private</span> Long orderId;
+        <span class="hljs-keyword">private</span> Integer lineNumber;
+    }
+}
+</div></code></pre>
+<p>@EmbeddedId / @Embeddable
+복합 키를 사용할 때는 <code>@EmbeddedId</code>와 <code>@Embeddable</code> 어노테이션을 이용해 복합 키 식별자 클래스를 만들어줍니다. 복합 키 식별자 클래스에는 <code>@Embeddable</code> 어노테이션을 붙여주고, Entity 클래스의 필드에는 <code>@EmbeddedId</code> 어노테이션을 붙여줍니다.</p>
+<pre class="hljs"><code><div><span class="hljs-meta">@Entity</span>
+<span class="hljs-meta">@Table</span>(name = <span class="hljs-string">"OrderItems"</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderItem</span> </span>{
+    <span class="hljs-meta">@EmbeddedId</span>
+    <span class="hljs-keyword">private</span> Pk pk;
+
+    <span class="hljs-comment">// ...</span>
+
+    <span class="hljs-meta">@Embeddable</span>
+    <span class="hljs-meta">@NoArgsConstructor</span>
+    <span class="hljs-meta">@AllArgsConstructor</span>
+    <span class="hljs-meta">@EqualsAndHashCode</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pk</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>{
+        <span class="hljs-keyword">private</span> Long orderId;
+        <span class="hljs-keyword">private</span> Integer lineNumber;
+    }
+}
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-meta">@NoArgsConstructor</span>
+<span class="hljs-meta">@AllArgsConstructor</span>
+<span class="hljs-meta">@EqualsAndHashCode</span>
+<span class="hljs-meta">@Embeddable</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pk</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>{
+    <span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"order_id"</span>)
+    <span class="hljs-keyword">private</span> Long orderId;
+
+    <span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"line_number"</span>)
+    <span class="hljs-keyword">private</span> Integer lineNumber;
+
+}
+</div></code></pre>
+<h4 id="%EB%B3%B5%ED%95%A9-key-class-%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4">복합 Key Class 제약조건</h4>
+<ul>
+<li>PK 제약조건을 그대로 따름</li>
+<li>PK 제약 조건
+<ul>
+<li>The primary key class must be public and must have a public no-arg constructor.</li>
+<li>The primary key class must be serializable.</li>
+<li>The primary key class must define equals and hashCode methods.</li>
+</ul>
+</li>
+</ul>
+<h4 id="%EC%8B%A4%EC%8A%B5">실습</h4>
+<p>OrderItems 테이블에 대한 Entity 맵핑을 위해 Entity 클래스를 생성하고 컬럼 맵핑을 해봅시다. 복합 Key 맵핑을 위한 두 가지 방법을 모두 실습해봅시다.</p>
+<ul>
+<li>@IdClass</li>
+<li>@EmbeddedId / @Embeddable</li>
+</ul>
+<h4 id="entitymanager--entitymanagerfactory">EntityManager / EntityManagerFactory</h4>
+<ul>
+<li>EntityManagerFactory: EntityManager를 생성하는 팩토리
+<ul>
+<li>데이터베이스를 하나만 사용하는 애플리케이션은 일반적으로 EntityManagerFactory를 하나만 사용</li>
+<li>EntityManagerFactory를 만드는 비용이 매우 크기 때문에 하나만 만들어서 전체에서 공유 (thread-safe)</li>
+</ul>
+</li>
+<li>EntityManager: Entity의 저장, 수정, 삭제, 조회 등 Entity와 관련된 모든 일을 처리하는 관리자
+<ul>
+<li>EntityManagerFactory가 생성 → 생성 비용이 크지 않다</li>
+<li>EntityManager는 thread-safe하지 않음</li>
+<li>여러 thread 간에 절대 공유하면 안 됨</li>
+<li>각각의 요청마다 별도의 EntityManager를 생성해서 사용</li>
+</ul>
+</li>
+</ul>
+<h4 id="%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8">영속성 컨텍스트</h4>
+<ul>
+<li>Entity를 영구 저장하는 환경</li>
+<li>EntityManager가 관리하는 영역</li>
+<li>영속성 컨텍스트에서 Entity의 생명주기
+<ul>
+<li>비영속 (new/transient): 영속성 컨텍스트와 전혀 관계가 없는 상태</li>
+<li>영속 (managed): 영속성 컨텍스트에 저장된 상태</li>
+<li>준영속 (detached): 영속성 컨텍스트에 저장되었다가 분리된 상태</li>
+<li>삭제 (removed): 삭제하기 위해 표시한 상태</li>
+</ul>
+</li>
+</ul>
+<h4 id="persistencecontext">@PersistenceContext</h4>
+<ul>
+<li>EntityManager를 주입받기 위한 어노테이션</li>
+<li>주입받은 EntityManager는 트랜잭션 내에서 사용되며, 트랜잭션이 종료되면 자동으로 플러시되어 DB에 반영됨
+게시판 데이터베이스 테이블에 대해 Entity 맵핑해보겠습니다.</li>
+</ul>
+<p>게시판 테이블 정보:</p>
+<ul>
+<li>테이블 이름: board</li>
+<li>컬럼 정보:
+<ul>
+<li>id (PK, 자동 생성)</li>
+<li>title (VARCHAR)</li>
+<li>content (TEXT)</li>
+<li>writer (VARCHAR)</li>
+<li>created_at (DATETIME)</li>
+<li>updated_at (DATETIME)</li>
+</ul>
+</li>
+</ul>
+<p>Entity 클래스는 다음과 같이 작성할 수 있습니다.</p>
+<pre class="hljs"><code><div><span class="hljs-meta">@Entity</span>
+<span class="hljs-meta">@Table</span>(name = <span class="hljs-string">"board"</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Board</span> </span>{
+    <span class="hljs-meta">@Id</span>
+    <span class="hljs-meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
+    <span class="hljs-keyword">private</span> Long id;
+
+    <span class="hljs-keyword">private</span> String title;
+
+    <span class="hljs-meta">@Lob</span>
+    <span class="hljs-keyword">private</span> String content;
+
+    <span class="hljs-keyword">private</span> String writer;
+
+    <span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"created_at"</span>)
+    <span class="hljs-keyword">private</span> LocalDateTime createdAt;
+
+    <span class="hljs-meta">@Column</span>(name = <span class="hljs-string">"updated_at"</span>)
+    <span class="hljs-keyword">private</span> LocalDateTime updatedAt;
+
+    <span class="hljs-comment">// getters and setters</span>
+}
+</div></code></pre>
+<p>위의 코드에서 <code>@Lob</code> 어노테이션은 컨텐츠가 긴 경우 TEXT 데이터 타입을 사용하기 위한 것입니다.</p>
+<pre class="hljs"><code><div>1. stereotype이 뭔가요
+2. @Bean은 뭔가요
+3. 
+dataSource.setInitialSize(10); // 초기 커넥션풀 갯수
+dataSource.setMaxTotal(10); // 최대 커낵션 풀 갯수
+dataSource.setMinIdle(10);// 놀고있는 커넥션의 최소 갯수
+dataSource.setMaxIdle(10); 놀고잇는 커넥션풀의 최대 갯수
+//베스트는 모두 갯수를 일치시키는게 베스트(보통 200으로 셋팅)
+dataSource.setMaxWaitMillis(1000); // 커넥션풀이 바쁠때 대기시간
+4. 커넥션 풀은 커넥션에 드는 비용이 많아서 사용
+5.
+dataSource.setTestOnBorrow(true); // 커넥션풀에서 커넥션을 가져올때 살아있는지 확인
+dataSource.setTestOnReturn(true); // 못쓰는건지 확인? 하고 반환
+dataSource.setTestWhileIdle(true); // 주기적으로 살아있는지 확인
+//약간의 성능저하가 있을 수도 있다.
+// 그래도 커넥션 비용보다 낫다
+6. dataSource.setUrl(&quot;jdbc:h2:~/spring-jpa;DATABASE_TO_UPPER=false;&quot;
+                + &quot;INIT=RUNSCRIPT FROM 'classpath:/script/schema.sql'&quot;);
+6. 유닛테스트는 관심있는 부분만 테스트 
+7. 통합테스트는 외부시스템을 다 통합하고 테스트
+</div></code></pre>
+<p><a name="footnote1" id="footnote1"></a><sup>1</sup>: JPA&#xB294; Java&#xC5D0;&#xC11C; ORM&#xC744; &#xC0AC;&#xC6A9;&#xD558;&#xAE30; &#xC704;&#xD55C; API &#xC2A4;&#xD399;&#xC785;&#xB2C8;&#xB2E4;. JPA&#xB294; &#xC778;&#xD130;&#xD398;&#xC774;&#xC2A4;&#xC640; &#xC560;&#xB178;&#xD14C;&#xC774;&#xC158;&#xC744; &#xC815;&#xC758;&#xD558;&#xBA70;, &#xC5EC;&#xB7EC; &#xAD6C;&#xD604;&#xCCB4;&#xAC00; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;. &#xB300;&#xD45C;&#xC801;&#xC778; &#xAD6C;&#xD604;&#xCCB4;&#xB85C;&#xB294; Hibernate, EclipseLink, OpenJPA &#xB4F1;&#xC774; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;. <a href="#ref1" style="text-decoration:none;">(&#xB3CC;&#xC544;&#xAC00;&#xAE30;)</a></p>
+
+</body>
+</html>
