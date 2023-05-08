@@ -1,3 +1,4 @@
+# 스프링 있이 구현하는 파트
 ```java
 import javax.sql.DataSource;
 
@@ -213,11 +214,12 @@ Content-Type: application/json
 @EnableJpaRepositories(basePackageClasses = RepositoryBase.class)
 @Configuration
 public class JpaConfig {
+    //
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(dataSource);
-        emf.setPackagesToScan("com.nhnacademy.springjpa.entity");
+        emf.setPackagesToScan("com.nhnacademy.springjpa.entity"); // jpa가 관리하는 entity를 찾기 위한 경로 (현재 교육자료엔 entity 패키지에 있다. 하나의 앤티티매니저가 다루는 앤티티의 종류는 한정이 없고, 트랜잭션당 하나의 엔티티매니저가 생성된다.)
         emf.setJpaVendorAdapter(jpaVendorAdapters());
         emf.setJpaProperties(jpaProperties());
 
@@ -226,21 +228,21 @@ public class JpaConfig {
 
     private JpaVendorAdapter jpaVendorAdapters() {
         HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
-        hibernateJpaVendorAdapter.setDatabase(Database.H2);
+        hibernateJpaVendorAdapter.setDatabase(Database.H2);//방언을 지정해주는 역할. mysql, h2, oracle 등등
 
         return hibernateJpaVendorAdapter;
     }
 
-    private Properties jpaProperties() {
-        Properties jpaProperties = new Properties();
-        jpaProperties.setProperty("hibernate.show_sql", "true");
-        jpaProperties.setProperty("hibernate.format_sql", "true");
-        jpaProperties.setProperty("hibernate.use_sql_comments", "true");
-        jpaProperties.setProperty("hibernate.globally_quoted_identifiers", "true");
-        jpaProperties.setProperty("hibernate.temp.use_jdbc_metadata_defaults", "false");
+  private Properties jpaProperties() {
+    Properties jpaProperties = new Properties();
+    jpaProperties.setProperty("hibernate.show_sql", "true"); // 생성되는 SQL을 로그에 출력
+    jpaProperties.setProperty("hibernate.format_sql", "true"); // SQL을 잘 보기 좋게 포맷팅
+    jpaProperties.setProperty("hibernate.use_sql_comments", "true"); // SQL 쿼리에 대한 주석 추가
+    jpaProperties.setProperty("hibernate.globally_quoted_identifiers", "true"); // 모든 데이터베이스 객체에 대해 쿼리 작성 시 인용 부호(따옴표) 사용
+    jpaProperties.setProperty("hibernate.temp.use_jdbc_metadata_defaults", "false"); // JDBC 메타데이터 기본값 사용하지 않음
 
-        return jpaProperties;
-    }
+    return jpaProperties;
+    }// 하이버네이트 속성값 지정해주는 역할
 
     //jpa에서 사용하기 위한 트랜잭션 매니저
     // datasource는 jdbc꺼엿고 얘는 jp
@@ -383,5 +385,35 @@ public class OrderEntityTest {
     }
 
 }
+
+```
+
+# 스프링없이 구현하는 파트
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_1.0.xsd"
+  version="2.2">
+  <persistence-unit name="default">
+<class>com.nhnacademy.jpa.entity.User</class>
+    <properties>
+      <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:h2:~/spring-jpa;DATABASE_TO_UPPER=false;"/>
+      <property name="javax.persistence.jdbc.user" value="sa"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+      
+      <property name="hibernate.hbm2ddl.auto" value="create"/>
+<!--      테스트 용도로만 써야한다.-->
+<!--      hibernate 매핑을 자동으로 할거냐. 드랍 업데이트 크리에이트 밸리데이트-->
+<!--      크리에이트는 엔티티를 새로만든다-->
+<!--      크리에이트 드랍은 엔티티를 새로만들고 업데이트될때 드랍-->
+<!--      지금 엔티티 매핑되잇는거랑 틀린거랑 수정?-->
+<!--      엔티티 매핑에 있는 내용이랑 실제 디비 스키마랑 안맞으면 에러내고 끝낸다-->
+      
+    </properties>
+  </persistence-unit>
+
+</persistence>
 
 ```

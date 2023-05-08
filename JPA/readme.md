@@ -257,11 +257,12 @@ public interface EntityManagerFactory {
     <appender-ref ref="console" />
 </logger>
 ```
+- 맵핑된 sql 파라미터도 보여주는 로거, 둘중 하나만 쓰면 됨
 - cf.) org.hibernate.type.descriptor.sql.BasicExtractor
 
 ## Demo
 - cf.) Spring 없이 JPA 사용하기
-  - https://blog.jetbrains.com/idea/2021/02/creating-a-simple-jpa-application/
+  - [예시](https://blog.jetbrains.com/idea/2021/02/creating-a-simple-jpa-application/)
 - IntelliJ에서 Jakarta EE 프로젝트 시작
   - Project template: Library
   - Java EE 8 > Hibernate 선택
@@ -501,6 +502,21 @@ OrderItems 테이블에 대한 Entity 맵핑을 위해 Entity 클래스를 생�
   - EntityManager는 thread-safe하지 않음
   - 여러 thread 간에 절대 공유하면 안 됨
   - 각각의 요청마다 별도의 EntityManager를 생성해서 사용
+
+```
+데이터 베이스 클래스에서 나오는 인스턴스를 관리해주는게 @Entity
+
+@Entity와 관련된 데이터와 관련된 쿼리를 자동으로 설정해준다.
+엔터티매니저
+반드시 싱글톤으로 써야할거같지만
+트랜잭션 세이프하지 않다.
+하나의 트랜잭션당 하나의 엔터티 매니저
+
+여러개의 엔터티매니저가 돌아가기때문에 트랜잭션 매니저에서
+jpa 엔터티 매니저를 써야 하는것이기 때문이다.
+
+entity 매니저 팩토리는 어플리케이션 전체에 하나만 있으면 되기때문에  싱글톤으로 되있다
+```
 
 #### 영속성 컨텍스트
 
