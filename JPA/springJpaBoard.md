@@ -833,6 +833,89 @@ public interface UserRepository extends JpaRepository<User, String> {
   }
 
 
+```
+- com/nhnacademy/springboard/spirngmvcboard/entity/Board.java
+- com/nhnacademy/springboard/spirngmvcboard/entity/Post.java
+- com/nhnacademy/springboard/spirngmvcboard/entity/User.java
+
+```java
+@Entity
+@Table(name = "Boards")
+@Getter
+@Setter
+@NoArgsConstructor
+public class Board {
+  @Id
+  private Long boardId;
+  private String boardName;
+  private String description;
+
+}
+
+```
+```java
+
+@Entity
+@Table(name = "Posts")
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
+@NoArgsConstructor
+
+public class Post {
+
+  @EmbeddedId
+  private PK pk;
+  private String title;
+  private String content;
+  private LocalDateTime createdAt;
+  private LocalDateTime updatedAt;
+  @Embeddable
+  @NoArgsConstructor
+  @EqualsAndHashCode
+  @Getter
+  @Setter
+  public static class PK implements Serializable {
+    @Column(name = "post_id")
+    private Long postId;
+
+    @Column(name = "author_id")
+    private Long authorId;
+
+    @Column(name = "board_id")
+    private Long boardId;
+
+    @Override
+    public String toString() {
+      return String.format("%d:%d:%d", postId, authorId, boardId);
+    }
+  }
+
+}
+
+```
+```java
+
+@ToString
+@Getter
+@Setter
+@Entity
+@Table(name = "Users")
+@NoArgsConstructor
+public class User {
+  @Id
+  @Column(name = "user_id")
+  private Long userId;
+  private String email;
+  @Column(name = "user_name")
+  private String username;
+  private String password;
+
+  private LocalDate birthDate;
+  private LocalDateTime createdAt;
+
+}
 
 ```
 # html
