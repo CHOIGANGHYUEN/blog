@@ -1,52 +1,5 @@
 
 ```java
-@Component
-@Getter
-@PropertySource(value="classpath:/db.properties")
-public class DataBaseProperties {
-  @NonNull
-  @Value("${db.username}")
-  private String username;
-  @NonNull
-  @Value("${db.password}")
-  private String password;
-  @NonNull
-  @Value("${db.driverClassName}")
-  private String driverClassName;
-  @NonNull
-  @Value("${db.url}")
-  private String url;
-  @NonNull
-  @Value("${db.initialSize}")
-  private Integer initialSize;
-  @NonNull
-  @Value("${db.maxTotal}")
-  private Integer maxTotal;
-  @NonNull
-  @Value("${db.maxIdle}")
-  private Integer maxIdle;
-  @NonNull
-  @Value("${db.minIdle}")
-  private Integer minIdle;
-  @NonNull
-  @Value("${db.maxWaitMillis}")
-  private Integer maxWaitMillis;
-  @NonNull
-  @Value("${db.validationQuery}")
-  private String validationQuery;
-  @NonNull
-  @Value("${db.testOnBorrow}")
-  private String testOnBorrow;
-
-  public boolean isTestOnBorrow() {
-    return testOnBorrow.equals("true");
-  }
-}
-
-
-
-```
-```java
 
 @EnableJpaRepositories(basePackageClasses = RepositoryBase.class)
 @Configuration
@@ -85,6 +38,118 @@ private Properties jpaProperties(){
 
 
 ```
+- com/nhnacademy/springboard/spirngmvcboard/init/DatabaseInitializer.java
+- init
+```java
+
+@Slf4j
+@Component
+public class DatabaseInitializer  {
+
+  private  UserService userService;
+  private  BoardService boardService;
+  private  PostService postService;
+
+  @Autowired
+  public DatabaseInitializer(UserService userService, BoardService boardService, PostService postService) {
+    this.userService = userService;
+    this.postService=postService;
+    this.boardService=boardService;
+  }
+
+
+  @Bean
+  public void initializeDatabase() {
+    Board board1 = new Board();
+    board1.setBoardName("공지사항");
+    board1.setDescription("공지사항 게시판입니다.");
+    board1.setBoardId(1L);
+    if (boardService.getBoard(1L) == null) {
+            board1 = boardService.createBoard(board1);
+    }
+
+//    if (boardService.findByBoardName("공지사항") == null) {
+//
+//    }
+
+    log.info("board1 id: {}", board1);
+    Board board2 = new Board();
+    board2.setBoardName("자유게시판");
+    board2.setDescription("자유롭게 글을 올리는 게시판입니다.");
+    board2.setBoardId(2L);
+
+    if (boardService.getBoard(2L  ) == null) {
+      board2 = boardService.createBoard(board2);
+    }
+
+    log.info("board2 id: {}", board2);
+
+
+    User user = new User();
+    user.setEmail("admin@nhnacademy.com");
+    user.setUsername("admin");
+    user.setPassword("1234");
+    user.setBirthDate(LocalDate.now());
+    user.setCreatedAt(LocalDateTime.now());
+    if (userService.getUserByEmail(user.getEmail()) == null) {
+      userService.createUser(user);
+    } else {
+      user.setUserId(userService.getUserByEmail(user.getEmail()).getUserId());
+    }
+
+    Post post1 = new Post();
+    post1.setPostId(1L);
+    post1.setAuthor(user);
+    post1.setBoard(board1);
+
+    post1.setTitle("서비스 이용 안내");
+    post1.setContent("안녕하세요. NHN Academy 웹 사이트를 이용해주시는 여러분께 감사드립니다.");
+    post1.setCreatedAt(LocalDateTime.now().minusDays(7));
+    post1.setUpdatedAt(LocalDateTime.now().minusDays(7));
+
+    Post post2 = new Post();
+    post2.setPostId(2L);
+    post2.setAuthor(user);
+    post2.setBoard(board2);
+
+    post2.setTitle("나만의 공부법");
+    post2.setContent("여러분은 자신만의 공부법이 있으신가요? 제가 추천하는 공부법을 소개합니다.");
+    post2.setCreatedAt(LocalDateTime.now().minusDays(5));
+    post2.setUpdatedAt(LocalDateTime.now().minusDays(5));
+
+    Post post3 = new Post();
+    post3.setPostId(3L);
+    post3.setAuthor(user);
+    post3.setBoard(board2);
+    post3.setTitle("자유롭게 글을 올려보세요");
+    post3.setContent("이 게시판은 자유롭게 글을 올리는 공간입니다.");
+    post3.setCreatedAt(LocalDateTime.now().minusDays(3));
+    post3.setUpdatedAt(LocalDateTime.now().minusDays(3));
+
+    Post post4 = new Post();
+    post4.setPostId(4L);
+    post4.setAuthor(user);
+    post4.setBoard(board2);
+    post4.setTitle("NHN IT 교육 서비스 이용 후기");
+    post4.setContent("NHN에서 제공하는 IT 교육 서비스를 이용하셨나요? 후기를 남겨보세요!");
+    post4.setCreatedAt(LocalDateTime.now().minusDays(1));
+    post4.setUpdatedAt(LocalDateTime.now().minusDays(1));
+    savePostIfNotExists(post1);
+    savePostIfNotExists(post2);
+    savePostIfNotExists(post3);
+    savePostIfNotExists(post4);
+
+  }
+
+  private void savePostIfNotExists(Post post) {
+    Post existingPost = postService.getPost(post.getPostId());
+    if (existingPost == null) {
+      postService.createPost(post);
+    }
+  }
+
+}
+```
 - controller
 - com/nhnacademy/springboard/spirngmvcboard/controller/BoardController.java
 - com/nhnacademy/springboard/spirngmvcboard/controller/ControllerBase.java
@@ -96,16 +161,17 @@ private Properties jpaProperties(){
 
 ```java
 
-@Slf4j
 @Controller
 @RequestMapping("/board")
 public class BoardController implements ControllerBase {
   private final BoardService boardService;
+  private final UserService userService;
   private final PostService postService;
 
-  public BoardController(BoardService boardService, PostService postService) {
+  public BoardController(BoardService boardService, PostService postService, UserService userService) {
     this.boardService = boardService;
     this.postService = postService;
+    this.userService=userService;
   }
 
   @GetMapping
@@ -119,28 +185,29 @@ public class BoardController implements ControllerBase {
   }
 
   @GetMapping("/{id}")
-  public String doBoard(Model model, @PathVariable("id") String id) {
+  public String doBoard(Model model, @PathVariable("id") Long id) {
     log.info("id={}", id);
     Board board = boardService.getBoard(id);
-    List<Post> posts = postService.findByPkBoardId(String.valueOf(board.getBoardId()));
+    List<Post> posts = postService.findByBoardId(board.getBoardId());
     model.addAttribute("posts", posts);
     model.addAttribute("board", board); // 이 부분을 추가해줍니다.
     log.info("posts={}", posts);
     return "board/posts";
   }
 
-
   @PostMapping("/{boardId}/write")
-  public String createPost(@ModelAttribute Post post, HttpSession session, @PathVariable Long boardId) { // 수정
-    User loginUser = (User) session.getAttribute("user");
-    post.getPk().setAuthorId(loginUser.getUserId());
-    post.getPk().setBoardId(boardService.getBoard(String.valueOf(boardId)).getBoardId()); // 수정
+  public String createPost(@ModelAttribute Post post, HttpSession session, @PathVariable Long boardId) {
+    User user = userService.getUserById(((User) session.getAttribute("user")).getUserId());
+    Board board = boardService.getBoard(boardId);
+    post.setAuthor(user);
+    post.setBoard(board);
     postService.createPost(post);
-    return "redirect:/board/" + boardId; // 수정
+    return "redirect:/board/" + boardId;
   }
 
+
   @GetMapping("/{boardId}/write")
-  public String showWriteForm(@PathVariable String  boardId, Model model, HttpSession session) {
+  public String showWriteForm(@PathVariable Long  boardId, Model model, HttpSession session) {
     User user = (User) session.getAttribute("user");
     if (user == null) {
       try {
@@ -150,12 +217,12 @@ public class BoardController implements ControllerBase {
       }
     }
     Post post = new Post();
-    model.addAttribute("post", post);
-    model.addAttribute("boardId", boardId); // 삭제
-    model.addAttribute("board", boardService.getBoard(boardId)); // 추가
+    model.addAttribute("post", new Post());
+    model.addAttribute("board", boardService.getBoard(boardId));
     return "board/write";
   }
 }
+
 ```
 ```java
 package com.nhnacademy.springboard.spirngmvcboard.controller;
@@ -257,6 +324,7 @@ public class LoginController implements ControllerBase {
     return "user/find-id-result";
   }
 }
+
 ```
 ```java
 
@@ -278,19 +346,6 @@ public class MainController implements ControllerBase {
 
 ```
 ```java
-package com.nhnacademy.springboard.spirngmvcboard.controller;
-
-import com.nhnacademy.springboard.spirngmvcboard.entity.User;
-import com.nhnacademy.springboard.spirngmvcboard.service.UserService;
-import java.util.List;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
@@ -311,15 +366,15 @@ public class ManagementUserController implements ControllerBase {
   }
 
   @GetMapping("/delete/{id}")
-  public String doDeleteUser(@PathVariable("id") String  id, Model model) {
+  public String doDeleteUser(@PathVariable("id") Long  id, Model model) {
     userService.deleteUserById(id);
     model.addAttribute("userList", userService.findAll());
     return "redirect:/usermanage/list";
   }
 
-  @GetMapping("/update/{id}")
-  public String validateUpdateUser(@PathVariable("id") Long id, Model model) {
-    User user = userService.getUserById(id.toString());
+  @GetMapping("/update/{userId}")
+  public String validateUpdateUser(@PathVariable("userId") Long userId, Model model) {
+    User user = userService.getUserById(userId);
     if (user == null) {
       model.addAttribute("error", "해당 사용자가 없습니다.");
       return "managementUser";
@@ -327,20 +382,20 @@ public class ManagementUserController implements ControllerBase {
     model.addAttribute("user", user);
     return "userUpdate";
   }
-  @PostMapping("/update/{id}")
-  public String doUpdate(@ModelAttribute("user") User user, @PathVariable("id") Long id, Model model) {
-    User existingUser = userService.getUserById(id.toString());
+  @PostMapping("/update/{userId}")
+  public String doUpdate(@ModelAttribute("ModifyUserRequest")ModifyUserRequest modifyUserRequest, @PathVariable("userId") Long userId, Model model) {
+    User existingUser = userService.getUserById(userId);
     if (existingUser == null) {
       model.addAttribute("error", "해당 사용자가 없습니다.");
       return "managementUser";
     }
-    existingUser.setUsername(user.getUsername());
-    existingUser.setPassword(user.getPassword());
-    existingUser.setEmail(user.getEmail());
-    existingUser.setBirthDate(user.getBirthDate());
+    existingUser.setUsername(modifyUserRequest.getUserName());
+    log.info("UserName = {}",modifyUserRequest.getUserName());
+    log.info("Password = {}",modifyUserRequest.getPassword());
+    existingUser.setPassword(modifyUserRequest.getPassword());
     userService.modifyUser(existingUser);
     model.addAttribute("userList", userService.findAll());
-    return "userRegist";
+    return "redirect:/usermanage/list";
   }
 }
 
@@ -362,7 +417,7 @@ public class PostController implements ControllerBase {
   }
 
   @GetMapping("/{boardId}/post/{postId}")
-  public String viewPost(@PathVariable("boardId") String boardId, @PathVariable("postId") String postId, Model model) {
+  public String viewPost(@PathVariable("boardId") Long boardId, @PathVariable("postId") Long postId, Model model) {
     Post post = postService.getPost(postId);
     if (post == null) {
       try {
@@ -372,8 +427,8 @@ public class PostController implements ControllerBase {
       }
     }
 
-    User author = userService.getUserById(String.valueOf(post.getPk().getAuthorId()));
-    post.getPk().setAuthorId(author.getUserId());
+    User author = userService.getUserById(post.getAuthor().getUserId());
+    post.setAuthor(author);
 
     Board board = boardService.getBoard(boardId);
     if (board == null) {
@@ -384,19 +439,19 @@ public class PostController implements ControllerBase {
       }
     }
 
-    post.getPk().setBoardId(board.getBoardId());
+    post.setBoard(board);
     model.addAttribute("board", board);
     model.addAttribute("post", post);
     return "board/post";
   }
 
   @GetMapping("/{boardId}/post/{postId}/edit")
-  public String showEditForm(@PathVariable("boardId") String boardId, @PathVariable("postId") String postId, Model model, HttpSession session) {
+  public String showEditForm(@PathVariable("boardId") Long boardId, @PathVariable("postId") Long postId, Model model, HttpSession session) {
     User user = (User) session.getAttribute("user");
     Post post = postService.getPost(postId);
 
     // 로그인한 유저와 게시물 작성자가 같은 경우에만 수정 가능
-    if (user != null && post.getPk().getAuthorId().equals(user.getUserId())) {
+    if (user != null && post.getAuthor().equals(user)) {
       model.addAttribute("post", post);
       return "board/edit";
     } else {
@@ -409,12 +464,12 @@ public class PostController implements ControllerBase {
   }
 
   @PostMapping("/{boardId}/post/{postId}/edit")
-  public String updatePost(@PathVariable("boardId") String boardId, @PathVariable("postId") String postId, @ModelAttribute Post updatedPost, HttpSession session) {
+  public String updatePost(@PathVariable("boardId") Long boardId, @PathVariable("postId") Long postId, @ModelAttribute Post updatedPost, HttpSession session) {
     User loginUser = (User) session.getAttribute("user");
     Post post = postService.getPost(postId);
 
     // 로그인한 유저와 게시물 작성자가 같은 경우에만 수정 가능
-    if (loginUser != null && post.getPk().getAuthorId().equals(loginUser.getUserId())) {
+    if (loginUser != null && post.getAuthor().equals(loginUser)) {
       post.setTitle(updatedPost.getTitle());
       post.setContent(updatedPost.getContent());
       postService.modifyPost(post);
@@ -429,14 +484,12 @@ public class PostController implements ControllerBase {
   }
 
   @PostMapping("/{boardId}/post/{postId}/delete")
-  public String deletePost(@PathVariable("boardId") String boardId, @PathVariable("postId") String  postId, HttpSession session) {
+  public String deletePost(@PathVariable("boardId") Long boardId, @PathVariable("postId") Long  postId, HttpSession session) {
     User loginUser = (User) session.getAttribute("user");
     Post post = postService.getPost(postId);
-    PK target= new PK();
-    target.setPostId(Long.valueOf(postId));
     // 로그인한 유저와 게시물 작성자가 같은 경우에만 삭제 가능
-    if (loginUser != null && post.getPk().getAuthorId().equals(loginUser.getUserId())) {
-      postService.deletePostById(String.valueOf(target.getPostId()));
+    if (loginUser != null && post.getAuthor().equals(loginUser)) {
+      postService.deletePostById(post.getPostId());
       return "redirect:/board/" + boardId;
     } else {
       try {
@@ -464,15 +517,19 @@ public class RegistController {
   @PostMapping("/regist")
   public String doRegist(@ModelAttribute("user") @DateTimeFormat(pattern = "yyyy-MM-dd") User user, Model model) {
     User existingUser = userService.getUserByEmail(user.getEmail());
-
     if (existingUser != null) {
       model.addAttribute("error", "이미 존재하는 사용자 이메일입니다. 다른 사용자 이메일을 선택해주세요.");
       log.info("User already exists: {}", user.getUsername());
       return "userRegist";
     }
-
+    User newUser= new User();
+    newUser.setUsername(user.getUsername());
+    newUser.setEmail(user.getEmail());
+    newUser.setPassword(user.getPassword());
+    newUser.setCreatedAt(user.getCreatedAt());
+    newUser.setBirthDate(user.getBirthDate());
     try {
-      userService.createUser(user);
+      userService.createUser(newUser);
     } catch (Exception e) {
       model.addAttribute("error", "등록 중 오류가 발생했습니다. 다시 시도해주세요.");
       return "userRegist";
@@ -527,6 +584,7 @@ List<Board> findAll();
 
 ```java
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
@@ -538,14 +596,14 @@ public class BoardServiceImpl implements BoardService {
   }
 
   @Override
-  public Board getBoard(String  boardId) {
+  public Board getBoard(Long  boardId) {
     Optional<Board> boardOptional = boardRepository.findById(boardId);
     return boardOptional.orElse(null);
   }
 
   @Override
   public Board modifyBoard(Board board) {
-    Optional<Board> boardOptional = boardRepository.findById(String.valueOf(board.getBoardId()));
+    Optional<Board> boardOptional = boardRepository.findById(board.getBoardId());
     if (boardOptional.isPresent()) {
       Board existingBoard = boardOptional.get();
       existingBoard.setBoardName(board.getBoardName());
@@ -555,6 +613,12 @@ public class BoardServiceImpl implements BoardService {
       return null;
     }
   }
+  @Override
+  public Board findByBoardName(String boardName) {
+    Board board=boardRepository.findByBoardName(boardName).orElse(null);
+    log.info("findByBoardName: {}",board.getBoardName());
+    return boardRepository.findByBoardName(boardName).orElse(null);
+  }
 
   @Override
   public List<Board> findAll() {
@@ -563,28 +627,31 @@ public class BoardServiceImpl implements BoardService {
 }
 
 ```
-
+# PostServiceImpl.java
 ```java
+
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class PostServiceImpl implements PostService {
   private final PostRepository postRepository;
+  private final UserRepository userRepository;
+  private final BoardRepository boardRepository;
 
   @Override
   public Post createPost(Post post) {
+
     return postRepository.save(post);
   }
-
   @Override
-  public Post getPost(String postId) {
-    Optional<Post> postOptional = postRepository.findById(postId);
+  public Post getPost(Long postId) {
+    Optional<Post> postOptional = postRepository.findByPostId(postId);
     return postOptional.orElse(null);
   }
 
   @Override
   public Post modifyPost(Post post) {
-    Optional<Post> postOptional = postRepository.findById(post.getPk().toString());
+    Optional<Post> postOptional = postRepository.findById(post.getPostId());
     if (postOptional.isPresent()) {
       Post existingPost = postOptional.get();
       existingPost.setTitle(post.getTitle());
@@ -597,23 +664,32 @@ public class PostServiceImpl implements PostService {
 
 
   @Override
-  public List<Post> findByPkUserId(String userId) {
-    List<Post> allPosts = postRepository.findAll();
-    return allPosts.stream()
-        .filter(post -> post.getPk().getAuthorId().equals(userId))
-        .collect(Collectors.toList()); }
+  public List<Post> findByUserId(Long userId) {
+    List<Post> allPosts = postRepository.findByAuthor_UserId(userId);
+    return allPosts;
+  }
 
   @Override
-  public List<Post> findByPkBoardId(String boardId) {
-    List<Post> allPosts = postRepository.findAll();
-    return allPosts.stream()
-        .filter(post -> post.getPk().getBoardId().equals(boardId))
-        .collect(Collectors.toList());  }
+  public List<Post> findByBoardId(Long boardId) {
+    List<Post> allPosts = postRepository.findByBoard_BoardId(boardId);
+    return allPosts;
+  }
+
+  public Optional<Post> findById(Long postId) {
+    return postRepository.findById(postId);
+  }
+
+  @Override
+  public void deletePostById(Long postId) {
+    postRepository.deleteById(postId);
+  }
 }
 
 ```
+# UserServiceImpl.java
 ```java
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -626,43 +702,43 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User getUserById(String id) {
-    return userRepository.findById(id).orElse(null);
+  public User getUserById(Long userId) {
+    log.info("userId : {}", userId);
+    return userRepository.findById(userId).orElse(null);
   }
 
   @Override
   public User getUserByEmail(String email) {
     List<User> allUsers = userRepository.findAll();
-    Optional<User> userByEmail = allUsers.stream()
-        .filter(user -> user.getEmail().equals(email))
-        .findFirst();
-    return userByEmail.orElse(null);
+    if (allUsers.isEmpty()) {
+      return null;
+    } else {
+      Optional<User> userByEmail = allUsers.stream()
+          .filter(user -> user.getEmail().equals(email))
+          .findFirst();
+      return userByEmail.orElse(null);
+    }
   }
+
 
   @Override
   public User modifyUser(User user) {
-    Optional<User> existingUser = userRepository.findById(String.valueOf(user.getUserId()));
-
-    if (existingUser.isPresent()) {
-      User modifiedUser = existingUser.get();
-      modifiedUser.setEmail(user.getEmail());
-      modifiedUser.setUsername(user.getUsername());
-      modifiedUser.setPassword(user.getPassword());
-      // 추가적으로 수정하고자 하는 필드들이 있다면 여기에서 수정하세요.
-
-      return userRepository.save(modifiedUser);
-    } else {
-      return null;
-    }
+  return userRepository.save(user);
   }
 
   @Override
   public List<User> findAll() {
     return userRepository.findAll();
   }
+
+  @Override
+  public void deleteUserById(Long userId) {
+     userRepository.deleteById(userId);
+  }
 }
 
 ```
+#
 ```java
 @Getter
 @Setter
@@ -705,6 +781,7 @@ public class LoginService {
     return result;
   }
 }
+
 
 ```
 - com/nhnacademy/springboard/spirngmvcboard/thymeleaf
@@ -757,21 +834,26 @@ public class TagUtils {
 
 ```
 ```java
-public interface BoardRepository  extends JpaRepository<Board, String> {
+public interface BoardRepository  extends JpaRepository<Board, Long> {
+  Optional<Board> findByBoardName(String boardName);
 
 
 }
 @Repository
-  public interface PostRepository  extends JpaRepository<Post, String> {
+  public interface PostRepository  extends JpaRepository<Post, Long> {
 
-  List<Post> findByPkUserId(String userId);
+  List<Post> findByAuthor_UserId(Long userId);
 
-  List<Post> findByPkBoardId(String boardId);
+  List<Post> findByBoard_BoardId(Long boardId);
+
+  Optional<Post> findByPostId(Long postId);
+
 }
+
 public interface RepositoryBase {
 
 }
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
   }
 ```
@@ -781,58 +863,37 @@ public interface UserRepository extends JpaRepository<User, String> {
 - com/nhnacademy/springboard/spirngmvcboard/repository/UserRepository.java
 
 ```java
-package com.nhnacademy.springboard.spirngmvcboard.repository;
 
-import com.nhnacademy.springboard.spirngmvcboard.entity.Board;
-import java.util.List;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-public interface BoardRepository  extends JpaRepository<Board, String> {
-
-
+public interface BoardRepository  extends JpaRepository<Board, Long> {
+  Optional<Board> findByBoardName(String boardName);
 }
-
 ```
 ```java
-package com.nhnacademy.springboard.spirngmvcboard.repository;
-
-import com.nhnacademy.springboard.spirngmvcboard.entity.Post;
-import java.util.List;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 @Repository
-  public interface PostRepository  extends JpaRepository<Post, String> {
+  public interface PostRepository  extends JpaRepository<Post, Long> {
 
-  List<Post> findByPkAuthorId(String auth);
+  List<Post> findByAuthor_UserId(Long userId);
 
-  List<Post> findByPkBoardId(String boardId);
+  List<Post> findByBoard_BoardId(Long boardId);
+
+  Optional<Post> findByPostId(Long postId);
+
 }
-
-
 
 ```
 
 ```java
-package com.nhnacademy.springboard.spirngmvcboard.repository;
-
 public interface RepositoryBase {
 
 }
 
+
 ```
 ```java
-package com.nhnacademy.springboard.spirngmvcboard.repository;
+public interface UserRepository extends JpaRepository<User, Long> {
 
-import com.nhnacademy.springboard.spirngmvcboard.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface UserRepository extends JpaRepository<User, String> {
-
-  }
-
-
+}
 ```
 - com/nhnacademy/springboard/spirngmvcboard/entity/Board.java
 - com/nhnacademy/springboard/spirngmvcboard/entity/Post.java
@@ -846,15 +907,16 @@ public interface UserRepository extends JpaRepository<User, String> {
 @NoArgsConstructor
 public class Board {
   @Id
+  @Column(name = "board_id")
+  @GeneratedValue(strategy= GenerationType.IDENTITY)
   private Long boardId;
+  @Column(name = "board_name")
   private String boardName;
   private String description;
 
 }
-
 ```
 ```java
-
 @Entity
 @Table(name = "Posts")
 @Getter
@@ -862,35 +924,27 @@ public class Board {
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
-
 public class Post {
+  @Id
+  @Column(name = "post_id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long postId;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "author_id")
+  private User author;
 
-  @EmbeddedId
-  private PK pk;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "board_id")
+  private Board board;
+
+
   private String title;
   private String content;
-  private LocalDateTime createdAt;
-  private LocalDateTime updatedAt;
-  @Embeddable
-  @NoArgsConstructor
-  @EqualsAndHashCode
-  @Getter
-  @Setter
-  public static class PK implements Serializable {
-    @Column(name = "post_id")
-    private Long postId;
+  @Column(name = "created_at")
+  private LocalDateTime createdAt =LocalDateTime.now();
+  @Column(name = "updated_at")
+  private LocalDateTime updatedAt = LocalDateTime.now();
 
-    @Column(name = "author_id")
-    private Long authorId;
-
-    @Column(name = "board_id")
-    private Long boardId;
-
-    @Override
-    public String toString() {
-      return String.format("%d:%d:%d", postId, authorId, boardId);
-    }
-  }
 
 }
 
@@ -905,15 +959,17 @@ public class Post {
 @NoArgsConstructor
 public class User {
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "user_id")
   private Long userId;
   private String email;
-  @Column(name = "user_name")
+  @Column(name = "username")
   private String username;
   private String password;
-
+@Column(name = "birth_date")
   private LocalDate birthDate;
-  private LocalDateTime createdAt;
+@Column(name = "created_at")
+  private LocalDateTime createdAt=LocalDateTime.now();
 
 }
 
