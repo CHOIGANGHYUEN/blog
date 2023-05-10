@@ -1527,8 +1527,8 @@ SELECT post FROM PostEntity post
     @Query(value = "select * from Items where price > ?1", nativeQuery = true)
     List<Item> getItemsHavingPriceAtLeast2(long price);
     ```
-- @Modifying
-    - @Query 를 통해 insert, update, delete 쿼리를 수행할 경우 붙여줘야 함
+### @Modifying
+- @Query 를 통해 insert, update, delete 쿼리를 수행할 경우 붙여줘야 함
     ```
     @Modifying
     @Query("update Item i set i.itemName = :itemName where i.itemId = :itemId")
@@ -1574,7 +1574,7 @@ public class WebConfig {
 ```
 
 ### Basic Web Support
-- DomainClassConverter
+- DomainClassConverter //  얘는 쓰지마라
     - MVC request parameter나 path variable로부터 Spring Data Repository가 관리하는 도메인 클래스로의 conversion을 제공
 - HandlerMethodArgumentResolver
     - MVC request parameter를 Pageable, Sort 인스턴스로 resolver할 수 있도록 해 준다
@@ -1600,25 +1600,6 @@ public class ItemController {
   }
 }
 ```
-## Pageable
-
-### Pagination 정보를 추상화한 인터페이스
-```java
-public interface Pageable {
-  int getPageNumber();
-  int getPageSize();
-  int getOffset();
-
-  Sort getSort();
-
-  Pageable next();
-  Pageable previousOrFirst();
-  Pageable first();
-
-  boolean hasPrevious();
-}
-```
-
 ### Pageable interface의 대표적인 구현
 - PageRequest class
     - `// ?page=0&size=30`
@@ -1665,6 +1646,18 @@ public interface Slice<T> extends Streamable<T> {
 
     // ...
 }
+```
+```
+슬라이스와 Page 차이점
+select * from items;
+
+//select * from imems offset 0 limit 30
+
+Page<item> getAllBy(페이지어블 페이지어블)
+슬라이스<아이템> readAllBy(페이지어블 페이지어블)
+
+ 슬라이스는 전체 카운트는 알수없음
+ page는 전체 카운트를 알수있음
 ```
 ## Page interface의 대표적인 구현
 - PageImpl class
