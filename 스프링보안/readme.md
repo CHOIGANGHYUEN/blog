@@ -92,7 +92,90 @@ the proess of determining whether who or what it declares itself to be
 
 <img src="../image/스크린샷 2023-05-15 오전 10.08.28.png">
 
+
 참고: https://d2.naver.com/helloworld/318732
+
+```java
+
+public class PasswordUtils {
+    private static final int DEFAULT_ITERATIONS = 1024;
+
+    private PasswordUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+    //`simple(String rawPassword)`: 
+    //입력된 비밀번호에 대해 SHA-256 해시를 적용합니다. 이 때, 솔트와 반복은 사용되지 않습니다.
+    public static String simple(String rawPassword) {
+        byte[] digest = null;
+        try {
+            digest = sha256WithoutSaltAndIterations(rawPassword);
+        } catch (NoSuchAlgorithmException ex) {
+            log.error("", ex);
+        }
+
+        return bytesToHex(digest);
+    }
+    //`encode(String rawPassword, byte[] salt)`: 
+    // 입력된 비밀번호에 대해 솔트를 적용한 후 SHA-256 해시를 적용합니다. 
+    // 이 때, 반복 횟수는 `DEFAULT_ITERATIONS`로 설정됩니다.
+    public static String encode(String rawPassword, byte[] salt) {
+        return encode(rawPassword, salt, DEFAULT_ITERATIONS);
+    }
+    //`encode(String rawPassword, byte[] salt, int iterations)`: 
+    // 입력된 비밀번호에 대해 솔트를 적용하고, 지정된 횟수만큼 SHA-256 해시를 반복 적용합니다.
+    public static String encode(String rawPassword, byte[] salt, int iterations) {
+        byte[] digest = null;
+        try {
+            digest = sha256(rawPassword, salt, iterations);
+        } catch (NoSuchAlgorithmException ex) {
+            log.error("", ex);
+        }
+
+        return bytesToHex(digest);
+    }
+    //`sha256(String rawPassword, byte[] salt, int iterations)`: 
+    // 입력된 비밀번호에 대해 솔트를 적용하고, 지정된 횟수만큼 SHA-256 해시를 반복 적용하는 메서드입니다. 
+    // 이 메서드는 `encode` 메서드에서 내부적으로 호출됩니다.
+
+    private static byte[] sha256(String rawPassword, byte[] salt, int iterations) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        digest.reset();
+        digest.update(salt);
+
+        byte[] input = digest.digest(rawPassword.getBytes(StandardCharsets.UTF_8));
+        for (int i = 0; i < iterations; i++) {
+            digest.reset();
+            input = digest.digest(input);
+        }
+
+        return input;
+    }
+    //`sha256WithoutSaltAndIterations(String rawPassword)`: 
+    // 입력된 비밀번호에 대해 솔트와 반복 없이 SHA-256 해시를 적용하는 메서드입니다.
+    // 이 메서드는 `simple` 메서드에서 내부적으로 호출됩니다.
+    private static byte[] sha256WithoutSaltAndIterations(String rawPassword) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        digest.reset();
+        return digest.digest(rawPassword.getBytes(StandardCharsets.UTF_8));
+    }
+    //`bytesToHex(byte[] bytes)`: 
+    // 바이트 배열을 16진수 문자열로 변환하는 메서드입니다.
+    // 이 메서드는 해시된 비밀번호를 저장하거나 비교할 때 사용됩니다.
+    public static String bytesToHex(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (byte b: bytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
+    }
+
+}
+/*
+이 `PasswordUtils` 클래스는 비밀번호를 안전하게 저장하기 위한 유틸리티 클래스입니다. 비밀번호를 그대로 저장하는 것은 보안상 위험하므로, 일반적으로는 해시 알고리즘을 이용해 비밀번호를 변환한 후 저장합니다. 이 클래스는 SHA-256 해시 알고리즘을 사용하며, 추가적으로 솔트(salt)와 반복(iteration)을 적용할 수 있습니다.
+
+*/
+```
+
 
 ### 비밀번호에 단방향 해시 함수 적용
 
@@ -155,27 +238,31 @@ the proess of determining whether who or what it declares itself to be
   - OAuth 2.0 Login
   - Webflux 지원
 
-#### Spring Security 주요 기능
-- 다양한 인증(Authentication) 지원
-  - HTTP BASIC authentication headers
-  - HTTP Digest authentication headers
-  - HTTP X.509 client certificate exchange
-  - Form-based authentication (아이디/비밀번호 인증)
-  - LDAP
-  - CAS (Jasig Central Authentication Service)
-  - Authentication based on pre-established request headers ex.) CA Siteminder
-  - Kerberos
-  - OpenID authentication
-  - OAuth 2.0 / OpenID Connect(OIDC) 1.0
-  - SAML 2.0
-### 권한 관리(Authorization)
-- 웹 요청 표현식 기반 접근 제어(Expression-Based Access Control)
-- Method Security
-- Domain Object Security (ACLs)
+### Spring Security 주요 기능
 
-### 취약점 공격 방어
-- Security Http Response Headers
-- CSRF
+#### 다양한 인증(Authentication) 지원
+Spring Security는 여러가지 방법으로 인증을 지원합니다. 
+- HTTP BASIC authentication headers: 사용자 이름과 비밀번호를 Base64 인코딩된 형태로 HTTP 헤더에 포함시키는 방식입니다.
+- HTTP Digest authentication headers: HTTP 요청에 대한 다이제스트 해시 값을 포함하여 서버에 전송하는 방식입니다. 
+- HTTP X.509 client certificate exchange: 클라이언트 인증서를 이용한 방식입니다.
+- Form-based authentication (아이디/비밀번호 인증): 가장 일반적인 방식으로 사용자의 아이디와 비밀번호를 이용하여 인증하는 방식입니다.
+- LDAP: Lightweight Directory Access Protocol을 이용하여 인증하는 방식입니다.
+- CAS (Jasig Central Authentication Service): 여러 애플리케이션에서 사용자 인증 정보를 공유할 수 있도록 하는 중앙 인증 서비스입니다.
+- Authentication based on pre-established request headers: 예를 들어, CA Siteminder와 같은 툴을 이용하여 이미 인증이 된 요청에 대해 인증하는 방식입니다.
+- Kerberos: 네트워크 인증 프로토콜입니다.
+- OpenID authentication: 사용자가 여러 웹사이트에서 동일한 식별자를 재사용하도록 하는 방식입니다.
+- OAuth 2.0 / OpenID Connect(OIDC) 1.0: 토큰 기반의 인증 및 권한 부여를 관리하는 프레임워크입니다.
+- SAML 2.0: 보안 정보를 교환하는 방식을 정의한 XML 기반의 표준입니다.
+
+#### 권한 관리(Authorization)
+- 웹 요청 표현식 기반 접근 제어(Expression-Based Access Control): 웹 요청에 대해 사용자의 권한을 표현식을 이용하여 결정하는 방식입니다.
+-  : 메소드 호출에 대해 권한을 체크하는 방식입니다.
+- Domain Object Security (ACLs): 도메인 객체에 대해 세부적인 권한을 관리하는 방식입니다.
+
+#### 취약점 공격 방어
+- Security Http Response Headers: HTTP 응답 헤더를 이용하여 웹 취약점 공격을 방어합니다.
+- CSRF: Cross-Site Request Forgery 공격을 방어하는 방법을 제공합니다.
+
 
 ### Spring Security Modules
 #### 기본 모듈
@@ -889,7 +976,7 @@ http
   ```
 
 #### csrf 토큰 (Thymeleaf)
-  ```
+  ```html
   <!DOCTYPE html>
   <html>
   <head>
@@ -928,7 +1015,7 @@ http
 #### ChannelProcessingFilter 에서 https 동작 시키려면?
 - tomcat 에 https 설정 추가 필요
   - `{톰캣설치폴더}/conf/server.xml`
-    ```
+    ```xml
     <Server ...>
       <Service name="Catalina">
         <!-- ... -->
