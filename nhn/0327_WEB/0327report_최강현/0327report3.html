@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+    </head>
+
+    <body>
+        <div style="width :1000px; height:800px;margin :0 auto; ">
+            <header style="width:1000px; text-align: center;">
+                <h1 style="color:#708090">국내선 항공 스케쥴 조회</h1>
+            </header>
+            <div id="search-form-root" style="width: 80%; height:15%; border : 1px solid #708090 ; display: block; margin:0 auto;">
+                <form style=" width:70%; margin:auto; padding: 50px;">
+                    <input list="datalist" />
+                    <datalist id="datalist" />
+                    <option value="광주" />
+                    <option value="서울" />
+                    <option value="부산" />
+                    <option value="여수" />
+                    <option value="전주" />
+                    <option value="인천" />
+                    <option value="부다페스트" />
+                    </datalist>
+                    <input list="datalist" />
+                    <datalist id="datalist" />
+                    <option value="광주" />
+                    <option value="서울" />
+                    <option value="부산" />
+                    <option value="여수" />
+                    <option value="전주" />
+                    <option value="인천" />
+                    <option value="부다페스트" />
+                    </datalist>
+                    <label>
+                        <input type="date">
+                    </label>
+
+                    <button>조회</button>
+                </form>
+            </div>
+            <div id="tb-root">
+                <table id="tb" border="1" style="margin: 0 auto">
+                    <thead id="thead">
+                        <th class="tlabel">항공편명</th>
+                        <th class="tlabel">항공사명</th>
+                        <th class="tlabel">출발시간</th>
+                        <th class="tlabel">도착시간</th>
+                        <th class="tlabel">일반석운임팁</th>
+                        <th class="tlabel">비즈니스운임팁</th>
+                        <th class="tlabel">출발공항</th>
+                        <th class="tlabel">도착공항</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <td class="tlabel">028141</td>
+                        <td class="tlabel">아시아나 항공</td>
+                        <td class="tlabel">2023-03-14 10:00</td>
+                        <td class="tlabel">2023-03-14 13:00</td>
+                        <td class="tlabel">20000</td>
+                        <td class="tlabel">210000</td>
+                        <td class="tlabel">광주</td>
+                        <td class="tlabel">제주</td>
+                    </tr>
+                    <tbody>
+                        <tr>
+                        <td class="tlabel">028143</td>
+                        <td class="tlabel">아시아나 항공</td>
+                        <td class="tlabel">2023-03-14 11:00</td>
+                        <td class="tlabel">2023-03-14 15:00</td>
+                        <td class="tlabel">23000</td>
+                        <td class="tlabel">240000</td>
+                        <td class="tlabel">광주</td>
+                        <td class="tlabel">제주</td>
+                    </tr>
+                    </tbody>
+                        
+                </table>
+            </div>
+        </div>
+
+    </body>
+
+</html>

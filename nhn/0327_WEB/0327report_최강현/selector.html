@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>1번</h1>
+    <style>
+        p{
+            color:red;
+        }
+    </style>
+    
+    <p>안녕하세요.</p>
+    <p id="hello">안녕하세요.</p>
+    <p class="hello">안녕하세요.</p>
+    <input type="button" value="안녕하세요">
+    <h1>2번</h1>
+    <style>
+        #hello2{
+            color:blue;
+        }
+    </style>
+    
+    <p>안녕하세요.</p>
+    <p id="hello2">안녕하세요.</p>
+    <p class="hello2">안녕하세요.</p>
+    <input type="button" value="안녕하세요">
+    <h1>3번</h1>
+    <style>
+        .hello3{
+            color:green;
+        }
+    </style>
+    
+    <p>안녕하세요.</p>
+    <p id="hello3">안녕하세요.</p>
+    <p class="hello3">안녕하세요.</p>
+    <input type="button" value="안녕하세요">
+    <h1>4번</h1>
+    <style>
+        [type="button"]{
+            color: green;
+        }
+    </style>
+    
+    <p>안녕하세요.</p>
+    <p id="hello4">안녕하세요.</p>
+    <p class="hello4">안녕하세요.</p>
+    <input type="button" value="안녕하세요">
+    <h1>5번</h1>
+    <header>
+        <h1>조 루소</h1>
+        <h2>안소니 루소</h2>
+    </header>
+    <h1>6번</h1>
+    <style>
+        header h1{
+            color:red;
+        }
+        header h1, header h2{
+            color:red;
+        }
+    </style>
+    
+    <header>
+        <h1>조 루소</h1>
+        <h2>안소니 루소</h2>
+        <ul>
+            <li>
+                <h1>안소니 루소 1세</h1>
+            </li>
+            <li>
+                <h1>안소니 루소 2세</h1>
+            </li>
+            <li>
+                <h1>안소니 루소 3세</h1>
+            </li>
+            <li>
+                <h1>안소니 루소 4세</h1>
+            </li>
+        </ul>
+    </header>
+    <h1>7번</h1>
+    <style>
+        header > h1{
+            color:red;
+        }
+        header > h1, header > h2{
+            color:red;
+        }
+    </style>
+    
+    <header>
+        <h1>조 루소</h1>
+        <h2>안소니 루소</h2>
+        <ul>
+            <li>
+                <h1>안소니 루소 1세</h1>
+            </li>
+            <li>
+                <h1>안소니 루소 2세</h1>
+            </li>
+            <li>
+                <h1>안소니 루소 3세</h1>
+            </li>
+            <li>
+                <h1>안소니 루소 4세</h1>
+            </li>
+        </ul>
+    </header>
+    <h1>8번</h1>
+    <style>
+        h1 + p{
+            color:red;
+        }
+    </style>
+    
+    <h1>h1</h1>
+    <p>첫 번째 자식 p</p>
+    <h2>h2</h2>
+    <p>두 번째 자식 p</p>
+    <h1>9번</h1>
+    <style>
+        h1 ~ p{
+            color:red;
+        }
+    </style>
+    
+    <h1>h1</h1>
+    <p>첫 번째 자식 p</p>
+    <h2>h2</h2>
+    <p>두 번째 자식 p</p>
+    <h1>10번</h1>
+    <style>
+        header * {
+            color:red;
+        }
+    </style>
+    
+    <header>
+        <p>Avengers</p>
+        <div>
+            <p>End game</p>
+        </div>
+    </header>
+    <h1>11번</h1>
+    <style>
+        header  > p:hover  {
+            color:red;
+        }
+    </style>
+    
+    
+    <header>
+        <p>Avengers</p>
+        <div>
+            <p>End game</p>
+        </div>
+    </header>
+    <h1>12번</h1>
+    <style>
+        div::before{
+            content: "마블's";
+            color:red;
+            margin-right:10px;
+        }
+        div::after{
+            content:"시리즈";
+            color:blue;
+            margin-left:10px;
+        }
+    </style>
+    
+    <div>캡틴 아메리카</div>
+    <h1>13번</h1>
+    <style>
+        main h1{
+            color:yellow;
+        }
+        .title{
+            color:red;
+        }
+        .title{
+            color:blue;
+        }
+        .title{
+            color:green;
+        }
+</style>
+
+<main>
+<h1 class="title">오드리 헵번</h1>
+</main>
+<h1>14번</h1>
+
+</body>
+</html>

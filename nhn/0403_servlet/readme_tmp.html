@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>readme.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="cgicommon-gateway-interface">CGI(Common Gateway Interface)</h1>
+<ul>
+<li>웹 서버가 외부 프로그램을 실행할 수 있도록 해주는 인터페이스 명세
+<ul>
+<li>외부 프로그램 = 동적 웹 콘텐츠를 생성하는 역할</li>
+<li>c,c++,java,php,go</li>
+</ul>
+</li>
+<li>웹 서버와 CGI프로그램간의 규칙
+<img src="https://nhnacademy.dooray.com/share/tree/0Cyc2JLUQtuFUwGTpR2zbw/pages/3445004075896402392/attach-files/3445005332437136141"/></li>
+<li>환경 변수나 표준 입출력을 다룰 수 있는 프로그램 언어라면 어떤 언어든지 확장하여 이용 가능</li>
+<li>실행속도나 텍스트 처리의 용이함 등의 이유로 perl, 파이썬, 루비 등의 스크립트 언어를 주로 사용</li>
+</ul>
+<ul>
+<li>&#xCEF4;&#xD30C;&#xC77C; &#xBC29;&#xC2DD;
+<ul>
+<li>&#xAE30;&#xACC4;&#xC5B4;. &#xCEF4;&#xD30C;&#xC77C;&#xB41C; &#xC0C1;&#xD0DC;</li>
+<li>c++, c</li>
+</ul>
+</li>
+</ul>
+<li>&#xC778;&#xD130;&#xD504;&#xB9AC;&#xD130; &#xBC29;&#xC2DD;
+<ul>
+<li>&#xC2A4;&#xD06C;&#xB9BD;&#xD2B8; &#xC5B8;&#xC5B4;</li>
+<li>asp(asp), php(.php), python(.py), per(.pl)</li>
+<li>&#xC2A4;&#xD06C;&#xB9BD;&#xD2B8; &#xC5D4;&#xC9C4;
+<ul>
+<li>&#xD574;&#xB2F9; &#xC2A4;&#xD06C;&#xB9BD;&#xD2B8;&#xB97C; &#xC2E4;&#xD589;&#xD560; &#xC218; &#xC788;&#xB294; &#xC5D4;&#xC9C4;</li>
+</ul>
+</li>
+<li>&#xC989;&#xC2DC; &#xCF54;&#xB4DC;&#xB97C; &#xC218;&#xC815;&#xD560; &#xC218; &#xC788;&#xC74C;</li>
+</ul>
+</li>
+# Servlet
+- Java&#xB97C; &#xC0AC;&#xC6A9;&#xD558;&#xC5EC; &#xB3D9;&#xC801; &#xC6F9; &#xCF58;&#xD150;&#xCE20;&#xB97C; &#xC0DD;&#xC131;&#xD558;&#xB294; &#xC11C;&#xBC84;&#xCE21; &#xD504;&#xB85C;&#xADF8;&#xB7A8; 
+  - &#xC27D;&#xAC8C; &#xB9D0;&#xD574;, Java&#xB85C; &#xB9CC;&#xB4E0; CGI &#xD504;&#xB85C;&#xADF8;&#xB7A8; &#xAC19;&#xC740; &#xAC83;
+  - Servlet &#xC778;&#xD130;&#xD398;&#xC774;&#xC2A4;&#xB97C; &#xC815;&#xC758;
+    - &#xC989; Servlet &#xC778;&#xD130;&#xD398;&#xC774;&#xC2A4;&#xB97C; &#xAD6C;&#xD604;  -&gt; java&#xB85C; &#xAD6C;&#xD604;&#xD55C; cgi &#xD504;&#xB85C;&#xADF8;&#xB7A8;&#xC774;&#xB77C; &#xD560; &#xC218; &#xC788;&#xC2B5;&#xB2C8;&#xB2E4;.
+- &#xC694;&#xCCAD;&#xACFC; &#xC751;&#xB2F5;
+  - &#xC11C;&#xBE14;&#xB9BF;&#xC740; &#xC790;&#xBC14; &#xD074;&#xB798;&#xC2A4;&#xB85C; &#xC6F9; &#xC560;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158;&#xC744; &#xC791;&#xC131;
+  - &#xC6F9;&#xC11C;&#xBC84;&#xC758; &#xC6F9;&#xCEE8;&#xD14C;&#xC774;&#xB108;&#xC5D0;&#xC11C; &#xC791;&#xC131;&#xB41C; &#xC560;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158; &#xC2E4;&#xD589;
+  - &#xC6F9;&#xCEE8;&#xD14C;&#xC774;&#xB108;&#xB294; &#xC11C;&#xBE14;&#xB9BF; &#xC778;&#xC2A4;&#xD134;&#xC2A4;&#xB97C; &#xC0DD;&#xC131;&#xD574;, &#xC11C;&#xBC84;&#xC5D0;&#xC11C; &#xC2E4;&#xD589;
+  - &#xC11C;&#xBE14;&#xB9BF; &#xC778;&#xC2A4;&#xD134;&#xC2A4;&#xB294; &#xC694;&#xCCAD;&#xACFC; &#xC751;&#xB2F5;&#xC5D0; &#xB9DE;&#xB294; &#xB3D9;&#xC791; &#xC218;&#xD589;
+- &#xD2B9;&#xC9D5;
+  - &#xD074;&#xB77C;&#xC774;&#xC5B8;&#xD2B8;&#xC758; &#xC694;&#xCCAD;&#xC5D0; &#xB3D9;&#xC801;&#xC73C;&#xB85C; &#xC791;&#xB3D9;&#xD558;&#xB294; &#xC6F9; &#xC560;&#xD50C;&#xB9AC;&#xCF00;&#xC774;&#xC158; &#xCEF4;&#xD3EC;&#xB10C;&#xD2B8;
+  - html&#xC744; &#xC0AC;&#xC6A9;&#xD574; response
+  - &#xC790;&#xBC14;&#xC758; &#xC2A4;&#xB808;&#xB4DC;&#xB97C; &#xC774;&#xC6A9;
+  - MVC&#xD328;&#xD134;&#xC5D0;&#xC11C; &#xCEE8;&#xD2B8;&#xB864;&#xB7EC;&#xB85C; &#xC774;&#xC6A9;
+  - udp&#xBCF4;&#xB2E4; &#xB290;&#xB9BC;
+  - html &#xBCC0;&#xACBD; &#xC2DC; Sevlet &#xC7AC; &#xCEF4;&#xD30C;&#xC77C;
+- Servlet &#xCEE8;&#xD14C;&#xC774;&#xB108;
+  - &#xC0DD;&#xBA85;&#xC8FC;&#xAE30; &#xAD00;&#xB9AC;
+    - &#xC11C;&#xBE14;&#xB9BF; &#xCEE8;&#xD14C;&#xC774;&#xB108;
+## CGI&#xC758; &#xB2E8;&#xC810;&#xC744; &#xD574;&#xACB0;&#xD55C;?
+- &#xB9E4; &#xC694;&#xCCAD;&#xB9C8;&#xB2E4; &#xC0C8;&#xB85C;&#xC6B4; &#xD504;&#xB85C;&#xC138;&#xC2A4;&#xAC00; &#xC0DD;&#xC131;(CGI) -&gt; &#xBA40;&#xD2F0; &#xC2A4;&#xB808;&#xB4DC;&#xB85C; &#xD574;&#xACB0;
+  - &#xC2A4;&#xB808;&#xB4DC;&#xB294; &#xB204;&#xAC00; &#xC0DD;&#xC131;&#xD558;&#xACE0; &#xAD00;&#xB9AC;&#xD558;&#xB098; -&gt; &#xCEE8;&#xD14C;&#xC774;&#xB108;&#xC758; &#xB4F1;&#xC7A5;
+<img src="https://nhnacademy.dooray.com/share/tree/0Cyc2JLUQtuFUwGTpR2zbw/pages/3445070575802592067/attach-files/3445095563869220443">
+<h1 id="java-ee-architecture">Java EE Architecture</h1>
+<h2 id="java-ee">JAVA EE</h2>
+<ul>
+<li>자바언어 플랫폼 중의 하나</li>
+<li>대용량, 멀티 티어의 엔터프라이즈 애플리케이션을 실행햐고 운영할 수 이있느느 기술과 환경을 제공</li>
+<li>특정 운영체제와 미들웨어에 종속되지 않고 정보교환 및 애플리케이션 호환이 가능한 플랫폼을 제공하는 것이 목적
+<img src="image.png"/></li>
+</ul>
+<p>t</p>
+
+</body>
+</html>
