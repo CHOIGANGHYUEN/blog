@@ -1,8 +1,0 @@
-{
-    "vscode-office.editorLanguage": "ko_KR",
-    "vscode-office.hideToolbar": false,
-   "markdown-pdf.convertOnSave": true ,
-   "html.format.enable": true,
-   "html.format.indentInnerHtml": true,
-   "MWB.filepath": "/.vscode/smaickmall.mwb"
-}
