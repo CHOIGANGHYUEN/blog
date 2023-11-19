@@ -6,6 +6,7 @@
 
    # 제목1
 
+   a
    ##(스페이스)큰 제목
 
    ## 제목2
@@ -59,11 +60,12 @@
    <img>링클르 사용
 
 7. UML 사용법
+
    ```plantuml.server
    @startuml
    class A
    class B
-   A ||--|{B 
+   A ||--|{B
    A ||--o{B
    A ||--||B
    A ||--o|B
